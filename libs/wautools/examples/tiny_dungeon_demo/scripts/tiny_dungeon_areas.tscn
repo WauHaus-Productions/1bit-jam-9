@@ -458,8 +458,10 @@ position = Vector2(16, 8)
 sprite_frames = SubResource("SpriteFrames_1psby")
 
 [node name="BooleanArea2DObserver" type="Node2D" parent="BigDoor" node_paths=PackedStringArray("observed_area")]
+position = Vector2(16, 16)
 script = ExtResource("8_o22m7")
 observed_area = NodePath("../../PressurePlateSingleObserver/PressurePlateArea2D")
+debug_show_connections = true
 metadata/_custom_type_script = "uid://dclcos03q17cb"
 
 [connection signal="all_activated" from="Door/BooleanArea2DMultiObserver" to="Door" method="open"]

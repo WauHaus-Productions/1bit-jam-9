@@ -1,7 +1,6 @@
 extends Node2D
 
 @export_range(0, 16, 0.5) var activation_offset: float = 2
-
 @export var target_modulate_color: Color
 var _old_color: Color
 
