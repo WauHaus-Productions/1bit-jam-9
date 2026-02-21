@@ -90,11 +90,13 @@ func _on_timer_timeout() -> void:
 
 func _physics_process(delta: float) -> void:
 	Morale += morale_diff(delta)
+
 	Morale = min(Morale, MAX_MORALE)
 	Morale = max(Morale, MIN_MORALE)
 	
 	if Morale == 0:
 		die()
+		return
 	
 	# print(Morale)
 	act()
@@ -104,8 +106,8 @@ func morale_diff(delta: float) -> float:
 
 func die() -> void:
 	print("Dead")
-	dying.emit()
-	queue_free()
+	dying.emit(self.get_parent())
+	#queue_free()
 
 func act() -> void:
 	match State:

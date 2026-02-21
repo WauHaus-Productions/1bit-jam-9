@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://7eq111y05lyv"]
+
+[ext_resource type="Script" uid="uid://da3amk2k58q4" path="res://scenes/GameManager/game_manager.gd" id="1_u01m6"]
+[ext_resource type="PackedScene" uid="uid://bs45uwhetcjun" path="res://scenes/Map/SampleMap.tscn" id="2_6dete"]
+[ext_resource type="PackedScene" uid="uid://jj5mr86mb1j2" path="res://scenes/NPC/npc.tscn" id="3_6dete"]
+[ext_resource type="Texture2D" uid="uid://cvwmseaysysll" path="res://asset/CERCHIO CAMERA.png" id="4_6dete"]
+[ext_resource type="Script" uid="uid://bctjjwtu3j7g4" path="res://scenes/GameManager/camera_2d.gd" id="4_rnxwy"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rx0ki"]
+load_path = "res://.godot/imported/CAMERA 2.png-5ebe738a2469f474002655edb1a00faa.ctex"
+
+[node name="GameManager" type="Node" unique_id=1155069546]
+script = ExtResource("1_u01m6")
+map = ExtResource("2_6dete")
+npc = ExtResource("3_6dete")
+npc_counter = 5
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1635203694]
+z_index = 10
+position = Vector2(640, 368)
+zoom = Vector2(2, 2)
+script = ExtResource("4_rnxwy")
+blink_time_sec = 1.0
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D" unique_id=2112432843]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.5258789e-05
+offset_right = -1.5258789e-05
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.497703, 2.0943286)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource("CompressedTexture2D_rx0ki")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="Revenue" type="Label" parent="Camera2D" unique_id=211674]
+z_index = 10
+offset_left = -64.0
+offset_top = -112.0
+offset_right = 256.0
+offset_bottom = -88.0
+text = "0"
+horizontal_alignment = 2
+
+[node name="Rec" type="Sprite2D" parent="Camera2D" unique_id=1767933091]
+position = Vector2(-248, 104)
+scale = Vector2(1.5833334, 1.5833334)
+texture = ExtResource("4_6dete")
+
+[node name="Label2" type="Label" parent="Camera2D" unique_id=1355816663]
+z_index = 10
+offset_left = -238.0
+offset_top = 92.0
+offset_right = -142.0
+offset_bottom = 116.0
+text = "Camera 1"
