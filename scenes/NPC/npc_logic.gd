@@ -53,15 +53,13 @@ func _on_timer_timeout() -> void:
 	print("Starting timer, expiring in: ", waiting_time)
 	timer.start(waiting_time)
 
-
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	# if not is_on_floor():
 	# 	velocity += get_gravity() * delta
 	Morale += morale_diff(delta)
-	print(Morale)
+	# print(Morale)
 	act()
-	
 
 func morale_diff(delta: float) -> float:
 	# print("morale diff: ", State * delta, ", rounded to: ", round(State * delta))
@@ -76,7 +74,6 @@ func act() -> void:
 			slack()
 		_:
 			work()
-
 
 # TODO?
 func work():
