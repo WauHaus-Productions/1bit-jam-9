@@ -1,20 +1,17 @@
 extends Node2D
 
-@export var SPEED = 130.0
-@export var JUMP_VELOCITY = -200.0
 @export var LOW_MORALE = 200
 @export var HIGH_MORALE = 800
 @export var MAX_MORALE = 1000
 @export var MIN_MORALE = 0
 @export var TIMER_DURATION = 5
+@export var SCARED_TIMER_FACTOR = 2
 @export var States = {SCARED = -4, WORKING = -2, MOVING = 0, SLACKING = 1}
 var MORALE_NORMALIZER: float = MAX_MORALE
 var Morale: float
 # @export var MORALE_DEGRADATION_PER_SEC = 5
 # @export var MORALE_RECOVER_PER_SEC = 2
 
-# const SPEED = 130.0
-# const JUMP_VELOCITY = -200.0
 # const LOW_MORALE = 20
 # const HIGH_MORALE = 80
 # const MORALE_DEGRADATION_PER_SEC = 5
@@ -27,13 +24,13 @@ var State: int = States.WORKING
 var DesiredState: int = States.WORKING
 
 signal change_state
-signal producing
+signal working
 signal slacking
+signal turbo_working
+signal dying
 
 @onready var timer: Timer = $Timer
 
-# TODO: trigger SCARED state + timer.start()
-# TODO: when morale == 0 do something
 # TODO: when scared produce more
 
 func _ready() -> void:
@@ -75,37 +72,48 @@ func _physics_process(delta: float) -> void:
 	Morale += morale_diff(delta)
 	Morale = min(Morale, MAX_MORALE)
 	Morale = max(Morale, MIN_MORALE)
+	
+	if Morale == 0:
+		die()
+	
 	# print(Morale)
 	act()
 
 func morale_diff(delta: float) -> float:
 	return State * delta
 
+func die() -> void:
+	dying.emit()
+	queue_free()
+
 func act() -> void:
 	match State:
 		States.SLACKING:
 			slack()
+		States.SCARED:
+			turbo_work()
 		_:
 			work()
 
 # TODO?
 func work() -> void:
-	producing.emit(abs(State))
+	working.emit(abs(State))
 
 # TODO?
-func slack():
+func slack() -> void:
 	slacking.emit(abs(State))
 
+func turbo_work() -> void:
+	turbo_working.emit(abs(State))
+
 func switch_state() -> int:
-	if State == States.SCARED:
-		return State
-	
 	if rng.randf() <= 0.5:
 		return move_or_continue(States.WORKING)
 
 	return move_or_continue(States.SLACKING)
 
 func move_or_continue(desired_state: int) -> int:
+	timer.stop()
 	if State == desired_state:
 		return State
 
@@ -113,9 +121,22 @@ func move_or_continue(desired_state: int) -> int:
 	change_state.emit(DesiredState)
 	return States.MOVING
 
-func arrived():
+func arrived() -> void:
 	print("arrived!")
 	State = DesiredState
-	var waiting_time = round(TIMER_DURATION * Morale / MORALE_NORMALIZER)
-	# print("restarting timer, expiring in: ", waiting_time)
+
+	var waiting_time: int = round(TIMER_DURATION * Morale / MORALE_NORMALIZER)
+
+	if State == States.SCARED:
+		waiting_time *= SCARED_TIMER_FACTOR
+	
+	print("restarting timer, expiring in: ", waiting_time)
+	timer.start(waiting_time)
+
+func set_scared() -> void:
+	timer.stop()
+	DesiredState = States.SCARED
+	State = States.SCARED
+	change_state.emit(DesiredState)
+	var waiting_time: int = round(TIMER_DURATION * Morale / MORALE_NORMALIZER) * SCARED_TIMER_FACTOR
 	timer.start(waiting_time)
