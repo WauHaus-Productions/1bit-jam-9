@@ -4,10 +4,10 @@ extends Node2D
 @export var JUMP_VELOCITY = -200.0
 @export var LOW_MORALE = 200
 @export var HIGH_MORALE = 800
+@export var TIMER_DURATION = 5
+@export var MORALE_NORMALIZER: float = 1000.0
 @export var States = {SCARED = -4, WORKING = -2, MOVING = 0, SLACKING = 1}
 @export var Morale: float = 1000
-@export var TIMER_DURATION = 5
-@export var is_seated: bool = false
 # @export var MORALE_DEGRADATION_PER_SEC = 5
 # @export var MORALE_RECOVER_PER_SEC = 2
 
@@ -22,14 +22,17 @@ extends Node2D
 
 var rng = RandomNumberGenerator.new()
 var State: int = States.WORKING
+var DesiredState: int = States.WORKING
 
 signal change_state
+signal producing
+signal slacking
 
 @onready var timer: Timer = $Timer
 
-# TODO: ogni frame, se stato == woRKING or SCARED manda segnale???
-# TODO: trigger state when reaching coffee machine or desk + timer.start()
 # TODO: trigger SCARED state + timer.start()
+# TODO: when morale == 0 do something
+# TODO: when scared produce more
 
 func _ready() -> void:
 	timer.timeout.connect(_on_timer_timeout)
@@ -49,39 +52,32 @@ func _on_timer_timeout() -> void:
 	if State == States.MOVING:
 		return
 
-	var waiting_time = round(TIMER_DURATION * Morale / 1000.0)
+	var waiting_time = round(TIMER_DURATION * Morale / MORALE_NORMALIZER)
 	print("Starting timer, expiring in: ", waiting_time)
 	timer.start(waiting_time)
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	# if not is_on_floor():
-	# 	velocity += get_gravity() * delta
 	Morale += morale_diff(delta)
 	# print(Morale)
 	act()
 
 func morale_diff(delta: float) -> float:
-	# print("morale diff: ", State * delta, ", rounded to: ", round(State * delta))
 	return State * delta
 
 func act() -> void:
 	match State:
-		States.MOVING:
-			# move_and_slide()
-			pass
 		States.SLACKING:
 			slack()
 		_:
 			work()
 
 # TODO?
-func work():
-	pass
+func work() -> void:
+	producing.emit(abs(State))
 
 # TODO?
 func slack():
-	pass
+	slacking.emit(abs(State))
 
 func switch_state() -> int:
 	if State == States.SCARED:
@@ -96,5 +92,11 @@ func move_or_continue(desired_state: int) -> int:
 	if State == desired_state:
 		return State
 
-	change_state.emit(desired_state)
+	DesiredState = desired_state
+	change_state.emit(DesiredState)
 	return States.MOVING
+
+func arrived():
+	print("arrived!")
+	State = DesiredState
+	timer.start(round(TIMER_DURATION * Morale / MORALE_NORMALIZER))
