@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cs1r2tx6hr7tm"]
+
+[ext_resource type="PackedScene" uid="uid://c72tadrko6hg0" path="res://scenes/Menu/buttons/ButtonWrapper/button_wrapper.tscn" id="1_44w3h"]
+[ext_resource type="Script" path="res://scenes/Menu/buttons/ButtonQuit/quit_button.gd" id="2_hokte"]
+
+[node name="QuitButton" instance=ExtResource("1_44w3h")]
+custom_minimum_size = Vector2(200, 100)
+text = "Quit"
+script = ExtResource("2_hokte")

@@ -1,0 +1,95 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0r22s7oyogmi"]
+
+[ext_resource type="Theme" uid="uid://dq3fh7pdv4230" path="res://asset/graphic/UI/ui_custom_style.tres" id="1_ff7h4"]
+[ext_resource type="Script" path="res://scenes/Menu/base_menu.gd" id="1_skmpt"]
+[ext_resource type="PackedScene" uid="uid://gpah4ea7go8w" path="res://scenes/Menu/buttons/ButtonSceneChange/button_scene_change.tscn" id="2_2mrns"]
+[ext_resource type="FontFile" uid="uid://dake8jnvwlbv2" path="res://asset/graphic/UI/font/tuscan-mf-font/TuscanMfNarrow-GKnP.ttf" id="2_74b4k"]
+[ext_resource type="Texture2D" uid="uid://b0gvoi5yrrt8a" path="res://asset/graphic/UI/CURTAIN.png" id="3_wm322"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qrjfd"]
+font = ExtResource("2_74b4k")
+font_size = 52
+
+[sub_resource type="LabelSettings" id="LabelSettings_7htxs"]
+font = ExtResource("2_74b4k")
+font_size = 30
+
+[node name="CreditsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ff7h4")
+script = ExtResource("1_skmpt")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(960, 0)
+scale = Vector2(1.778, 1.778)
+texture = ExtResource("3_wm322")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="NinePatchRect/VBoxContainer"]
+layout_mode = 2
+text = "Credits"
+label_settings = SubResource("LabelSettings_qrjfd")
+horizontal_alignment = 1
+
+[node name="Body" type="Label" parent="NinePatchRect/VBoxContainer"]
+layout_mode = 2
+text = "Design:
+Wauhaus Productions
+
+Art:
+Vittorio Terzi
+
+Music & Sound:
+Hakim El Achak
+
+Developement:
+Fabio Losavio
+Francesco Maffezzoli
+Oscar Pindaro
+Samuele Lo Iacono
+
+
+
+Fonts:
+Carnevalee Freakshow by Chris Hansen
+Tuscan Mf by Rick Mueller
+
+
+"
+label_settings = SubResource("LabelSettings_7htxs")
+horizontal_alignment = 1
+
+[node name="ReturnButton" parent="NinePatchRect/VBoxContainer" instance=ExtResource("2_2mrns")]
+layout_mode = 2
+theme = null
+text = "Return"
+
+[connection signal="scene_button_pressed" from="NinePatchRect/VBoxContainer/ReturnButton" to="." method="_on_next_scene"]

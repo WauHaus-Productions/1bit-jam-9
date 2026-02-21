@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://cnlm6ho48juqv"]
+
+[ext_resource type="Theme" uid="uid://dq3fh7pdv4230" path="res://asset/UI/ui_custom_style.tres" id="1_nqdss"]
+[ext_resource type="Script" uid="uid://bs673awy0ypia" path="res://scenes/Menu/base_menu.gd" id="2_a24wl"]
+[ext_resource type="PackedScene" uid="uid://gpah4ea7go8w" path="res://scenes/Menu/buttons/ButtonSceneChange/button_scene_change.tscn" id="2_t0ysj"]
+[ext_resource type="Texture2D" uid="uid://b0gvoi5yrrt8a" path="res://asset/UI/CURTAIN.png" id="2_ub24n"]
+[ext_resource type="PackedScene" uid="uid://b0r22s7oyogmi" path="res://scenes/Menu/credits_menu/credits_menu.tscn" id="3_67rq3"]
+[ext_resource type="FontFile" uid="uid://bb7kdtuq8g2c6" path="res://asset/UI/font/carnivalee-freakshow/Carnevalee Freakshow/Carnevalee Freakshow.ttf" id="3_fqnv5"]
+[ext_resource type="PackedScene" uid="uid://ci8munt5neoq7" path="res://scenes/Menu/commands_menu/commands_menu.tscn" id="3_niwag"]
+[ext_resource type="PackedScene" uid="uid://cs1r2tx6hr7tm" path="res://scenes/Menu/buttons/ButtonQuit/quit_button.tscn" id="5_n4wtq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nhyv3"]
+font = ExtResource("3_fqnv5")
+font_size = 164
+font_color = Color(1, 1, 0, 1)
+
+[sub_resource type="Resource" id="Resource_pgepk"]
+metadata/__load_path__ = "res://scenes/game/levels/strongman_level.tscn"
+
+[node name="MainMenu" type="Control" unique_id=1294894159]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("1_nqdss")
+script = ExtResource("2_a24wl")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1406056437]
+layout_mode = 0
+offset_left = -3.0
+offset_top = 3.0
+offset_right = 1917.0
+offset_bottom = 1083.0
+
+[node name="Background" type="Sprite2D" parent="." unique_id=401574995]
+position = Vector2(960, 0)
+scale = Vector2(1.778, 1.778)
+texture = ExtResource("2_ub24n")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=199400446]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect" unique_id=295638912]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="NinePatchRect/VBoxContainer" unique_id=1027743873]
+layout_mode = 2
+text = "The Spiraling Fool"
+label_settings = SubResource("LabelSettings_nhyv3")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/VBoxContainer" unique_id=1789543688]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/VBoxContainer/HBoxContainer" unique_id=786139913]
+layout_mode = 2
+alignment = 1
+
+[node name="PlayButton" parent="NinePatchRect/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=230349623 instance=ExtResource("2_t0ysj")]
+layout_mode = 2
+theme = null
+text = "Play"
+next_scene = SubResource("Resource_pgepk")
+
+[node name="CommandsButton" parent="NinePatchRect/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=2042405818 instance=ExtResource("2_t0ysj")]
+layout_mode = 2
+theme = null
+text = "Commands"
+next_scene = ExtResource("3_niwag")
+
+[node name="CreditsButton" parent="NinePatchRect/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1463782580 instance=ExtResource("2_t0ysj")]
+layout_mode = 2
+theme = null
+text = "Credits"
+next_scene = ExtResource("3_67rq3")
+
+[node name="QuitButton" parent="NinePatchRect/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=755974715 instance=ExtResource("5_n4wtq")]
+layout_mode = 2
+theme = null
