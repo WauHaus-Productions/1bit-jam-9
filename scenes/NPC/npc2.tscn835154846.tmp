@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://jj5mr86mb1j2"]
 
-[ext_resource type="Script" uid="uid://oljriesvujpa" path="res://scenes/NPC/npc_movement.gd" id="1_23nos"]
 [ext_resource type="Texture2D" uid="uid://bqe43fyi6oopv" path="res://icon.svg" id="1_feiqm"]
-[ext_resource type="Script" uid="uid://bcdtf6q7dsqfc" path="res://scenes/NPC/npc_logic.gd" id="2_23nos"]
+[ext_resource type="Script" uid="uid://bcdtf6q7dsqfc" path="res://scenes/NPC/npc.gd" id="2_23nos"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yudw0"]
 animations = [{
@@ -19,17 +18,6 @@ animations = [{
 radius = 40.0
 
 [node name="NPC" type="CharacterBody2D" unique_id=1168664165]
-script = ExtResource("1_23nos")
-
-[node name="Logic" type="Node2D" parent="." unique_id=1453357300]
-script = ExtResource("2_23nos")
-LOW_MORALE = 20
-HIGH_MORALE = 80
-Morale = 100.0
-
-[node name="Timer" type="Timer" parent="Logic" unique_id=570559202]
-one_shot = true
-autostart = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=180002638]
 scale = Vector2(0.5, 0.5)
@@ -40,8 +28,15 @@ shape = SubResource("CircleShape2D_v5vlc")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1695151424]
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1723642565]
-path_postprocessing = 1
-avoidance_enabled = true
-debug_enabled = true
-debug_path_custom_color = Color(1, 0, 0, 1)
+[node name="Logic" type="Node2D" parent="." unique_id=1453357300]
+script = ExtResource("2_23nos")
+SPEED = null
+JUMP_VELOCITY = null
+LOW_MORALE = null
+HIGH_MORALE = null
+States = null
+Morale = null
+TIMER_DURATION = null
+is_seated = null
+
+[node name="Timer" type="Timer" parent="Logic" unique_id=570559202]

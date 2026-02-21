@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Nuovo progetto di gioco"
+config/name="1-Bit Jam: Capitalism"
 run/main_scene="uid://26oadwbtxtkf"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"

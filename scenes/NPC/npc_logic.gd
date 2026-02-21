@@ -1,12 +1,11 @@
-extends CharacterBody2D
-
+extends Node2D
 
 @export var SPEED = 130.0
 @export var JUMP_VELOCITY = -200.0
 @export var LOW_MORALE = 200
 @export var HIGH_MORALE = 800
 @export var States = {SCARED = -4, WORKING = -2, MOVING = 0, SLACKING = 1}
-@export var Morale: int = 1000
+@export var Morale: float = 1000
 @export var TIMER_DURATION = 5
 @export var is_seated: bool = false
 # @export var MORALE_DEGRADATION_PER_SEC = 5
@@ -36,6 +35,7 @@ func _ready() -> void:
 	timer.timeout.connect(_on_timer_timeout)
 
 func _on_timer_timeout() -> void:
+	print("Timeout!")
 	if Morale >= HIGH_MORALE:
 		State = move_or_continue(States.WORKING)
 
@@ -59,17 +59,19 @@ func _physics_process(delta: float) -> void:
 	# if not is_on_floor():
 	# 	velocity += get_gravity() * delta
 	Morale += morale_diff(delta)
+	print(Morale)
 	act()
 	
 
-func morale_diff(delta: float) -> int:
-	print("morale diff: ", State * delta, ", rounded to: ", round(State * delta))
-	return round(State * delta)
+func morale_diff(delta: float) -> float:
+	# print("morale diff: ", State * delta, ", rounded to: ", round(State * delta))
+	return State * delta
 
 func act() -> void:
 	match State:
 		States.MOVING:
-			move_and_slide()
+			# move_and_slide()
+			pass
 		States.SLACKING:
 			slack()
 		_:
