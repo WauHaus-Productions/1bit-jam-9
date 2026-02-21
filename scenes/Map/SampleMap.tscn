@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://fui73msyirua" path="res://asset/tilemap.png" id="1_as8ga"]
 [ext_resource type="Texture2D" uid="uid://djkse20ag5myv" path="res://asset/CAMERA 2.png" id="1_uvlq8"]
 [ext_resource type="Script" uid="uid://dtts2y6ekog5f" path="res://scenes/Map/Obstacle_avoidance.gd" id="2_uvlq8"]
-[ext_resource type="PackedScene" uid="uid://jj5mr86mb1j2" path="res://scenes/NPC/npc.tscn" id="3_3x12t"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_uvlq8"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
@@ -140,10 +139,6 @@ position = Vector2(98.25, 84.5)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Obstacles/Work2" unique_id=1168033069]
 position = Vector2(-0.25, 0)
 shape = SubResource("CircleShape2D_hb1in")
-
-[node name="NPC" parent="." unique_id=1168664165 instance=ExtResource("3_3x12t")]
-position = Vector2(166, 92)
-launch_threshold = 200
 
 [node name="Cameras" type="Node2D" parent="." unique_id=1304158656]
 

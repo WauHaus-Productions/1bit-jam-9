@@ -20,6 +20,8 @@ var active_npcs: Dictionary[String, Node2D] = {}
 var working_npcs: Dictionary[String, Node2D] = {}
 var slacking_npcs: Dictionary[String, Node2D] = {}
 
+var memorial : Array[String] = []
+
 
 
 func determine_spawn_positions(map_instance) -> Array[Vector2i]:
@@ -81,6 +83,8 @@ func _ready() -> void:
 		new_npc.name = name
 		
 		# SUBSCRIBE TO SIGNALS
+		#new_npc.change_state.connect(_on_change_state)
+		new_npc.get_node("Logic").dying.connect(_on_death)
 		
 		active_npcs[name] = new_npc
 		
@@ -97,7 +101,22 @@ func _process(delta: float) -> void:
 	update_revenues(delta)
 		
 	revenue_ui.text = str(roundi(total_revenues))
-		
-		
-		
 	
+	if active_npcs.size() == 0:
+		print(memorial)
+		
+
+func _on_death(dying_npc: Node2D):
+	var dying_name = active_npcs.find_key(dying_npc)
+	print("STA MORENDO ", dying_name)
+	if dying_name != null:
+		active_npcs.erase(dying_name)
+		
+	if dying_name in working_npcs.keys():
+		working_npcs.erase(dying_name)
+		
+	if dying_npc in slacking_npcs.keys():
+		slacking_npcs.erase(dying_name)
+	
+	dying_npc.queue_free()
+	memorial.append(dying_name)
