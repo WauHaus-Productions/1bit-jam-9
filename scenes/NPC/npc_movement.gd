@@ -30,7 +30,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	physics_delta = delta
 	
-	print("Movement state: ", movement_state)
+	# print("Movement state: ", movement_state)
 	
 	# Handle launch when dragging and dropping
 	if movement_state == MovementState.LAUNCH:
