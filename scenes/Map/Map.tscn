@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://dtts2y6ekog5f" path="res://scenes/Map/Obstacle_avoidance.gd" id="1_n3hww"]
 [ext_resource type="Texture2D" uid="uid://cierj2r6i7o32" path="res://libs/wautools/examples/tiny_dungeon_demo/assets/tilemap.png" id="1_x27a8"]
 [ext_resource type="PackedScene" uid="uid://jj5mr86mb1j2" path="res://scenes/NPC/npc.tscn" id="3_iut6q"]
-[ext_resource type="Script" path="res://scenes/Map/distraction.gd" id="3_n3hww"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_n3hww"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -347,14 +346,12 @@ tile_set = SubResource("TileSet_n3hww")
 
 [node name="Distraction" type="Area2D" parent="TileMap/Obstacles" unique_id=1124993992 groups=["distraction"]]
 position = Vector2(120, 65)
-script = ExtResource("3_n3hww")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Obstacles/Distraction" unique_id=1426070642]
 shape = SubResource("CircleShape2D_hb1in")
 
 [node name="Work" type="Area2D" parent="TileMap/Obstacles" unique_id=520368664 groups=["work"]]
 position = Vector2(151.25, 97.5)
-script = ExtResource("3_n3hww")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Obstacles/Work" unique_id=581035310]
 position = Vector2(-0.25, 0)
