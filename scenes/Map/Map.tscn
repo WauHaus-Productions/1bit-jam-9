@@ -338,4 +338,7 @@ script = ExtResource("1_n3hww")
 tile_map_data = PackedByteArray("AAAFAAIAAAADAAUAAAAFAAMAAAADAAUAAAAFAAQAAAADAAUAAAAFAAUAAAADAAUAAAAHAP//AAAGAAAAAAAHAAAAAAAGAAEAAAAHAAEAAAAGAAIAAAADAAQAAAAHAAkAAAA=")
 tile_set = SubResource("TileSet_n3hww")
 
+[node name="Distraction" type="Node2D" parent="TileMap/Obstacles" unique_id=1048547566 groups=["distraction"]]
+position = Vector2(120, 65)
+
 [node name="NPC" parent="." unique_id=1168664165 instance=ExtResource("3_iut6q")]
