@@ -9,11 +9,11 @@ enum MovementState {NAVIGATION, DRAG, LAUNCH}
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
 @onready var logic: Node2D = $Logic
 
-var last_mouse_positions : Array[Vector2]
-var mouse_positions_index : int = 0
-var movement_state : MovementState = MovementState.NAVIGATION
+var last_mouse_positions: Array[Vector2]
+var mouse_positions_index: int = 0
+var movement_state: MovementState = MovementState.NAVIGATION
 var drag_offset: Vector2
-var physics_delta : float
+var physics_delta: float
 
 func _ready() -> void:
 	# Connect callbacks to signals
@@ -23,6 +23,7 @@ func _ready() -> void:
 	
 	# Initialize auxiliary variables
 	last_mouse_positions = Array([], TYPE_VECTOR2, "", null)
+	navigation_agent_2d.navigation_finished.connect(logic.arrived)
 
 func _physics_process(delta: float) -> void:
 	physics_delta = delta
@@ -55,7 +56,7 @@ func _physics_process(delta: float) -> void:
 		
 	move_and_slide()
 
-func get_closest_from_group(group : StringName):
+func get_closest_from_group(group: StringName):
 	var min_dist = 0
 	var closest = null
 	
@@ -69,7 +70,7 @@ func get_closest_from_group(group : StringName):
 	return closest
 
 # Used for avoiding other NPCs when in NAVIGATION mode
-func on_velocity_computed(safe_velocity : Vector2):
+func on_velocity_computed(safe_velocity: Vector2):
 	if movement_state == MovementState.NAVIGATION:
 		velocity = safe_velocity
 
@@ -79,7 +80,7 @@ func move_to_closest_distraction():
 		navigation_agent_2d.target_position = distraction.global_position
 	
 func move_to_closest_work():
-	var work_station =  get_closest_from_group("work")
+	var work_station = get_closest_from_group("work")
 	if work_station != null:
 		navigation_agent_2d.target_position = work_station.global_position
 
@@ -114,17 +115,15 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	#			print("Scroll wheel up")
 	#		MOUSE_BUTTON_WHEEL_DOWN:
 	#			print("Scroll wheel down")
-	
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			movement_state = MovementState.DRAG
-			velocity = Vector2(0,0)
+			velocity = Vector2(0, 0)
 			drag_offset = get_global_mouse_position() - global_position
 	
 	pass
 
 func _input(event: InputEvent) -> void:
-	
 	# If drag released, go to LAUNCH state
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed and movement_state == MovementState.DRAG:
 		movement_state = MovementState.LAUNCH
@@ -132,10 +131,10 @@ func _input(event: InputEvent) -> void:
 		# Compute average direction of mouse movement in last 10 frames
 		var new_velocity = Vector2(0, 0)
 		for i in range(1, last_mouse_positions.size()):
-			new_velocity += last_mouse_positions[i] - last_mouse_positions[i-1]
+			new_velocity += last_mouse_positions[i] - last_mouse_positions[i - 1]
 		new_velocity = new_velocity.normalized()
 		
-		velocity = new_velocity * Input.get_last_mouse_velocity().length() #event.screen_velocity 
+		velocity = new_velocity * Input.get_last_mouse_velocity().length() # event.screen_velocity
 	elif event is InputEventMouseMotion and movement_state == MovementState.DRAG:
 		# If dragging, move the NPC along with the mouse
 		global_position = event.position - drag_offset

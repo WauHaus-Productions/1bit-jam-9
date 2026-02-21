@@ -24,9 +24,7 @@ script = ExtResource("1_23nos")
 
 [node name="Logic" type="Node2D" parent="." unique_id=1453357300]
 script = ExtResource("2_23nos")
-LOW_MORALE = 20
-HIGH_MORALE = 80
-Morale = 100.0
+HIGH_MORALE = 990
 
 [node name="Timer" type="Timer" parent="Logic" unique_id=570559202]
 one_shot = true
