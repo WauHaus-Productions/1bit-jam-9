@@ -24,6 +24,8 @@ extends CharacterBody2D
 var rng = RandomNumberGenerator.new()
 var State: int = States.WORKING
 
+signal change_state
+
 @onready var timer: Timer = $Timer
 
 # TODO: ogni frame, se stato == woRKING or SCARED manda segnale???
@@ -94,4 +96,6 @@ func switch_state() -> int:
 func move_or_continue(desired_state: int) -> int:
 	if State == desired_state:
 		return State
+
+	change_state.emit(desired_state)
 	return States.MOVING
