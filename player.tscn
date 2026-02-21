@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://b4rfkiw5ar7fx"]
+
+[ext_resource type="Texture2D" uid="uid://cierj2r6i7o32" path="res://libs/wautools/examples/tiny_dungeon_demo/assets/tilemap.png" id="1_onrkg"]
+[ext_resource type="Script" path="res://node_2d.gd" id="2_i3pqv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hqtel"]
+
+[node name="Player" type="Node2D" unique_id=355924648 groups=["amici"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1550320893]
+texture_filter = 1
+texture = ExtResource("1_onrkg")
+region_enabled = true
+region_rect = Rect2(0, 120.57112, 17.287117, 15.747314)
+
+[node name="SpadaController" type="Node2D" parent="." unique_id=1247260677]
+script = ExtResource("2_i3pqv")
+
+[node name="Sprite2D" type="Sprite2D" parent="SpadaController" unique_id=346489563]
+
+[node name="Area2D" type="Area2D" parent="SpadaController" unique_id=1886918258]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpadaController/Area2D" unique_id=180990886]
+shape = SubResource("RectangleShape2D_hqtel")
+
+[connection signal="area_entered" from="SpadaController/Area2D" to="SpadaController" method="_on_area_entered_sborra"]

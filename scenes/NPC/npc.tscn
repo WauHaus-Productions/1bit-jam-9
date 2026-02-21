@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://yaigjgwprpq8"]
+
+[ext_resource type="Script" uid="uid://bcdtf6q7dsqfc" path="res://scenes/NPC/npc.gd" id="1_0c0is"]
+[ext_resource type="Texture2D" uid="uid://cierj2r6i7o32" path="res://libs/wautools/examples/tiny_dungeon_demo/assets/tilemap.png" id="2_lwet7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ehwui"]
+size = Vector2(14, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4wbl"]
+atlas = ExtResource("2_lwet7")
+region = Rect2(17, 153, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5fqau"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4wbl")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="CharacterBody2D" unique_id=229993800]
+script = ExtResource("1_0c0is")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1166988496]
+shape = SubResource("RectangleShape2D_ehwui")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=62718199]
+sprite_frames = SubResource("SpriteFrames_5fqau")
+animation = &"idle"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1403253867]
+
+[node name="Timer" type="Timer" parent="." unique_id=2134694060]
+wait_time = 10.0
+one_shot = true
+autostart = true
