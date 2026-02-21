@@ -2,8 +2,12 @@ extends Node
 
 @export var map : PackedScene
 @export var npc : PackedScene
+@onready var camera = $Camera2D
+@onready var revenue_ui = $Camera2D/Revenue
 
 @export var npc_counter : int
+#TO CHANGE
+@export var NPC_REVENUES = 100
 
 var map_instance
 var spawn_positions
@@ -16,13 +20,14 @@ var active_npcs: Dictionary[String, Node2D] = {}
 var working_npcs: Dictionary[String, Node2D] = {}
 var slacking_npcs: Dictionary[String, Node2D] = {}
 
-#TO CHANGE
-var NPC_REVENUES = 100
+
 
 func determine_spawn_positions(map_instance) -> Array[Vector2i]:
 	var tilemap =  map_instance.get_node("TileMap")
 	var ground_layer : TileMapLayer = tilemap.get_node("Ground")
 	var ground_positions : Array[Vector2i] = ground_layer.get_used_cells()
+	
+	print(ground_positions)
 	
 	var obstacle_layer : TileMapLayer = tilemap.get_node("Obstacles")
 	var obstacle_positions : Array[Vector2i] = obstacle_layer.get_used_cells()
@@ -56,21 +61,26 @@ func _ready() -> void:
 	# SPAWN MAP
 	map_instance = map.instantiate()
 	add_child(map_instance)
+	
 
 	# GET SPAWNABLE POSITIONS
 	var spawnable_positions = determine_spawn_positions(map_instance)
+	print(spawnable_positions)
 	
 	# SPAWN NPCs
 	for n in npc_counter:
 		var name = names.pick_random()
-		print("Spawning Goblin ", )
+		print("Spawning Goblin ", name)
 		var new_npc = npc.instantiate()
 		
 		var random_spawn_position = spawnable_positions.pick_random()
 		spawnable_positions.erase(random_spawn_position)
 		
 		new_npc.global_position = random_spawn_position
+		print("in position ", random_spawn_position)
 		new_npc.name = name
+		
+		# SUBSCRIBE TO SIGNALS
 		
 		active_npcs[name] = new_npc
 		
@@ -80,11 +90,13 @@ func _ready() -> void:
 	working_npcs = active_npcs.duplicate()
 	slacking_npcs = {}
 	
+	var camera_marker = map_instance.get_node("Cameras/Stanza1")
+	camera.global_position = camera_marker.global_position
 
 func _process(delta: float) -> void:
 	update_revenues(delta)
 		
-	$Label.text = str(roundi(total_revenues))
+	revenue_ui.text = str(roundi(total_revenues))
 		
 		
 		
