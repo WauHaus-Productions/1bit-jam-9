@@ -2,8 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dtts2y6ekog5f" path="res://scenes/Map/Obstacle_avoidance.gd" id="1_n3hww"]
 [ext_resource type="Texture2D" uid="uid://cierj2r6i7o32" path="res://libs/wautools/examples/tiny_dungeon_demo/assets/tilemap.png" id="1_x27a8"]
-[ext_resource type="Texture2D" uid="uid://bqe43fyi6oopv" path="res://icon.svg" id="2_iut6q"]
-[ext_resource type="Script" uid="uid://oljriesvujpa" path="res://scenes/Map/test_player.gd" id="2_n3hww"]
+[ext_resource type="PackedScene" uid="uid://jj5mr86mb1j2" path="res://scenes/NPC/npc.tscn" id="3_iut6q"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_n3hww"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -325,9 +324,6 @@ separation = Vector2i(1, 1)
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_iut6q")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ghs3u"]
-size = Vector2(12, 12)
-
 [node name="Map" type="Node2D" unique_id=756433008]
 
 [node name="TileMap" type="Node2D" parent="." unique_id=981480517]
@@ -339,49 +335,7 @@ tile_set = SubResource("TileSet_gd46p")
 script = ExtResource("1_n3hww")
 
 [node name="Obstacles" type="TileMapLayer" parent="TileMap" unique_id=1399863061]
-tile_map_data = PackedByteArray("AAAFAAIAAAADAAUAAAAFAAMAAAADAAUAAAAFAAQAAAADAAUAAAAFAAUAAAADAAUAAAA=")
+tile_map_data = PackedByteArray("AAAFAAIAAAADAAUAAAAFAAMAAAADAAUAAAAFAAQAAAADAAUAAAAFAAUAAAADAAUAAAAHAP//AAAGAAAAAAAHAAAAAAAGAAEAAAAHAAEAAAAGAAIAAAADAAQAAAAHAAkAAAA=")
 tile_set = SubResource("TileSet_n3hww")
 
-[node name="Player" type="CharacterBody2D" parent="." unique_id=222492510]
-position = Vector2(127, 67)
-scale = Vector2(4, 4)
-script = ExtResource("2_n3hww")
-movement_speed = 100
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=613835293]
-shape = SubResource("RectangleShape2D_ghs3u")
-
-[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=1144456434]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_iut6q")
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Player" unique_id=1592537801]
-path_desired_distance = 10.0
-target_desired_distance = 5.0
-path_postprocessing = 1
-avoidance_enabled = true
-debug_enabled = true
-debug_use_custom = true
-debug_path_custom_color = Color(1, 0, 0, 1)
-
-[node name="Player2" type="CharacterBody2D" parent="." unique_id=166313650]
-position = Vector2(130, 200)
-scale = Vector2(4, 4)
-script = ExtResource("2_n3hww")
-movement_speed = 100
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2" unique_id=172313149]
-shape = SubResource("RectangleShape2D_ghs3u")
-
-[node name="Sprite2D" type="Sprite2D" parent="Player2" unique_id=81908273]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_iut6q")
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Player2" unique_id=1042217211]
-path_desired_distance = 10.0
-target_desired_distance = 5.0
-path_postprocessing = 1
-avoidance_enabled = true
-debug_enabled = true
-debug_use_custom = true
-debug_path_custom_color = Color(1, 0, 0, 1)
+[node name="NPC" parent="." unique_id=1168664165 instance=ExtResource("3_iut6q")]
