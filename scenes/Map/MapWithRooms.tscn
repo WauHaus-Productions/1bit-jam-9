@@ -1,0 +1,149 @@
+[gd_scene format=4 uid="uid://bhp5smk7p3fxt"]
+
+[ext_resource type="Texture2D" uid="uid://djkse20ag5myv" path="res://asset/CAMERA 2.png" id="1_a4dja"]
+[ext_resource type="Texture2D" uid="uid://fui73msyirua" path="res://asset/tilemap.png" id="2_8vgiq"]
+[ext_resource type="Script" uid="uid://dtts2y6ekog5f" path="res://scenes/Map/Obstacle_avoidance.gd" id="3_lb6du"]
+[ext_resource type="PackedScene" uid="uid://jj5mr86mb1j2" path="res://scenes/NPC/npc.tscn" id="4_g5df8"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_uvlq8"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_3x12t"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_vwced"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_lm5pd"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_ygshw"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_61tkh"]
+texture = ExtResource("2_8vgiq")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_uvlq8")
+1:0/0 = 0
+1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_vwced")
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_3x12t")
+1:1/0 = 0
+1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_lm5pd")
+2:1/0 = 0
+2:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ygshw")
+0:3/0 = 0
+1:3/0 = 0
+4:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_gd46p"]
+tile_size = Vector2i(32, 32)
+navigation_layer_0/layers = 1
+sources/0 = SubResource("TileSetAtlasSource_61tkh")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5lqwq"]
+texture = ExtResource("2_8vgiq")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+4:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_n3hww"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+navigation_layer_0/layers = 1
+sources/1 = SubResource("TileSetAtlasSource_5lqwq")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hb1in"]
+
+[node name="Map" type="Node2D" unique_id=756433008]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1553319581]
+visible = false
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 1216.0
+offset_bottom = 640.0
+texture = ExtResource("1_a4dja")
+expand_mode = 1
+
+[node name="TileMap" type="Node2D" parent="." unique_id=981480517]
+
+[node name="Ground" type="TileMapLayer" parent="TileMap" unique_id=1920415311]
+tile_map_data = PackedByteArray("AAAAAAEAAAABAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAADAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAAFAAEAAAAAAAAAAAAGAAEAAAABAAEAAAAHAAEAAAAAAAAAAAAIAAEAAAAAAAAAAAAIAAIAAAAAAAEAAAAIAAMAAAAAAAAAAAAIAAQAAAAAAAAAAAAHAAQAAAAAAAAAAAAGAAQAAAACAAEAAAAFAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAADAAQAAAAAAAAAAAACAAQAAAAAAAAAAAABAAQAAAABAAEAAAAAAAQAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAACAAIAAAAAAAAAAAADAAIAAAAAAAAAAAAEAAIAAAAAAAAAAAAFAAIAAAAAAAAAAAAGAAIAAAAAAAAAAAAHAAIAAAAAAAAAAAAHAAMAAAAAAAAAAAAGAAMAAAAAAAAAAAAFAAMAAAAAAAAAAAAEAAMAAAAAAAAAAAADAAMAAAAAAAAAAAACAAMAAAAAAAAAAAABAAMAAAAAAAAAAAAAAAAAAAACAAAAAAABAAAAAAACAAAAAAACAAAAAAACAAAAAAADAAAAAAACAAAAAAAEAAAAAAACAAAAAAAFAAAAAAACAAAAAAAGAAAAAAACAAAAAAAHAAAAAAACAAAAAAAIAAAAAAACAAAAAAA=")
+tile_set = SubResource("TileSet_gd46p")
+script = ExtResource("3_lb6du")
+
+[node name="Decorations" type="TileMapLayer" parent="TileMap" unique_id=1459508941]
+z_index = 1
+tile_map_data = PackedByteArray("AAACAAIAAQABAAQAAAADAAIAAQACAAQAAAAEAAQAAQADAAQAAAAAAAIAAQAAAAMAAAA=")
+tile_set = SubResource("TileSet_n3hww")
+
+[node name="Obstacles" type="TileMapLayer" parent="TileMap" unique_id=1399863061]
+tile_map_data = PackedByteArray("AAACAAMAAQABAAMAAAAIAAQAAQABAAMAAAAEAAEAAQABAAMAAAAAAAMAAQAAAAQAAAAGAAEAAQAEAAQAAAAGAAAAAQAEAAMAAAA=")
+tile_set = SubResource("TileSet_n3hww")
+
+[node name="Distraction" type="Area2D" parent="TileMap/Obstacles" unique_id=1124993992 groups=["distraction"]]
+position = Vector2(205.5, 62)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Obstacles/Distraction" unique_id=1426070642]
+shape = SubResource("CircleShape2D_hb1in")
+
+[node name="Work" type="Area2D" parent="TileMap/Obstacles" unique_id=520368664 groups=["work"]]
+position = Vector2(144.75, 146.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Obstacles/Work" unique_id=581035310]
+position = Vector2(-0.25, 0)
+shape = SubResource("CircleShape2D_hb1in")
+
+[node name="Work2" type="Area2D" parent="TileMap/Obstacles" unique_id=169767278 groups=["work"]]
+position = Vector2(98.25, 84.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Obstacles/Work2" unique_id=1168033069]
+position = Vector2(-0.25, 0)
+shape = SubResource("CircleShape2D_hb1in")
+
+[node name="NPC" parent="." unique_id=1168664165 instance=ExtResource("4_g5df8")]
+position = Vector2(166, 92)
+launch_threshold = 200
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1304158656]
+
+[node name="Stanza1" type="Marker2D" parent="Node2D" unique_id=1269134406]
+
+[node name="Stanza2" type="Marker2D" parent="Node2D" unique_id=1199899463]
