@@ -1,0 +1,67 @@
+[gd_scene format=4 uid="uid://qoeknlnsxsc"]
+
+[ext_resource type="PackedScene" uid="uid://bp8b8jgg2pim1" path="res://scenes/Map/map_layers.tscn" id="1_3qmu3"]
+[ext_resource type="Script" uid="uid://ckbok3s0bfnyh" path="res://scenes/Map/prova_navigation.gd" id="2_5ao3r"]
+[ext_resource type="Texture2D" uid="uid://c63wfyojxjhi1" path="res://asset/tiny_dungeon_demo/assets/tilemap_packed.png" id="2_ekh6y"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_5ao3r"]
+vertices = PackedVector2Array(323.89844, 65.1875, 311.4297, 125.97656, 260.75, 139.9375, 259.21094, 60.726563)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(249, 50, 251, 153, 320, 134, 336, 56)])
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ekh6y"]
+radius = 7.0
+
+[node name="Node" type="Node" unique_id=855206903]
+
+[node name="MapLayers" parent="." unique_id=518501826 instance=ExtResource("1_3qmu3")]
+
+[node name="TileMapLayer" parent="MapLayers" index="0" unique_id=1520678622]
+tile_map_data = PackedByteArray("AAAAAAAAAAAEAAMAAAAAAAEAAAAEAAMAAAAAAAIAAAAEAAMAAAAAAAMAAAAEAAMAAAAAAAQAAAAEAAMAAAAAAAUAAAAEAAMAAAAAAAYAAAAEAAMAAAABAAAAAAAEAAMAAAABAAYAAAAEAAMAAAACAAAAAAAEAAMAAAACAAYAAAAEAAMAAAADAAAAAAAEAAMAAAADAAYAAAAEAAMAAAAEAAAAAAAEAAMAAAAEAAYAAAAEAAMAAAAFAAAAAAAEAAMAAAAFAAYAAAAEAAMAAAAGAAAAAAAEAAMAAAAGAAYAAAAEAAMAAAAHAAAAAAAEAAMAAAAHAAYAAAAEAAMAAAAIAAAAAAAEAAMAAAAIAAYAAAAEAAMAAAAJAAAAAAAEAAMAAAAJAAYAAAAEAAMAAAAKAAAAAAAEAAMAAAAKAAYAAAAEAAMAAAALAAAAAAAEAAMAAAALAAEAAAAEAAMAAAALAAIAAAAEAAMAAAALAAMAAAAEAAMAAAALAAQAAAAEAAMAAAALAAUAAAAEAAMAAAALAAYAAAAEAAMAAAABAAEAAAABAAQAAAABAAIAAAABAAQAAAABAAMAAAABAAQAAAABAAQAAAABAAQAAAABAAUAAAABAAQAAAACAAEAAAABAAQAAAACAAIAAAABAAQAAAACAAMAAAABAAQAAAACAAQAAAABAAQAAAACAAUAAAABAAQAAAADAAEAAAABAAQAAAADAAIAAAABAAQAAAADAAMAAAABAAQAAAADAAQAAAABAAQAAAADAAUAAAABAAQAAAAEAAEAAAABAAQAAAAEAAIAAAAEAAQAAAAEAAMAAAABAAQAAAAEAAQAAAABAAQAAAAEAAUAAAABAAQAAAAFAAEAAAABAAQAAAAFAAIAAAABAAQAAAAFAAMAAAABAAQAAAAFAAQAAAABAAQAAAAFAAUAAAABAAQAAAAGAAEAAAABAAQAAAAGAAIAAAABAAQAAAAGAAMAAAABAAQAAAAGAAQAAAABAAQAAAAGAAUAAAABAAQAAAAHAAEAAAABAAQAAAAHAAIAAAABAAQAAAAHAAMAAAABAAQAAAAHAAQAAAABAAQAAAAHAAUAAAABAAQAAAAIAAEAAAABAAQAAAAIAAIAAAABAAQAAAAIAAMAAAABAAQAAAAIAAQAAAABAAQAAAAIAAUAAAABAAQAAAAJAAEAAAABAAQAAAAJAAIAAAABAAQAAAAJAAMAAAABAAQAAAAJAAQAAAABAAQAAAAJAAUAAAABAAQAAAAKAAEAAAABAAQAAAAKAAIAAAABAAQAAAAKAAMAAAABAAQAAAAKAAQAAAABAAQAAAAKAAUAAAABAAQAAAA=")
+navigation_visibility_mode = 1
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1202038621]
+position = Vector2(-40, -17)
+navigation_polygon = SubResource("NavigationPolygon_5ao3r")
+navigation_layers = 3
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="NavigationRegion2D" unique_id=713652860]
+vertices = PackedVector2Array(278, 90, 277, 107, 292, 107, 302, 87)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+avoidance_layers = 3
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=943994278]
+position = Vector2(235, 111)
+script = ExtResource("2_5ao3r")
+movement_speed = 10.0
+movement_target_position = Vector2(258, 57)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=1583667968]
+position = Vector2(0, -1)
+texture = ExtResource("2_ekh6y")
+region_enabled = true
+region_rect = Rect2(0, 160, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1523287328]
+shape = SubResource("CircleShape2D_ekh6y")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D" unique_id=630598860]
+navigation_layers = 2
+avoidance_enabled = true
+
+[node name="Pippo" type="Node2D" parent="." unique_id=1102528068]
+position = Vector2(-32, -33)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Pippo" unique_id=289445659]
+position = Vector2(89, 72)
+texture = ExtResource("2_ekh6y")
+region_enabled = true
+region_rect = Rect2(65, 80, 15, 16)
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=113381749]
+position = Vector2(258, 57)
+
+[editable path="MapLayers"]
