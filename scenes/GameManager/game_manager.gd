@@ -1,0 +1,67 @@
+extends Node
+
+@export var map : PackedScene
+@export var npc : PackedScene
+
+@export var npc_counter : int
+
+var map_instance
+var spawn_positions
+
+var names : Array[String] = ["Grizzle Profitgrub", "Snark Ledgerfang", "Boggle Spreadsheet", "Krimp Bonusclaw", "Snik KPI-Snatcher", "Murgle Coffeestain", "Zibble Paperjam", "Grint Marginchewer", "Blort Deadlinegnaw", "Skaggy Synergytooth", "Nibwick Microgrind", "Crindle Stocksniff", "Wizzle Cubiclebane", "Throg Expensefang", "Splug Overtimebelch", "Drabble Taskmangler", "Klix Compliancegrime", "Mizzle Workflowrot", "Gorp Staplechewer", "Snibble Budgetbruise", "Kraggy Meetinglurker", "Blim Forecastfumble", "Zonk Assetgnash", "Triggle Slidereviser", "Vorny Timesheetterror", "Glim Auditnibble", "Brakka Breakroomraider", "Sprock Redtapewriggler", "Nurgle Powerpointhex", "Grizzleback Clawculator", "Snaggle Metricsmash", "Plib Shareholdershriek", "Drox Inboxhoarder", "Fizzle Ladderclimb", "Krumble Deskgnarl", "Wretchy Watercoolerspy", "Blix Quarterlyquiver", "Grottin Promotionpounce", "Skibble Faxmachinebane", "Zraggy Corporatecackle"]
+
+func determine_spawn_positions(map_instance) -> Array[Vector2i]:
+	var tilemap =  map_instance.get_node("TileMap")
+	var ground_layer : TileMapLayer = tilemap.get_node("Ground")
+	var ground_positions : Array[Vector2i] = ground_layer.get_used_cells()
+	
+	var obstacle_layer : TileMapLayer = tilemap.get_node("Obstacles")
+	var obstacle_positions : Array[Vector2i] = obstacle_layer.get_used_cells()
+	
+	ground_positions = ground_positions.filter(
+		func(value):
+			return not obstacle_positions.has(value)
+	)
+	
+	# Convert all the positions to global coordinates
+	var global_spawnable_positions: Array[Vector2i] = []
+	
+	for pos in ground_positions:
+		global_spawnable_positions.append(
+			tilemap.to_global(
+				ground_layer.map_to_local(pos)
+				)
+			)
+		
+	return global_spawnable_positions
+	
+
+func _ready() -> void:
+	# SET RANDOMIZER
+	randomize()
+	
+	# SPAWN MAP
+	map_instance = map.instantiate()
+	add_child(map_instance)
+
+	# GET SPAWNABLE POSITIONS
+	var spawnable_positions = determine_spawn_positions(map_instance)
+	
+	# SPAWN NPCs
+	for n in npc_counter:
+		print("Spawning Goblin ", names.pick_random())
+		var new_npc = npc.instantiate()
+		
+		var random_spawn_position = spawnable_positions.pick_random()
+		spawnable_positions.erase(random_spawn_position)
+		
+		new_npc.global_position = random_spawn_position
+		map_instance.add_child(new_npc)
+		
+		
+		
+
+		
+		
+		
+	

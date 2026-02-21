@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://7eq111y05lyv"]
+
+[ext_resource type="Script" uid="uid://da3amk2k58q4" path="res://scenes/GameManager/game_manager.gd" id="1_u01m6"]
+[ext_resource type="PackedScene" uid="uid://cuaekkdixe1v8" path="res://scenes/Map/Map.tscn" id="2_rx0ki"]
+[ext_resource type="PackedScene" uid="uid://yaigjgwprpq8" path="res://scenes/NPC/npc.tscn" id="3_6dete"]
+
+[node name="GameManager" type="Node" unique_id=1155069546]
+script = ExtResource("1_u01m6")
+map = ExtResource("2_rx0ki")
+npc = ExtResource("3_6dete")
+npc_counter = 5
