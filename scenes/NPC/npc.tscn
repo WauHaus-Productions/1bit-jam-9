@@ -19,6 +19,7 @@ animations = [{
 radius = 40.0
 
 [node name="NPC" type="CharacterBody2D" unique_id=1168664165]
+input_pickable = true
 script = ExtResource("1_23nos")
 
 [node name="Logic" type="Node2D" parent="." unique_id=1453357300]
