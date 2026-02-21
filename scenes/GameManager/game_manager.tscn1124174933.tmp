@@ -11,9 +11,6 @@ npc = ExtResource("3_6dete")
 npc_counter = 5
 
 [node name="Label" type="Label" parent="." unique_id=211674]
-z_index = 10
-offset_left = 825.0
-offset_top = 10.0
-offset_right = 1145.0
-offset_bottom = 50.0
-text = "0"
+offset_left = 39.0
+offset_right = 5971.0
+offset_bottom = 1539.0
