@@ -4,10 +4,12 @@ extends Node2D
 @export var JUMP_VELOCITY = -200.0
 @export var LOW_MORALE = 200
 @export var HIGH_MORALE = 800
+@export var MAX_MORALE = 1000
+@export var MIN_MORALE = 0
 @export var TIMER_DURATION = 5
-@export var MORALE_NORMALIZER: float = 1000.0
 @export var States = {SCARED = -4, WORKING = -2, MOVING = 0, SLACKING = 1}
-@export var Morale: float = 1000
+var MORALE_NORMALIZER: float = MAX_MORALE
+var Morale: float
 # @export var MORALE_DEGRADATION_PER_SEC = 5
 # @export var MORALE_RECOVER_PER_SEC = 2
 
@@ -35,29 +37,44 @@ signal slacking
 # TODO: when scared produce more
 
 func _ready() -> void:
+	Morale = MAX_MORALE
 	timer.timeout.connect(_on_timer_timeout)
 
 func _on_timer_timeout() -> void:
-	print("Timeout!")
+	# print("Timeout! Morale: ", Morale)
+	# print("State: ", State)
+	# print("Desired State: ", DesiredState)
+	if State == States.SLACKING and Morale < MAX_MORALE:
+		# print("Slacking with morale: ", Morale)
+		timer.start(TIMER_DURATION)
+		return
+
 	if Morale >= HIGH_MORALE:
+		# print("Working morale")
 		State = move_or_continue(States.WORKING)
+		# print("Finished move_or_continue, State: ", State, ", Desired State: ", DesiredState)
 
 	elif Morale <= LOW_MORALE:
+		# print("Slacking morale")
 		State = move_or_continue(States.SLACKING)
+		# print("Finished move_or_continue, State: ", State, ", Desired State: ", DesiredState)
 
 	else:
 		State = switch_state()
+		# print("Rolled new state: ", State, ", desired: ", DesiredState)
 
 	# Do not set timer until reaching dest
 	if State == States.MOVING:
 		return
 
 	var waiting_time = round(TIMER_DURATION * Morale / MORALE_NORMALIZER)
-	print("Starting timer, expiring in: ", waiting_time)
+	# print("Starting timer, expiring in: ", waiting_time, ", not rounded: ", TIMER_DURATION * Morale / MORALE_NORMALIZER)
 	timer.start(waiting_time)
 
 func _physics_process(delta: float) -> void:
 	Morale += morale_diff(delta)
+	Morale = min(Morale, MAX_MORALE)
+	Morale = max(Morale, MIN_MORALE)
 	# print(Morale)
 	act()
 
@@ -99,4 +116,6 @@ func move_or_continue(desired_state: int) -> int:
 func arrived():
 	print("arrived!")
 	State = DesiredState
-	timer.start(round(TIMER_DURATION * Morale / MORALE_NORMALIZER))
+	var waiting_time = round(TIMER_DURATION * Morale / MORALE_NORMALIZER)
+	# print("restarting timer, expiring in: ", waiting_time)
+	timer.start(waiting_time)
