@@ -8,6 +8,7 @@ enum MovementState {NAVIGATION, DRAG, LAUNCH}
 
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
 @onready var logic: Node2D = $Logic
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var last_mouse_positions: Array[Vector2]
 var mouse_positions_index: int = 0
@@ -18,6 +19,7 @@ var physics_delta: float
 func _ready() -> void:
 	# Connect callbacks to signals
 	navigation_agent_2d.velocity_computed.connect(on_velocity_computed)
+	navigation_agent_2d.navigation_finished.connect(idle_on_finished)
 	logic.change_state.connect(on_state_changed)
 	input_event.connect(_on_input_event)
 	
@@ -27,6 +29,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	physics_delta = delta
+	
+	# print("Movement state: ", movement_state)
 	
 	# Handle launch when dragging and dropping
 	if movement_state == MovementState.LAUNCH:
@@ -53,7 +57,13 @@ func _physics_process(delta: float) -> void:
 		navigation_agent_2d.velocity = new_velocity
 	else:
 		on_velocity_computed(new_velocity)
-		
+	
+	animated_sprite.play("walk")
+	if velocity.x < 0:
+		animated_sprite.flip_h = true
+	else:
+		animated_sprite.flip_h = false
+	
 	move_and_slide()
 
 func get_closest_from_group(group: StringName):
@@ -77,11 +87,13 @@ func on_velocity_computed(safe_velocity: Vector2):
 func move_to_closest_distraction():
 	var distraction = get_closest_from_group("distraction")
 	if distraction != null:
+		print("found distraction")
 		navigation_agent_2d.target_position = distraction.global_position
 	
 func move_to_closest_work():
 	var work_station = get_closest_from_group("work")
 	if work_station != null:
+		print("found work")
 		navigation_agent_2d.target_position = work_station.global_position
 
 func on_state_changed(state: int):
@@ -89,6 +101,9 @@ func on_state_changed(state: int):
 		move_to_closest_distraction()
 	elif state == logic.States.WORKING or state == logic.States.SCARED:
 		move_to_closest_work()
+
+func idle_on_finished():
+	animated_sprite.play("idle")
 
 # -------------------
 # DRAG AND DROP
@@ -123,7 +138,10 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 			drag_offset = get_global_mouse_position() - global_position
 			
 			# Set state to MOVING and then SCARED when arrived
-			logic.move_or_continue(logic.States.SCARED)
+			logic.move(logic.States.SCARED)
+			
+			# Play grabbed animation
+			animated_sprite.play("grabbed")
 	
 	pass
 
