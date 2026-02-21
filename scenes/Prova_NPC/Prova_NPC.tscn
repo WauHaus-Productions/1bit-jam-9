@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cyfaunympuq4l"]
+
+[ext_resource type="PackedScene" uid="uid://yaigjgwprpq8" path="res://scenes/NPC/npc.tscn" id="1_yan0s"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0i15y"]
+distance = 1.0
+
+[node name="Prova_NPC" type="Node" unique_id=1882661093]
+
+[node name="Node2D" parent="." unique_id=229993800 instance=ExtResource("1_yan0s")]
+position = Vector2(-21, -9)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=369110974]
+zoom = Vector2(4, 4)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1395294071]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=918792857]
+position = Vector2(0, 1)
+shape = SubResource("WorldBoundaryShape2D_0i15y")
