@@ -245,8 +245,11 @@ separation = Vector2i(1, 1)
 7:4/0 = 0
 8:4/0 = 0
 9:4/0 = 0
+9:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 10:4/0 = 0
+10:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 11:4/0 = 0
+11:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 0:5/0 = 0
 1:5/0 = 0
 2:5/0 = 0
@@ -321,8 +324,11 @@ separation = Vector2i(1, 1)
 11:10/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_n3hww"]
+physics_layer_0/collision_layer = 1
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_iut6q")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hb1in"]
 
 [node name="Map" type="Node2D" unique_id=756433008]
 
@@ -335,10 +341,22 @@ tile_set = SubResource("TileSet_gd46p")
 script = ExtResource("1_n3hww")
 
 [node name="Obstacles" type="TileMapLayer" parent="TileMap" unique_id=1399863061]
-tile_map_data = PackedByteArray("AAAFAAIAAAADAAUAAAAFAAMAAAADAAUAAAAFAAQAAAADAAUAAAAFAAUAAAADAAUAAAAHAP//AAAGAAAAAAAHAAAAAAAGAAEAAAAHAAEAAAAGAAIAAAADAAQAAAAHAAkAAAA=")
+tile_map_data = PackedByteArray("AAAFAAIAAAADAAUAAAAFAAMAAAADAAUAAAAFAAQAAAADAAUAAAAFAAUAAAADAAUAAAAHAP//AAAGAAAAAAAHAAAAAAAKAAQAAAAHAAEAAAAGAAIAAAADAAQAAAAHAAkAAAAAAAAAAAAKAAQAAAABAAAAAAAKAAQAAAACAAAAAAAKAAQAAAADAAAAAAAKAAQAAAAEAAAAAAAKAAQAAAAFAAAAAAAKAAQAAAAGAAAAAAAKAAQAAAAIAAAAAAAKAAQAAAAJAAAAAAAKAAQAAAAKAAAAAAAKAAQAAAAAAAEAAAAKAAQAAAAAAAIAAAAKAAQAAAAAAAMAAAAKAAQAAAAAAAQAAAAKAAQAAAAAAAUAAAAKAAQAAAAAAAYAAAAKAAQAAAAAAAcAAAAKAAQAAAABAAcAAAAKAAQAAAACAAcAAAAKAAQAAAADAAcAAAAKAAQAAAAEAAcAAAAKAAQAAAAFAAcAAAAKAAQAAAAGAAcAAAAKAAQAAAAHAAcAAAAKAAQAAAAIAAcAAAAKAAQAAAAJAAcAAAAKAAQAAAAKAAcAAAAKAAQAAAAKAAYAAAAKAAQAAAAKAAUAAAAKAAQAAAAKAAQAAAAKAAQAAAAKAAMAAAAKAAQAAAAKAAIAAAAKAAQAAAAKAAEAAAAKAAQAAAA=")
 tile_set = SubResource("TileSet_n3hww")
 
-[node name="Distraction" type="Node2D" parent="TileMap/Obstacles" unique_id=1048547566 groups=["distraction"]]
+[node name="Distraction" type="Area2D" parent="TileMap/Obstacles" unique_id=1124993992 groups=["distraction"]]
 position = Vector2(120, 65)
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Obstacles/Distraction" unique_id=1426070642]
+shape = SubResource("CircleShape2D_hb1in")
+
+[node name="Work" type="Area2D" parent="TileMap/Obstacles" unique_id=520368664 groups=["work"]]
+position = Vector2(151.25, 97.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Obstacles/Work" unique_id=581035310]
+position = Vector2(-0.25, 0)
+shape = SubResource("CircleShape2D_hb1in")
+
 [node name="NPC" parent="." unique_id=1168664165 instance=ExtResource("3_iut6q")]
+position = Vector2(165, 178)
+launch_threshold = 200
