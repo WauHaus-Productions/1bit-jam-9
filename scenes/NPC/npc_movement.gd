@@ -87,7 +87,7 @@ func move_to_closest_work():
 func on_state_changed(state: int):
 	if state == logic.States.SLACKING:
 		move_to_closest_distraction()
-	elif state == logic.States.WORKING:
+	elif state == logic.States.WORKING or state == logic.States.SCARED:
 		move_to_closest_work()
 
 # -------------------
@@ -117,9 +117,13 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	#			print("Scroll wheel down")
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			# Start dragging the npc
 			movement_state = MovementState.DRAG
 			velocity = Vector2(0, 0)
 			drag_offset = get_global_mouse_position() - global_position
+			
+			# Set state to MOVING and then SCARED when arrived
+			logic.move_or_continue(logic.States.SCARED)
 	
 	pass
 
