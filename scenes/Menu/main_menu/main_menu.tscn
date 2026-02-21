@@ -3,15 +3,15 @@
 [ext_resource type="Theme" uid="uid://dq3fh7pdv4230" path="res://asset/UI/ui_custom_style.tres" id="1_nqdss"]
 [ext_resource type="Script" uid="uid://bs673awy0ypia" path="res://scenes/Menu/base_menu.gd" id="2_a24wl"]
 [ext_resource type="PackedScene" uid="uid://gpah4ea7go8w" path="res://scenes/Menu/buttons/ButtonSceneChange/button_scene_change.tscn" id="2_t0ysj"]
-[ext_resource type="Texture2D" uid="uid://b0gvoi5yrrt8a" path="res://asset/UI/CURTAIN.png" id="2_ub24n"]
 [ext_resource type="PackedScene" uid="uid://b0r22s7oyogmi" path="res://scenes/Menu/credits_menu/credits_menu.tscn" id="3_67rq3"]
+[ext_resource type="Texture2D" uid="uid://7q53777kt4hn" path="res://asset/COVER black.png" id="3_a24wl"]
 [ext_resource type="FontFile" uid="uid://bb7kdtuq8g2c6" path="res://asset/UI/font/carnivalee-freakshow/Carnevalee Freakshow/Carnevalee Freakshow.ttf" id="3_fqnv5"]
 [ext_resource type="PackedScene" uid="uid://ci8munt5neoq7" path="res://scenes/Menu/commands_menu/commands_menu.tscn" id="3_niwag"]
 [ext_resource type="PackedScene" uid="uid://cs1r2tx6hr7tm" path="res://scenes/Menu/buttons/ButtonQuit/quit_button.tscn" id="5_n4wtq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nhyv3"]
 font = ExtResource("3_fqnv5")
-font_size = 164
+font_size = 80
 font_color = Color(1, 1, 0, 1)
 
 [sub_resource type="Resource" id="Resource_pgepk"]
@@ -36,9 +36,9 @@ offset_right = 1917.0
 offset_bottom = 1083.0
 
 [node name="Background" type="Sprite2D" parent="." unique_id=401574995]
-position = Vector2(960, 0)
-scale = Vector2(1.778, 1.778)
-texture = ExtResource("2_ub24n")
+position = Vector2(576.5, 325.00003)
+scale = Vector2(5.765, 3.24)
+texture = ExtResource("3_a24wl")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=199400446]
 layout_mode = 1
@@ -53,6 +53,12 @@ offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect" unique_id=81851266]
+layout_mode = 0
+offset_right = 1149.0
+offset_bottom = 202.0
+alignment = 1
+
 [node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect" unique_id=295638912]
 layout_mode = 1
 anchors_preset = 15
@@ -64,7 +70,8 @@ alignment = 1
 
 [node name="Title" type="Label" parent="NinePatchRect/VBoxContainer" unique_id=1027743873]
 layout_mode = 2
-text = "The Spiraling Fool"
+text = "Dungeon Intern:
+Dominate Person"
 label_settings = SubResource("LabelSettings_nhyv3")
 horizontal_alignment = 1
 

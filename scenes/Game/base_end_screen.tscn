@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://cnulwif8u1373"]
+
+[ext_resource type="Script" path="res://scenes/game/base_end_screen.gd" id="1_w7mv7"]
+[ext_resource type="Texture2D" uid="uid://b0gvoi5yrrt8a" path="res://asset/graphic/UI/CURTAIN.png" id="2_kahwn"]
+[ext_resource type="PackedScene" uid="uid://gpah4ea7go8w" path="res://scenes/menu/buttons/ButtonSceneChange/button_scene_change.tscn" id="2_vbbcm"]
+[ext_resource type="FontFile" uid="uid://bb7kdtuq8g2c6" path="res://asset/graphic/UI/font/carnivalee-freakshow/Carnevalee Freakshow/Carnevalee Freakshow.ttf" id="3_ko7th"]
+[ext_resource type="AudioStream" uid="uid://cvrx1ir4jmsid" path="res://asset/sfx/player/game_over.wav" id="5_nrj7p"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_70b55"]
+font = ExtResource("3_ko7th")
+font_size = 128
+font_color = Color(1, 1, 0, 1)
+
+[node name="EndScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w7mv7")
+title = "Game Over"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(960, 0)
+scale = Vector2(1.778, 1.778)
+texture = ExtResource("2_kahwn")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Game Over"
+label_settings = SubResource("LabelSettings_70b55")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ButtonSceneChange" parent="HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_vbbcm")]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_nrj7p")
+
+[connection signal="scene_button_pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/ButtonSceneChange" to="." method="_on_next_scene"]
