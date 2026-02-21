@@ -14,10 +14,6 @@ region = Rect2(0, 0, 32, 32)
 atlas = ExtResource("3_c4wbl")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ehwui"]
-atlas = ExtResource("3_lwet7")
-region = Rect2(0, 0, 32, 32)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_c4wbl"]
 atlas = ExtResource("3_lwet7")
 region = Rect2(32, 0, 32, 32)
@@ -53,9 +49,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ehwui")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_c4wbl")
 }],
 "loop": true,
@@ -81,7 +74,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v5vlc"]
-radius = 19.104973
+radius = 14.0
 
 [node name="NPC" type="CharacterBody2D" unique_id=1168664165]
 input_pickable = true
@@ -90,6 +83,7 @@ script = ExtResource("1_23nos")
 [node name="Logic" type="Node2D" parent="." unique_id=1453357300]
 script = ExtResource("2_23nos")
 HIGH_MORALE = 990
+MAX_MORALE = 1
 
 [node name="Timer" type="Timer" parent="Logic" unique_id=570559202]
 one_shot = true
@@ -99,7 +93,6 @@ autostart = true
 sprite_frames = SubResource("SpriteFrames_yudw0")
 animation = &"idle"
 autoplay = "idle"
-frame = 1
 frame_progress = 0.2726113
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=286659314]
