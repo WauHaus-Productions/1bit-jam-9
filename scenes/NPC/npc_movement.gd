@@ -23,10 +23,27 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+func get_closest_from_group(group : StringName):
+	var min_dist = 0
+	var closest = null
+	
+	var group_elements = get_tree().get_nodes_in_group(group)
+	for elem in group_elements:
+		var dist = (global_position - elem.global_position).length()
+		if dist < min_dist or closest == null:
+			closest = elem
+			min_dist = dist
+	
+	return closest
+
 func on_velocity_computed(safe_velocity : Vector2):
 	velocity = safe_velocity
 
 func on_state_changed(state: int):
 	if state == logic.States.SLACKING:
 		# TODO: cerca postazione slacking
-		navigation_agent_2d.target_position = global_position + Vector2(100, 0)
+		var distraction = get_closest_from_group("distraction")
+		navigation_agent_2d.target_position = distraction.global_position
+	elif state == logic.States.WORKING:
+		var work_station =  get_closest_from_group("work")
+		navigation_agent_2d.target_position = work_station.global_position
