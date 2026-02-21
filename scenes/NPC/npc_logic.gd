@@ -59,7 +59,7 @@ func _physics_process(delta: float) -> void:
 	# if not is_on_floor():
 	# 	velocity += get_gravity() * delta
 	Morale += morale_diff(delta)
-	print(Morale)
+	#print(Morale)
 	act()
 	
 
