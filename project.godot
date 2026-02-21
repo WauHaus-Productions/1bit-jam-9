@@ -15,6 +15,11 @@ run/main_scene="uid://26oadwbtxtkf"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[global_group]
+
+distraction="Group for all objects used as distractions for slacking"
+work="Group for all objects used as working stations"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

@@ -245,8 +245,11 @@ separation = Vector2i(1, 1)
 7:4/0 = 0
 8:4/0 = 0
 9:4/0 = 0
+9:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 10:4/0 = 0
+10:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 11:4/0 = 0
+11:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 0:5/0 = 0
 1:5/0 = 0
 2:5/0 = 0
@@ -321,6 +324,7 @@ separation = Vector2i(1, 1)
 11:10/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_n3hww"]
+physics_layer_0/collision_layer = 1
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_iut6q")
 
@@ -335,7 +339,12 @@ tile_set = SubResource("TileSet_gd46p")
 script = ExtResource("1_n3hww")
 
 [node name="Obstacles" type="TileMapLayer" parent="TileMap" unique_id=1399863061]
-tile_map_data = PackedByteArray("AAAFAAIAAAADAAUAAAAFAAMAAAADAAUAAAAFAAQAAAADAAUAAAAFAAUAAAADAAUAAAAHAP//AAAGAAAAAAAHAAAAAAAGAAEAAAAHAAEAAAAGAAIAAAADAAQAAAAHAAkAAAA=")
+tile_map_data = PackedByteArray("AAAFAAIAAAADAAUAAAAFAAMAAAADAAUAAAAFAAQAAAADAAUAAAAFAAUAAAADAAUAAAAHAP//AAAGAAAAAAAHAAAAAAAKAAQAAAAHAAEAAAAGAAIAAAADAAQAAAAHAAkAAAAAAAAAAAAKAAQAAAABAAAAAAAKAAQAAAACAAAAAAAKAAQAAAADAAAAAAAKAAQAAAAEAAAAAAAKAAQAAAAFAAAAAAAKAAQAAAAGAAAAAAAKAAQAAAAIAAAAAAAKAAQAAAAJAAAAAAAKAAQAAAAKAAAAAAAKAAQAAAAAAAEAAAAKAAQAAAAAAAIAAAAKAAQAAAAAAAMAAAAKAAQAAAAAAAQAAAAKAAQAAAAAAAUAAAAKAAQAAAAAAAYAAAAKAAQAAAAAAAcAAAAKAAQAAAABAAcAAAAKAAQAAAACAAcAAAAKAAQAAAADAAcAAAAKAAQAAAAEAAcAAAAKAAQAAAAFAAcAAAAKAAQAAAAGAAcAAAAKAAQAAAAHAAcAAAAKAAQAAAAIAAcAAAAKAAQAAAAJAAcAAAAKAAQAAAAKAAcAAAAKAAQAAAAKAAYAAAAKAAQAAAAKAAUAAAAKAAQAAAAKAAQAAAAKAAQAAAAKAAMAAAAKAAQAAAAKAAIAAAAKAAQAAAAKAAEAAAAKAAQAAAA=")
 tile_set = SubResource("TileSet_n3hww")
 
+[node name="Distraction" type="Node2D" parent="TileMap/Obstacles" unique_id=1048547566 groups=["distraction"]]
+position = Vector2(120, 65)
+
 [node name="NPC" parent="." unique_id=1168664165 instance=ExtResource("3_iut6q")]
+position = Vector2(165, 178)
+launch_threshold = 200
