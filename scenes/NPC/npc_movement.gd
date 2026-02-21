@@ -1,16 +1,16 @@
 extends CharacterBody2D
 
+enum MovementState {NAVIGATION, DRAG, LAUNCH}
+
 @export var movement_speed = 50
 @export var launch_deceleration = 0.1
 @export var launch_threshold = 100
+
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
 @onready var logic: Node2D = $Logic
 
 var last_mouse_positions : Array[Vector2]
 var mouse_positions_index : int = 0
-
-enum MovementState {NAVIGATION, DRAG, LAUNCH}
-
 var movement_state : MovementState = MovementState.NAVIGATION
 var drag_offset: Vector2
 
@@ -62,16 +62,25 @@ func on_velocity_computed(safe_velocity : Vector2):
 	if movement_state == MovementState.NAVIGATION:
 		velocity = safe_velocity
 
+func move_to_closest_distraction():
+	var distraction = get_closest_from_group("distraction")
+	if distraction != null:
+		navigation_agent_2d.target_position = distraction.global_position
+	
+func move_to_closest_work():
+	var work_station =  get_closest_from_group("work")
+	if work_station != null:
+		navigation_agent_2d.target_position = work_station.global_position
+
 func on_state_changed(state: int):
 	if state == logic.States.SLACKING:
-		# TODO: cerca postazione slacking
-		var distraction = get_closest_from_group("distraction")
-		if distraction != null:
-			navigation_agent_2d.target_position = distraction.global_position
+		move_to_closest_distraction()
 	elif state == logic.States.WORKING:
-		var work_station =  get_closest_from_group("work")
-		if work_station != null:
-			navigation_agent_2d.target_position = work_station.global_position
+		move_to_closest_work()
+
+# -------------------
+# DRAG AND DROP
+# -------------------
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseMotion:
