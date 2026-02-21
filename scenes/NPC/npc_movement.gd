@@ -138,7 +138,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 			drag_offset = get_global_mouse_position() - global_position
 			
 			# Set state to MOVING and then SCARED when arrived
-			logic.move_or_continue(logic.States.SCARED)
+			logic.move(logic.States.SCARED)
 			
 			# Play grabbed animation
 			animated_sprite.play("grabbed")
