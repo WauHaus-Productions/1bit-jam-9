@@ -84,7 +84,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v5vlc"]
-radius = 14.0
+radius = 9.848858
 
 [sub_resource type="Resource" id="Resource_q836e"]
 script = ExtResource("8_1oaw6")
