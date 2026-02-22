@@ -313,6 +313,7 @@ func _on_day_end():
 		hire_npc()
 		pass
 	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		emit_signal("next_scene", game_over, _construct_memorial)
 		pass
 	
