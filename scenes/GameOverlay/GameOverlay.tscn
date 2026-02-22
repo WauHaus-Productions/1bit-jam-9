@@ -1,0 +1,145 @@
+[gd_scene format=3 uid="uid://d1trr70s1rx24"]
+
+[ext_resource type="Texture2D" uid="uid://cnyu7yeog6e7m" path="res://asset/SCHERMO.png" id="1_l6you"]
+[ext_resource type="Texture2D" uid="uid://cvwmseaysysll" path="res://asset/CERCHIO CAMERA.png" id="2_b2dvm"]
+[ext_resource type="FontFile" uid="uid://cmkdryhal5wa1" path="res://asset/UI/font/ds_digital/DS-DIGIB.TTF" id="2_l6you"]
+[ext_resource type="Texture2D" uid="uid://dly8eqbsppdbi" path="res://asset/GOB STAND ANIM-Sheet.png" id="4_l6you"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qo4ws"]
+font = ExtResource("2_l6you")
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_l6you"]
+font = ExtResource("2_l6you")
+font_size = 32
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qo4ws"]
+atlas = ExtResource("4_l6you")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gd44e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qo4ws")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="GameOverlay" type="Control" unique_id=822853487]
+z_index = 20
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1280.0
+offset_top = -720.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1561907598]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_l6you")
+
+[node name="RevenueRect" type="ColorRect" parent="." unique_id=1664476325]
+layout_mode = 0
+offset_left = 608.0
+offset_top = 64.0
+offset_right = 832.0
+offset_bottom = 104.0
+color = Color(0, 0, 0, 1)
+
+[node name="GoalRect" type="ColorRect" parent="." unique_id=734870825]
+layout_mode = 0
+offset_left = 888.0
+offset_top = 64.0
+offset_right = 1112.0
+offset_bottom = 104.0
+color = Color(0, 0, 0, 1)
+
+[node name="DateRect" type="ColorRect" parent="." unique_id=126256381]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 64.0
+offset_right = 384.0
+offset_bottom = 112.0
+color = Color(0, 0, 0, 1)
+
+[node name="Revenue" type="Label" parent="." unique_id=500208157]
+z_index = 10
+layout_mode = 0
+offset_left = 608.0
+offset_top = 58.0
+offset_right = 800.0
+offset_bottom = 109.0
+text = "000000000"
+label_settings = SubResource("LabelSettings_qo4ws")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Date" type="Label" parent="." unique_id=587363730]
+z_index = 10
+layout_mode = 0
+offset_left = 144.0
+offset_top = 59.0
+offset_right = 360.0
+offset_bottom = 110.0
+text = "00/00/0000"
+label_settings = SubResource("LabelSettings_qo4ws")
+horizontal_alignment = 2
+
+[node name="Goal" type="Label" parent="." unique_id=1407071973]
+z_index = 10
+layout_mode = 0
+offset_left = 883.0
+offset_top = 58.0
+offset_right = 1107.0
+offset_bottom = 109.0
+text = "0000000000"
+label_settings = SubResource("LabelSettings_qo4ws")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Rec" type="Sprite2D" parent="." unique_id=527030617]
+position = Vector2(142, 661)
+scale = Vector2(3.7, 3.7)
+texture = ExtResource("2_b2dvm")
+
+[node name="Camera" type="Label" parent="." unique_id=2119905708]
+z_index = 10
+layout_mode = 0
+offset_left = 160.0
+offset_top = 640.0
+offset_right = 303.0
+offset_bottom = 681.0
+text = "Camera 1"
+label_settings = SubResource("LabelSettings_l6you")
+vertical_alignment = 1
+
+[node name="GoblinIcon" type="AnimatedSprite2D" parent="." unique_id=1686854461]
+position = Vector2(1136, 656)
+sprite_frames = SubResource("SpriteFrames_gd44e")
+
+[node name="GoblinCounter" type="Label" parent="." unique_id=28890280]
+z_index = 10
+layout_mode = 0
+offset_left = 984.0
+offset_top = 630.0
+offset_right = 1112.0
+offset_bottom = 681.0
+text = "2"
+label_settings = SubResource("LabelSettings_qo4ws")
+horizontal_alignment = 2
+vertical_alignment = 1
