@@ -9,6 +9,7 @@ extends BaseScene
 @onready var date_label: Label = $Camera2D/GameOverlay/Date
 @onready var goblin_counter: Label = $Camera2D/GameOverlay/GoblinCounter
 @onready var goal_label: Label = $Camera2D/GameOverlay/Goal
+@onready var level_popup: Control = $Camera2D/GameOverlay/Popup
 
 @onready var fiscal_year_timer: Timer = $DayTimer
 
@@ -311,7 +312,9 @@ func debug(...args) -> void:
 func _on_day_end():
 	debug("DAY END")
 	debug("memorial: ", memorial)
-	if (total_revenues >= current_goal):
+	if (total_revenues >= current_goal):		
+		level_popup.visible = true
+		$PopoupTimer.start()
 		current_goal = roundi(total_revenues * 1.25)
 		goal_label.text = str(current_goal)
 		total_revenues = 0.0
@@ -325,3 +328,7 @@ func _on_day_end():
 func _construct_memorial(endScene: DeathEndScene):
 	endScene.goblins.append_array(memorial)
 	pass
+
+
+func _on_popoup_timer_timeout() -> void:
+	level_popup.visible = false
