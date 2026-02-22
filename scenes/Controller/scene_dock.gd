@@ -25,8 +25,8 @@ func _on_next_scene(game_scene: PackedScene, constructor: Callable) -> void:
 	if game_scene != null:
 		instance = game_scene.instantiate()
 		print("Scene pre ctor: ",instance)
-		if(constructor != null):
-			constructor.call(instance)
+		#if(constructor != null):
+			#constructor.call(instance)
 	else:
 		instance = first_scene.instantiate()
 		print("Load Default Scene: ",instance)

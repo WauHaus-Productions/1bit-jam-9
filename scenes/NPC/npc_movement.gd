@@ -107,7 +107,8 @@ func get_area_by_pos(pos: Vector2) -> Node:
 func move_to_closest_distraction():
 	if navigation_agent_2d.target_position != null:
 		var node = get_area_by_pos(navigation_agent_2d.target_position)
-		node.leave()
+		if node != null:
+			node.leave()
 
 	var distraction = get_closest_from_group("distraction")
 	if distraction != null:

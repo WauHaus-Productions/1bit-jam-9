@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2b0xpicotekh"
-path="res://.godot/imported/TOMBSTONE.png-d0410d7c993011d2961db0497dcade2c.ctex"
+uid="uid://cnyu7yeog6e7m"
+path="res://.godot/imported/SCHERMO.png-ef64d10c2e89c4c7f8ab9df3fb800d4d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://asset/TOMBSTONE.png"
-dest_files=["res://.godot/imported/TOMBSTONE.png-d0410d7c993011d2961db0497dcade2c.ctex"]
+source_file="res://asset/SCHERMO.png"
+dest_files=["res://.godot/imported/SCHERMO.png-ef64d10c2e89c4c7f8ab9df3fb800d4d.ctex"]
 
 [params]
 
