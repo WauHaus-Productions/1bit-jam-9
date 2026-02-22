@@ -2,8 +2,15 @@ extends BaseScene
 
 @export var map: PackedScene
 @export var npc: PackedScene
+@export var pointer: PackedScene
+
 @onready var camera = $Camera2D
-@onready var revenue_ui = $Camera2D/Revenue
+@onready var revenue_ui = $Camera2D/GameOverlay/Revenue
+@onready var date_label: Label = $Camera2D/GameOverlay/Date
+@onready var goblin_counter: Label = $Camera2D/GameOverlay/GoblinCounter
+
+@onready var fiscal_year_timer: Timer = $Timer
+
 
 @onready var bg_music = $BGMusic
 @onready var bg_office_sound: AudioStreamPlayer = $BGOfficeSound
@@ -11,23 +18,27 @@ extends BaseScene
 @export var npc_counter: int = 10
 @export var DEBUG: bool = false
 
+
 @export var game_over: PackedScene
 
 @export var starting_goal: int = 1000
 @export var year_len_seconds: int = 30
 var current_goal: int
 
-#TO CHANGE
-const NPC_REVENUES = 100
+const NPC_REVENUES: int = 100
+const NPC_COST: int = 40
+const DAYS_IN_YEAR = 365
 
 var map_instance
 var spawn_positions
 
-var tot_rooms = 4
-var current_camera_idx = 1
+var tot_rooms: int = 4
+var current_camera_idx: int = 1
 
 
 var total_revenues: float = 0.0
+var elapsed_time := 0.0
+@export var current_fiscal_year : int = 2026
 
 const names: Array[String] = ["Fabio Losavio", "Cristiano Neroni", "Samuele Lo Iacono", "Hakim El Achak", "Vittorio Terzi", "Oscar Pindaro", "Matteo Mangioni", "Margherita Pindaro", "Francesco Maffezzoli", "Enka Lamaj", "Roberto Maligni",
 	"Grizzle Profitgrub", "Snark Ledgerfang", "Boggle Spreadsheet", "Krimp Bonusclaw", "Snik KPI-Snatcher", "Murgle Coffeestain", "Zibble Paperjam", "Grint Marginchewer", "Blort Deadlinegnaw", "Skaggy Synergytooth", "Nibwick Microgrind", "Crindle Stocksniff", "Wizzle Cubiclebane", "Throg Expensefang", "Splug Overtimebelch", "Drabble Taskmangler", "Klix Compliancegrime", "Mizzle Workflowrot", "Gorp Staplechewer", "Snibble Budgetbruise", "Kraggy Meetinglurker", "Blim Forecastfumble", "Zonk Assetgnash", "Triggle Slidereviser", "Vorny Timesheetterror", "Glim Auditnibble", "Brakka Breakroomraider", "Sprock Redtapewriggler", "Nurgle Powerpointhex", "Grizzleback Clawculator", "Snaggle Metricsmash", "Plib Shareholdershriek", "Drox Inboxhoarder", "Fizzle Ladderclimb", "Krumble Deskgnarl", "Wretchy Watercoolerspy", "Blix Quarterlyquiver", "Grottin Promotionpounce", "Skibble Faxmachinebane", "Zraggy Corporatecackle"]
@@ -70,8 +81,9 @@ func determine_spawn_positions(current_map) -> Array[Vector2i]:
 func update_revenues(delta) -> void:
 	var working_npcs_revenue: float = States.WORKING * working_npcs * NPC_REVENUES * delta
 	var scared_npcs_revenue: float = States.SCARED * scared_npcs * NPC_REVENUES * delta
-
-	self.total_revenues += working_npcs_revenue + scared_npcs_revenue
+	var costs: float = active_npcs.size() * NPC_COST * delta
+	# print("working_npcs_revenue ", working_npcs_revenue, ", scared_npcs_revenue ", scared_npcs_revenue, ", costs", costs)
+	self.total_revenues += working_npcs_revenue + scared_npcs_revenue - costs
 
 
 func get_available_name() -> String:
@@ -80,11 +92,42 @@ func get_available_name() -> String:
 		name = names.pick_random()
 	return name
 
+func get_current_day() -> int:
+	var year_progress = elapsed_time / fiscal_year_timer.wait_time
+	return int(year_progress * DAYS_IN_YEAR) + 1
+	
+func day_to_date(day: int) -> Dictionary:
+	var month_lengths = [31,28,31,30,31,30,31,31,30,31,30,31]
+
+	var month = 0
+	while day > month_lengths[month]:
+		day -= month_lengths[month]
+		month += 1
+		if month == 12:
+			print('Fine Anno Fiscale')
+			month = 0
+		
+
+	return {
+		"month": month + 1,
+		"day": day
+	}
+	
+func update_date_display():
+	var day_of_year = get_current_day()
+	var date = day_to_date(day_of_year)
+
+	date_label.text = "%02d/%02d/%04d" % [date.day, date.month, current_fiscal_year ]
+	
 func _ready() -> void:
 	current_goal = starting_goal
 	
 	# SET RANDOMIZER
 	randomize()
+	
+	# ACTIVATE POINTER
+	var pointer_instance = pointer.instantiate()
+	add_child(pointer_instance)
 	
 	# SPAWN MAP
 	map_instance = map.instantiate()
@@ -102,6 +145,7 @@ func _ready() -> void:
 	# SET CAMERA ON FIRST ROOM
 	var camera_marker = map_instance.get_node("Cameras/Stanza1")
 	camera.global_position = camera_marker.global_position
+	camera.align_camera_and_overlay()
 	
 	# START BG MUSIC
 	bg_music.play()
@@ -111,7 +155,6 @@ func _ready() -> void:
 	$DayTimer.wait_time = year_len_seconds
 	$DayTimer.start()
 	
-
 
 func spawn_npc(spawnable_positions) -> void:
 	var npc_name = get_available_name()
@@ -148,6 +191,7 @@ func change_camera(direction):
 		var camera_name = "Cameras/Stanza" + str(current_camera_idx)
 		var camera_marker = map_instance.get_node(camera_name)
 		camera.global_position = camera_marker.global_position
+		camera.change_camera_name("Camera " + str(current_camera_idx))
 		
 	elif direction == "backwards":
 		if current_camera_idx == 1:
@@ -163,6 +207,7 @@ func change_camera(direction):
 		
 func _process(delta: float) -> void:
 	update_revenues(delta)
+	goblin_counter.text = str(active_npcs.size())
 		
 	revenue_ui.text = str(roundi(total_revenues))
 	
@@ -177,6 +222,13 @@ func _process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("Hire"):
 		hire_npc()
+		
+	elapsed_time += delta
+
+	# Clamp so we don't overflow past the year
+	elapsed_time = min(elapsed_time, fiscal_year_timer.wait_time)
+		
+	update_date_display()
 
 
 func _on_dying(dying_npc: Node2D, state: int) -> void:
@@ -249,14 +301,13 @@ func debug(...args) -> void:
 func _on_day_end():
 	print("DAY END")
 	print("memorial: ", memorial)
-	if(total_revenues >= current_goal):
-		current_goal = total_revenues * 1.25
+	if (total_revenues >= current_goal):
+		current_goal = roundi(total_revenues * 1.25)
 		pass
 	else:
-		emit_signal("next_scene", game_over,_construct_memorial)
+		emit_signal("next_scene", game_over, _construct_memorial)
 		pass
 	
-func _construct_memorial(endScene : DeathEndScene):
+func _construct_memorial(endScene: DeathEndScene):
 	endScene.goblins.append_array(memorial)
 	pass
-	
