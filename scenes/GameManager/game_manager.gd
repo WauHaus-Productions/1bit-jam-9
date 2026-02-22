@@ -114,7 +114,6 @@ func _ready() -> void:
 	$DayTimer.start()
 	
 
-
 func spawn_npc(spawnable_positions) -> void:
 	var npc_name = get_available_name()
 	debug("Spawning Goblin ", npc_name)
@@ -239,14 +238,13 @@ func debug(...args) -> void:
 func _on_day_end():
 	print("DAY END")
 	print("memorial: ", memorial)
-	if(total_revenues >= current_goal):
-		current_goal = total_revenues * 1.25
+	if (total_revenues >= current_goal):
+		current_goal = roundi(total_revenues * 1.25)
 		pass
 	else:
-		emit_signal("next_scene", game_over,_construct_memorial)
+		emit_signal("next_scene", game_over, _construct_memorial)
 		pass
 	
-func _construct_memorial(endScene : DeathEndScene):
+func _construct_memorial(endScene: DeathEndScene):
 	endScene.goblins.append_array(memorial)
 	pass
-	
