@@ -8,15 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://ci8munt5neoq7" path="res://scenes/Menu/commands_menu/commands_menu.tscn" id="3_niwag"]
 [ext_resource type="PackedScene" uid="uid://cs1r2tx6hr7tm" path="res://scenes/Menu/buttons/ButtonQuit/quit_button.tscn" id="5_n4wtq"]
 [ext_resource type="FontFile" uid="uid://bi75vtx1r5ccy" path="res://asset/UI/font/Limelight/Limelight-Regular.ttf" id="6_oc3ou"]
+[ext_resource type="PackedScene" uid="uid://7eq111y05lyv" path="res://scenes/GameManager/game_manager.tscn" id="8_ry0oa"]
 [ext_resource type="Texture2D" uid="uid://bfm02jscjc4af" path="res://asset/COVER left.png" id="9_oc3ou"]
 [ext_resource type="Texture2D" uid="uid://vm2js2h5kqm" path="res://asset/COVER right.png" id="10_ry0oa"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nhyv3"]
 font = ExtResource("6_oc3ou")
 font_size = 49
-
-[sub_resource type="Resource" id="Resource_pgepk"]
-metadata/__load_path__ = "res://scenes/game/levels/strongman_level.tscn"
 
 [node name="MainMenu" type="Control" unique_id=1294894159]
 layout_mode = 3
@@ -98,7 +96,7 @@ alignment = 1
 layout_mode = 2
 theme = null
 text = "Play"
-next_scene = SubResource("Resource_pgepk")
+next_scene = ExtResource("8_ry0oa")
 
 [node name="CommandsButton" parent="NinePatchRect/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=2042405818 instance=ExtResource("2_t0ysj")]
 layout_mode = 2

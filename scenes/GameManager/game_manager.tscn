@@ -19,7 +19,7 @@ fill_from = Vector2(1, 0)
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rx0ki"]
 load_path = "res://.godot/imported/CAMERA 2.png-5ebe738a2469f474002655edb1a00faa.ctex"
 
-[node name="GameManager" type="Node2D" unique_id=987844777]
+[node name="GameManager" type="Node2D" unique_id=987844777 groups=["level"]]
 script = ExtResource("1_u01m6")
 map = ExtResource("2_rnxwy")
 npc = ExtResource("3_6dete")

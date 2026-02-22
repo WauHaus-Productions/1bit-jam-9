@@ -1,4 +1,4 @@
-extends Node
+extends BaseScene
 
 @export var map: PackedScene
 @export var npc: PackedScene
