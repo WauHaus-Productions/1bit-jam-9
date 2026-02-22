@@ -1,18 +1,19 @@
 [gd_scene format=3 uid="uid://cnlm6ho48juqv"]
 
 [ext_resource type="Theme" uid="uid://dq3fh7pdv4230" path="res://asset/UI/ui_custom_style.tres" id="1_nqdss"]
-[ext_resource type="Script" uid="uid://bs673awy0ypia" path="res://scenes/Menu/base_menu.gd" id="2_a24wl"]
+[ext_resource type="Script" uid="uid://nbovcx82b3v1" path="res://scenes/Menu/main_menu/main_menu.gd" id="2_oc3ou"]
 [ext_resource type="PackedScene" uid="uid://gpah4ea7go8w" path="res://scenes/Menu/buttons/ButtonSceneChange/button_scene_change.tscn" id="2_t0ysj"]
 [ext_resource type="PackedScene" uid="uid://b0r22s7oyogmi" path="res://scenes/Menu/credits_menu/credits_menu.tscn" id="3_67rq3"]
 [ext_resource type="Texture2D" uid="uid://7q53777kt4hn" path="res://asset/COVER black.png" id="3_a24wl"]
-[ext_resource type="FontFile" uid="uid://bb7kdtuq8g2c6" path="res://asset/UI/font/carnivalee-freakshow/Carnevalee Freakshow/Carnevalee Freakshow.ttf" id="3_fqnv5"]
 [ext_resource type="PackedScene" uid="uid://ci8munt5neoq7" path="res://scenes/Menu/commands_menu/commands_menu.tscn" id="3_niwag"]
 [ext_resource type="PackedScene" uid="uid://cs1r2tx6hr7tm" path="res://scenes/Menu/buttons/ButtonQuit/quit_button.tscn" id="5_n4wtq"]
+[ext_resource type="FontFile" uid="uid://bi75vtx1r5ccy" path="res://asset/UI/font/Limelight/Limelight-Regular.ttf" id="6_oc3ou"]
+[ext_resource type="Texture2D" uid="uid://bfm02jscjc4af" path="res://asset/COVER left.png" id="9_oc3ou"]
+[ext_resource type="Texture2D" uid="uid://vm2js2h5kqm" path="res://asset/COVER right.png" id="10_ry0oa"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nhyv3"]
-font = ExtResource("3_fqnv5")
-font_size = 80
-font_color = Color(1, 1, 0, 1)
+font = ExtResource("6_oc3ou")
+font_size = 49
 
 [sub_resource type="Resource" id="Resource_pgepk"]
 metadata/__load_path__ = "res://scenes/game/levels/strongman_level.tscn"
@@ -26,7 +27,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("1_nqdss")
-script = ExtResource("2_a24wl")
+script = ExtResource("2_oc3ou")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1406056437]
 layout_mode = 0
@@ -36,9 +37,21 @@ offset_right = 1917.0
 offset_bottom = 1083.0
 
 [node name="Background" type="Sprite2D" parent="." unique_id=401574995]
-position = Vector2(576.5, 325.00003)
-scale = Vector2(5.765, 3.24)
+position = Vector2(640, 360)
+scale = Vector2(6.4, 3.6)
 texture = ExtResource("3_a24wl")
+
+[node name="Art" type="Node2D" parent="." unique_id=361862653]
+position = Vector2(960, 360)
+scale = Vector2(3.6, 3.6)
+
+[node name="Manager" type="Sprite2D" parent="Art" unique_id=147906225]
+position = Vector2(-8.611112, 0)
+texture = ExtResource("9_oc3ou")
+
+[node name="Hand" type="Sprite2D" parent="Art" unique_id=1998070439]
+position = Vector2(214.722, 0)
+texture = ExtResource("10_ry0oa")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=199400446]
 layout_mode = 1
@@ -46,10 +59,8 @@ anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -3.0
-offset_top = 3.0
-offset_right = -3.0
-offset_bottom = 3.0
+offset_left = -320.0
+offset_right = -320.0
 grow_horizontal = 2
 grow_vertical = 2
 

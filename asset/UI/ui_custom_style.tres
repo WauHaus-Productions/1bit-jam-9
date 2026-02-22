@@ -1,8 +1,10 @@
 [gd_resource type="Theme" format=3 uid="uid://dq3fh7pdv4230"]
 
 [ext_resource type="FontFile" uid="uid://dake8jnvwlbv2" path="res://asset/UI/font/tuscan-mf-font/TuscanMfNarrow-GKnP.ttf" id="1_47lgb"]
+[ext_resource type="FontFile" uid="uid://dk0qfa3pfjjlt" path="res://asset/UI/font/brownwood-shadow/BrownwoodShadowNF.ttf" id="1_so1ad"]
 [ext_resource type="Texture2D" uid="uid://cnx5r0vm0w12w" path="res://asset/UI/bottone.png" id="2_miug5"]
 [ext_resource type="Texture2D" uid="uid://bx3vmw4oc8nry" path="res://asset/UI/bottone_pressed.png" id="2_xk2g1"]
+[ext_resource type="FontFile" uid="uid://cd5x1j2x82g48" path="res://asset/UI/font/seaside-resort/SeasideResortNF.ttf" id="4_rqpka"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qdfp1"]
 
@@ -37,7 +39,7 @@ region_rect = Rect2(0, 0, 160, 64)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5ord1"]
 texture = ExtResource("2_miug5")
-texture_margin_left = 26.0
+texture_margin_left = 25.485943
 texture_margin_top = 26.0
 texture_margin_right = 26.0
 texture_margin_bottom = 26.0
@@ -113,10 +115,10 @@ region_rect = Rect2(0, 0, 90, 128)
 
 [resource]
 default_font = ExtResource("1_47lgb")
-Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_disabled_color = Color(0.886275, 0.886275, 0.886275, 1)
 Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
-Button/colors/font_hover_color = Color(0.193215, 0.144166, 0.215623, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
 Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(1, 1, 1, 1)
@@ -131,7 +133,7 @@ Button/constants/h_separation = 4
 Button/constants/icon_max_width = 0
 Button/constants/outline_size = 0
 Button/font_sizes/font_size = 28
-Button/fonts/font = ExtResource("1_47lgb")
+Button/fonts/font = ExtResource("1_so1ad")
 Button/styles/disabled = SubResource("StyleBoxFlat_qdfp1")
 Button/styles/focus = SubResource("StyleBoxFlat_lwcje")
 Button/styles/hover = SubResource("StyleBoxTexture_iqspa")
@@ -140,7 +142,7 @@ Button/styles/pressed = SubResource("StyleBoxTexture_lml1a")
 Label/colors/font_color = Color(0, 0, 0, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/font_sizes/font_size = 24
-Label/fonts/font = ExtResource("1_47lgb")
+Label/fonts/font = ExtResource("4_rqpka")
 Panel/styles/panel = SubResource("StyleBoxFlat_fecjm")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_fycgq")
 PopupPanel/styles/panel = SubResource("StyleBoxTexture_5dt3x")
@@ -159,7 +161,7 @@ TabContainer/colors/font_outline_color = Color(0, 0, 0, 1)
 TabContainer/colors/font_selected_color = Color(0, 0, 0, 1)
 TabContainer/colors/font_unselected_color = Color(0, 0, 0, 1)
 TabContainer/constants/side_margin = 0
-TabContainer/fonts/font = ExtResource("1_47lgb")
+TabContainer/fonts/font = ExtResource("1_so1ad")
 TabContainer/icons/decrement = null
 TabContainer/styles/panel = SubResource("StyleBoxFlat_ry0a2")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxTexture_g4usj")

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://7eq111y05lyv"]
 
 [ext_resource type="Script" uid="uid://da3amk2k58q4" path="res://scenes/GameManager/game_manager.gd" id="1_u01m6"]
-[ext_resource type="PackedScene" uid="uid://bs45uwhetcjun" path="res://scenes/Map/SampleMap.tscn" id="2_6dete"]
+[ext_resource type="PackedScene" path="res://scenes/Map/SampleMap.tscn" id="2_6dete"]
 [ext_resource type="PackedScene" uid="uid://jj5mr86mb1j2" path="res://scenes/NPC/npc.tscn" id="3_6dete"]
 [ext_resource type="Texture2D" uid="uid://cvwmseaysysll" path="res://asset/CERCHIO CAMERA.png" id="4_6dete"]
 [ext_resource type="Script" uid="uid://bctjjwtu3j7g4" path="res://scenes/GameManager/camera_2d.gd" id="4_rnxwy"]

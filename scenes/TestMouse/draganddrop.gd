@@ -32,7 +32,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 			else:
 				is_dragging = false
 	elif event is InputEventMouseMotion and is_dragging:
-		global_position = event.position - drag_offset
+		global_position = event.global_position - drag_offset
 	
 	pass # Replace with function body.
 

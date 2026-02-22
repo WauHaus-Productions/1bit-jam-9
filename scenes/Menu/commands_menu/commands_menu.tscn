@@ -1,21 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://ci8munt5neoq7"]
+[gd_scene format=3 uid="uid://ci8munt5neoq7"]
 
-[ext_resource type="Script" path="res://scenes/Menu/base_menu.gd" id="1_2pwis"]
-[ext_resource type="Theme" uid="uid://dq3fh7pdv4230" path="res://asset/graphic/UI/ui_custom_style.tres" id="1_3nd1w"]
-[ext_resource type="FontFile" uid="uid://dake8jnvwlbv2" path="res://asset/graphic/UI/font/tuscan-mf-font/TuscanMfNarrow-GKnP.ttf" id="2_mb0lv"]
+[ext_resource type="Script" uid="uid://bs673awy0ypia" path="res://scenes/Menu/base_menu.gd" id="1_2pwis"]
+[ext_resource type="Theme" uid="uid://dq3fh7pdv4230" path="res://asset/UI/ui_custom_style.tres" id="1_3nd1w"]
 [ext_resource type="PackedScene" uid="uid://gpah4ea7go8w" path="res://scenes/Menu/buttons/ButtonSceneChange/button_scene_change.tscn" id="2_sflbv"]
-[ext_resource type="Texture2D" uid="uid://b0gvoi5yrrt8a" path="res://asset/graphic/UI/CURTAIN.png" id="3_0q61u"]
+[ext_resource type="Texture2D" uid="uid://7q53777kt4hn" path="res://asset/COVER black.png" id="3_1h1iu"]
+[ext_resource type="FontFile" uid="uid://bi75vtx1r5ccy" path="res://asset/UI/font/Limelight/Limelight-Regular.ttf" id="4_1h1iu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qxnh5"]
 line_spacing = 6.0
-font = ExtResource("2_mb0lv")
-font_size = 42
+font = ExtResource("4_1h1iu")
+font_size = 60
 
-[sub_resource type="LabelSettings" id="LabelSettings_xbboo"]
-font = ExtResource("2_mb0lv")
-font_size = 40
+[sub_resource type="LabelSettings" id="LabelSettings_1h1iu"]
+font_size = 18
 
-[node name="CommandsMenu" type="Control"]
+[node name="CommandsMenu" type="Control" unique_id=887261942]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,18 +24,18 @@ grow_vertical = 2
 theme = ExtResource("1_3nd1w")
 script = ExtResource("1_2pwis")
 
-[node name="Background" type="Sprite2D" parent="."]
-position = Vector2(960, 0)
-scale = Vector2(1.778, 1.778)
-texture = ExtResource("3_0q61u")
+[node name="Background" type="Sprite2D" parent="." unique_id=329826923]
+position = Vector2(640, 360)
+scale = Vector2(6.4, 3.6)
+texture = ExtResource("3_1h1iu")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1410686549]
 visible = false
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=2074883851]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -45,7 +44,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect"]
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect" unique_id=365341977]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,28 +54,20 @@ grow_vertical = 2
 theme_override_constants/separation = 64
 alignment = 1
 
-[node name="Title" type="Label" parent="NinePatchRect/VBoxContainer"]
+[node name="Title" type="Label" parent="NinePatchRect/VBoxContainer" unique_id=115738812]
 layout_mode = 2
 text = "Commands"
 label_settings = SubResource("LabelSettings_qxnh5")
 horizontal_alignment = 1
 
-[node name="Body" type="Label" parent="NinePatchRect/VBoxContainer"]
+[node name="Body" type="Label" parent="NinePatchRect/VBoxContainer" unique_id=43509542]
 layout_mode = 2
-text = "Move up with W/UP
-Move left with A/LEFT
-Move down with S/DOWN
-Move right with D/RIGHT
-
-Hit your enemies with your juggling balls
-
-
-Make the boss HP go to Zero to
-win the game"
-label_settings = SubResource("LabelSettings_xbboo")
+text = "Those dirty empolyees are slacking off.
+drag them back to work or the board won-t be happy."
+label_settings = SubResource("LabelSettings_1h1iu")
 horizontal_alignment = 1
 
-[node name="ReturnButton" parent="NinePatchRect/VBoxContainer" instance=ExtResource("2_sflbv")]
+[node name="ReturnButton" parent="NinePatchRect/VBoxContainer" unique_id=2015435969 instance=ExtResource("2_sflbv")]
 layout_mode = 2
 theme = null
 text = "Return"
