@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://df3kbk28oylsd" path="res://scenes/Game/goblin_end_scene.gd" id="1_ikxj3"]
 [ext_resource type="PackedScene" uid="uid://qlf688g08plj" path="res://scenes/Game/end_panel.tscn" id="2_klev3"]
-[ext_resource type="Texture2D" uid="uid://cueqy33djuv6i" path="res://asset/UI/tombstone.png" id="3_or7vl"]
+[ext_resource type="Texture2D" uid="uid://dhqcm51oxfq66" path="res://asset/UI/TOMBSTONE.png" id="3_g5ygq"]
 [ext_resource type="FontFile" uid="uid://cd5x1j2x82g48" path="res://asset/UI/font/seaside-resort/SeasideResortNF.ttf" id="4_g5ygq"]
 [ext_resource type="FontFile" uid="uid://bi75vtx1r5ccy" path="res://asset/UI/font/Limelight/Limelight-Regular.ttf" id="5_t8334"]
 [ext_resource type="Script" uid="uid://c4jprtyjhaadd" path="res://scenes/Game/dead_goblins.gd" id="6_x4ayu"]
@@ -22,7 +22,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ikxj3")
-goblins = Array[String](["Roberto Maligni", "Pier Paolo Pisolini", "Rita Levi Mortal Kombat", "Kaido Bisio"])
+goblins = Array[String](["Roberto Maligni"])
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=894743975]
 layout_mode = 1
@@ -50,34 +50,36 @@ size_flags_vertical = 4
 [node name="EndPanel" parent="ColorRect/HBoxContainer/VBoxContainer2" unique_id=1327973740 instance=ExtResource("2_klev3")]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer" unique_id=1583632476]
+[node name="MemorialContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer" unique_id=1583632476]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/VBoxContainer" unique_id=1742093655]
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/MemorialContainer" unique_id=1742093655]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="TextureRect" type="TextureRect" parent="ColorRect/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1305028858]
+[node name="TextureRect" type="TextureRect" parent="ColorRect/HBoxContainer/MemorialContainer/HBoxContainer" unique_id=1305028858]
 layout_mode = 2
-texture = ExtResource("3_or7vl")
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_g5ygq")
 
-[node name="Obituary" type="Label" parent="ColorRect/HBoxContainer/VBoxContainer" unique_id=584895590]
+[node name="CanvasLayer" type="CanvasLayer" parent="ColorRect/HBoxContainer/MemorialContainer/HBoxContainer" unique_id=2140602212]
+
+[node name="Obituary" type="Label" parent="ColorRect/HBoxContainer/MemorialContainer" unique_id=584895590]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Dead Goblins"
 label_settings = SubResource("LabelSettings_gigpl")
 
-[node name="Goblins" type="Label" parent="ColorRect/HBoxContainer/VBoxContainer" unique_id=688689329]
+[node name="Goblins" type="Label" parent="ColorRect/HBoxContainer/MemorialContainer" unique_id=688689329]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
-text = "Roberto Maligni
-Sbrunko Brinchini
-Robert Paulsen
+text = "
 
 
 
