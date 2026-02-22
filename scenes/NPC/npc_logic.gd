@@ -1,11 +1,11 @@
 extends Node2D
 
-@export var LOW_MORALE = 200
-@export var HIGH_MORALE = 800
-@export var MAX_MORALE = 1000
-@export var MIN_MORALE = 0
-@export var TIMER_DURATION = 5
-@export var SCARED_TIMER_FACTOR = 2
+@export var LOW_MORALE: int = 200
+@export var HIGH_MORALE: int = 800
+@export var MAX_MORALE: int = 1000
+@export var MIN_MORALE: int = 0
+@export var TIMER_DURATION: int = 5
+@export var SCARED_TIMER_FACTOR: int = 2
 @export var States = {SCARED = -4, WORKING = -2, MOVING = 0, SLACKING = 1}
 var MORALE_NORMALIZER: float = MAX_MORALE
 var Morale: float
@@ -19,41 +19,25 @@ var Morale: float
 # const MEDIUM_MORALE = 50
 # enum States {SCARED = -4, WORKING = -2, MOVING = 0, SLACKING = 1}
 
+const TO_PROFIT_COEFFICIENT: int = 2
+
 var rng = RandomNumberGenerator.new()
 var State: int
 var DesiredState: int
 
-signal change_state
-signal working
-signal slacking
-signal turbo_working
+signal moving
 signal dying
+signal switching
 
 @onready var timer: Timer = $Timer
 
-# TODO: when scared produce more
 
 func _ready() -> void:
 	Morale = MAX_MORALE
 	timer.timeout.connect(_on_timer_timeout)
-	State = States.MOVING
-	DesiredState = States.WORKING
-	change_state.emit(DesiredState)
+	move(States.WORKING)
+	timer.start(0.1)
 
-func print_state(state: int, state_name: String) -> void:
-	match state:
-		States.SCARED:
-			print(state_name, ": SCARED")
-		States.WORKING:
-			print(state_name, ": WORKING")
-		States.MOVING:
-			print(state_name, ": MOVING")
-		States.SLACKING:
-			print(state_name, ": SLACKING")
-
-func debug_state() -> void:
-	print_state(State, "State")
-	print_state(DesiredState, "DesiredState")
 
 func _on_timer_timeout() -> void:
 	print("Timeout! Morale: ", Morale)
@@ -76,7 +60,7 @@ func _on_timer_timeout() -> void:
 		debug_state()
 
 	else:
-		switch_state()
+		roll()
 		print("Rolled new state")
 		debug_state()
 
@@ -87,6 +71,7 @@ func _on_timer_timeout() -> void:
 	var waiting_time = round(TIMER_DURATION * Morale / MORALE_NORMALIZER)
 	# print("Starting timer, expiring in: ", waiting_time, ", not rounded: ", TIMER_DURATION * Morale / MORALE_NORMALIZER)
 	timer.start(waiting_time)
+
 
 func _physics_process(delta: float) -> void:
 	Morale += morale_diff(delta)
@@ -99,37 +84,18 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	# print(Morale)
-	act()
+
 
 func morale_diff(delta: float) -> float:
 	return State * delta
 
+
 func die() -> void:
 	print("Dead")
 	dying.emit(self.get_parent())
-	#queue_free()
 
-func act() -> void:
-	match State:
-		States.SLACKING:
-			slack()
-		States.SCARED:
-			turbo_work()
-		_:
-			work()
 
-# TODO?
-func work() -> void:
-	working.emit(abs(State))
-
-# TODO?
-func slack() -> void:
-	slacking.emit(abs(State))
-
-func turbo_work() -> void:
-	turbo_working.emit(abs(State))
-
-func switch_state() -> void:
+func roll() -> void:
 	if rng.randf() <= 0.5:
 		move_or_continue(States.WORKING)
 		return
@@ -144,18 +110,31 @@ func move_or_continue(desired_state: int) -> void:
 	move(desired_state)
 
 
-func move(desired_state):
+func move(desired_state: int) -> void:
 	timer.stop()
 
 	DesiredState = desired_state
-	change_state.emit(DesiredState)
-	State = States.MOVING
+	update_state(States.MOVING)
+	moving.emit(DesiredState)
+
+
+func to_profit(state: int) -> int:
+	if state < 0:
+		return abs(state) / TO_PROFIT_COEFFICIENT
+	return state - TO_PROFIT_COEFFICIENT
+
+
+func update_state(desired_state: int) -> void:
+	State = desired_state
+	var profit: int = to_profit(desired_state)
+	print("profit: ", profit)
+	switching.emit(profit, self.get_parent())
 
 
 func arrived() -> void:
 	print("arrived!")
 	debug_state()
-	State = DesiredState
+	update_state(DesiredState)
 
 	var waiting_time: int = round(TIMER_DURATION * Morale / MORALE_NORMALIZER)
 
@@ -169,7 +148,24 @@ func arrived() -> void:
 func set_scared() -> void:
 	timer.stop()
 	DesiredState = States.SCARED
-	State = States.SCARED
-	change_state.emit(DesiredState)
+	update_state(States.SCARED)
+	moving.emit(DesiredState)
 	var waiting_time: int = round(TIMER_DURATION * Morale / MORALE_NORMALIZER) * SCARED_TIMER_FACTOR
 	timer.start(waiting_time)
+
+
+func print_state(state: int, state_name: String) -> void:
+	match state:
+		States.SCARED:
+			print(state_name, ": SCARED")
+		States.WORKING:
+			print(state_name, ": WORKING")
+		States.MOVING:
+			print(state_name, ": MOVING")
+		States.SLACKING:
+			print(state_name, ": SLACKING")
+
+
+func debug_state() -> void:
+	print_state(State, "State")
+	print_state(DesiredState, "DesiredState")
