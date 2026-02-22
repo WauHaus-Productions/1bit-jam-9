@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://jj5mr86mb1j2" path="res://scenes/NPC/npc.tscn" id="3_6dete"]
 [ext_resource type="Texture2D" uid="uid://cvwmseaysysll" path="res://asset/CERCHIO CAMERA.png" id="4_6dete"]
 [ext_resource type="Script" uid="uid://bctjjwtu3j7g4" path="res://scenes/GameManager/camera_2d.gd" id="4_rnxwy"]
-[ext_resource type="AudioStream" uid="uid://u8l8aygpfjvs" path="res://asset/music/1bit_jam_music.wav" id="6_762bc"]
+[ext_resource type="AudioStream" uid="uid://bgy3qa8djf5dx" path="res://asset/music/in_game_music.wav" id="6_762bc"]
 [ext_resource type="AudioStream" uid="uid://dtr15pqg2at2t" path="res://asset/sfx/ambient_office.wav" id="7_0elm8"]
 
 [sub_resource type="Gradient" id="Gradient_rnxwy"]
