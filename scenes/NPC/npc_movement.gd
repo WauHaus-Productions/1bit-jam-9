@@ -9,6 +9,7 @@ enum MovementState {NAVIGATION, DRAG, LAUNCH}
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
 @onready var logic: Node2D = $Logic
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var npc_sounds: NewWAUAudioPlayer = $Sounds
 
 var last_mouse_positions: Array[Vector2]
 var mouse_positions_index: int = 0
@@ -26,6 +27,7 @@ func _ready() -> void:
 	# Initialize auxiliary variables
 	last_mouse_positions = Array([], TYPE_VECTOR2, "", null)
 	navigation_agent_2d.navigation_finished.connect(logic.arrived)
+	
 
 func _physics_process(delta: float) -> void:
 	if self.global_position != self.position:
@@ -146,6 +148,8 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 			
 			# Play grabbed animation
 			animated_sprite.play("grabbed")
+			npc_sounds.play_sound_now("SCREAM", true)
+			npc_sounds.play_sound_now("GRAB",false)
 	
 	pass
 

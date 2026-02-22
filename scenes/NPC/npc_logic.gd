@@ -30,6 +30,7 @@ signal dying
 signal switching
 
 @onready var timer: Timer = $Timer
+@onready var sounds: NewWAUAudioPlayer = $"../Sounds"
 
 
 func _ready() -> void:
@@ -125,6 +126,11 @@ func to_profit(state: int) -> int:
 
 
 func update_state(desired_state: int) -> void:
+	if desired_state == States.SCARED:
+		sounds.play_sound_now("WORKING", false)
+	if State == States.SCARED and desired_state != States.SCARED:
+		sounds.stop_sound("WORKING")
+		
 	State = desired_state
 	var profit: int = to_profit(desired_state)
 	print("profit: ", profit)
