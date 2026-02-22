@@ -1,0 +1,20 @@
+[gd_resource type="Theme" format=3 uid="uid://b8mlc3phiwgba"]
+
+[ext_resource type="Texture2D" uid="uid://ccjrjoh60xdpf" path="res://asset/graphic/UI/Lifebar_empty.png" id="1_bmtwi"]
+[ext_resource type="Texture2D" uid="uid://db8jjtft42r6m" path="res://asset/graphic/UI/Lifebar_fill.png" id="2_dfox3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_45avu"]
+texture = ExtResource("1_bmtwi")
+texture_margin_left = 4.67018
+texture_margin_right = 4.3656
+region_rect = Rect2(-0.100338, 0, 93.1003, 9)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ibldd"]
+texture = ExtResource("2_dfox3")
+texture_margin_left = 4.91057
+texture_margin_right = 7.18368
+region_rect = Rect2(0.101831, 0, 92.9974, 9)
+
+[resource]
+ProgressBar/styles/background = SubResource("StyleBoxTexture_45avu")
+ProgressBar/styles/fill = SubResource("StyleBoxTexture_ibldd")

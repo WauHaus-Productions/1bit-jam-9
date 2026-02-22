@@ -5,6 +5,7 @@ enum MovementState {NAVIGATION, DRAG, LAUNCH}
 @export var movement_speed = 50
 @export var launch_deceleration = 0.1
 @export var launch_threshold = 100
+@export var DEBUG: bool = false
 
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
 @onready var logic: Node2D = $Logic
@@ -31,12 +32,12 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if self.global_position != self.position:
-		print('\n\nGLOBAL POSITION ', self.global_position)
-		print('LOCAL POSITION ', self.position)
-		print('\n\n')
+		debug('\n\nGLOBAL POSITION ', self.global_position)
+		debug('LOCAL POSITION ', self.position)
+		debug('\n\n')
 	physics_delta = delta
 	
-	# print("Movement state: ", movement_state)
+	# debug("Movement state: ", movement_state)
 	
 	# Handle launch when dragging and dropping
 	if movement_state == MovementState.LAUNCH:
@@ -93,13 +94,13 @@ func on_velocity_computed(safe_velocity: Vector2):
 func move_to_closest_distraction():
 	var distraction = get_closest_from_group("distraction")
 	if distraction != null:
-		print("found distraction")
+		debug("found distraction")
 		navigation_agent_2d.target_position = distraction.global_position
 	
 func move_to_closest_work():
 	var work_station = get_closest_from_group("work")
 	if work_station != null:
-		print("found work")
+		debug("found work")
 		navigation_agent_2d.target_position = work_station.global_position
 
 func on_moving(state: int):
@@ -117,25 +118,25 @@ func idle_on_finished():
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	# if event is InputEventMouseMotion:
-	#	print("Mouse Motion at: ", event.position)
+	#	debug("Mouse Motion at: ", event.position)
 	# if event is InputEventMouseButton:
-	#	print("Mouse Button Action: ", event.button_index, " at: ", event.position)
-	#	print("Mouse Button Pressed: ", event.pressed)
-	#	print("Mouse Button Double Click: ", event.double_click)
-	#	print("Mouse Button Factor: ", event.factor)
-	#	print("Mouse Button Mask: ", event.button_mask)
-	#	print("Mouse Button Position: ", event.position)
-	#	print("Mouse Button Global Position: ", event.global_position)
+	#	debug("Mouse Button Action: ", event.button_index, " at: ", event.position)
+	#	debug("Mouse Button Pressed: ", event.pressed)
+	#	debug("Mouse Button Double Click: ", event.double_click)
+	#	debug("Mouse Button Factor: ", event.factor)
+	#	debug("Mouse Button Mask: ", event.button_mask)
+	#	debug("Mouse Button Position: ", event.position)
+	#	debug("Mouse Button Global Position: ", event.global_position)
 	# if event is InputEventMouseButton and event.pressed:
 	#	match event.button_index:
 	#		MOUSE_BUTTON_LEFT:
-	#			print("Left mouse button")
+	#			debug("Left mouse button")
 	#		MOUSE_BUTTON_RIGHT:
-	#			print("Right mouse button")
+	#			debug("Right mouse button")
 	#		MOUSE_BUTTON_WHEEL_UP:
-	#			print("Scroll wheel up")
+	#			debug("Scroll wheel up")
 	#		MOUSE_BUTTON_WHEEL_DOWN:
-	#			print("Scroll wheel down")
+	#			debug("Scroll wheel down")
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			# Start dragging the npc
@@ -166,19 +167,24 @@ func _input(event: InputEvent) -> void:
 		
 		velocity = new_velocity * Input.get_last_mouse_velocity().length() # event.screen_velocity
 	elif event is InputEventMouseMotion and movement_state == MovementState.DRAG:
-		print('\n\nMOVEMENT: ')
-		print('event: ',event.global_position)
+		debug('\n\nMOVEMENT: ')
+		debug('event: ', event.global_position)
 
 		# If dragging, move the NPC along with the mouse
 		#global_position = event.global_position - drag_offset
 		self.global_position = get_global_mouse_position() - drag_offset
 		
-		print('goblin global: ', global_position)
-		print('goblin local: ', position)
+		debug('goblin global: ', global_position)
+		debug('goblin local: ', position)
 
 		
-		print('EVENT LOCAL: ', event.position)
+		debug('EVENT LOCAL: ', event.position)
 	# Record mouse positions for launch direction normalization
 	last_mouse_positions.push_back(get_global_mouse_position())
 	if last_mouse_positions.size() > 10:
 		last_mouse_positions.pop_front()
+
+
+func debug(...args) -> void:
+	if DEBUG:
+		print(args)
