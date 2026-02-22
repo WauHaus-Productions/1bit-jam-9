@@ -12,8 +12,9 @@ func _process(delta: float) -> void:
 	pass
 
 func AddGoblins(goblins: Array[String]) -> void:
+	
 	for goblin in goblins:
 		text += goblin + "\n"	
 	text += "\n"
-	
+	print (text)
 	pass

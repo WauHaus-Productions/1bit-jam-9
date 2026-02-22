@@ -18,21 +18,30 @@ extends BaseScene
 @export var npc_counter: int = 10
 @export var DEBUG: bool = false
 
-const NPC_REVENUES = 100
+
+@export var game_over: PackedScene
+
+@export var starting_goal: int = 1000
+@export var year_len_seconds: int = 30
+var current_goal: int
+
+const NPC_REVENUES: int = 100
+const NPC_COST: int = 40
 const DAYS_IN_YEAR = 365
 
 var map_instance
 var spawn_positions
 
-var tot_rooms = 4
-var current_camera_idx = 1
+var tot_rooms: int = 4
+var current_camera_idx: int = 1
 
 
 var total_revenues: float = 0.0
 var elapsed_time := 0.0
 @export var current_fiscal_year : int = 2026
 
-const names: Array[String] = ["Grizzle Profitgrub", "Snark Ledgerfang", "Boggle Spreadsheet", "Krimp Bonusclaw", "Snik KPI-Snatcher", "Murgle Coffeestain", "Zibble Paperjam", "Grint Marginchewer", "Blort Deadlinegnaw", "Skaggy Synergytooth", "Nibwick Microgrind", "Crindle Stocksniff", "Wizzle Cubiclebane", "Throg Expensefang", "Splug Overtimebelch", "Drabble Taskmangler", "Klix Compliancegrime", "Mizzle Workflowrot", "Gorp Staplechewer", "Snibble Budgetbruise", "Kraggy Meetinglurker", "Blim Forecastfumble", "Zonk Assetgnash", "Triggle Slidereviser", "Vorny Timesheetterror", "Glim Auditnibble", "Brakka Breakroomraider", "Sprock Redtapewriggler", "Nurgle Powerpointhex", "Grizzleback Clawculator", "Snaggle Metricsmash", "Plib Shareholdershriek", "Drox Inboxhoarder", "Fizzle Ladderclimb", "Krumble Deskgnarl", "Wretchy Watercoolerspy", "Blix Quarterlyquiver", "Grottin Promotionpounce", "Skibble Faxmachinebane", "Zraggy Corporatecackle"]
+const names: Array[String] = ["Fabio Losavio", "Cristiano Neroni", "Samuele Lo Iacono", "Hakim El Achak", "Vittorio Terzi", "Oscar Pindaro", "Matteo Mangioni", "Margherita Pindaro", "Francesco Maffezzoli", "Enka Lamaj", "Roberto Maligni",
+	"Grizzle Profitgrub", "Snark Ledgerfang", "Boggle Spreadsheet", "Krimp Bonusclaw", "Snik KPI-Snatcher", "Murgle Coffeestain", "Zibble Paperjam", "Grint Marginchewer", "Blort Deadlinegnaw", "Skaggy Synergytooth", "Nibwick Microgrind", "Crindle Stocksniff", "Wizzle Cubiclebane", "Throg Expensefang", "Splug Overtimebelch", "Drabble Taskmangler", "Klix Compliancegrime", "Mizzle Workflowrot", "Gorp Staplechewer", "Snibble Budgetbruise", "Kraggy Meetinglurker", "Blim Forecastfumble", "Zonk Assetgnash", "Triggle Slidereviser", "Vorny Timesheetterror", "Glim Auditnibble", "Brakka Breakroomraider", "Sprock Redtapewriggler", "Nurgle Powerpointhex", "Grizzleback Clawculator", "Snaggle Metricsmash", "Plib Shareholdershriek", "Drox Inboxhoarder", "Fizzle Ladderclimb", "Krumble Deskgnarl", "Wretchy Watercoolerspy", "Blix Quarterlyquiver", "Grottin Promotionpounce", "Skibble Faxmachinebane", "Zraggy Corporatecackle"]
 var active_npcs: Dictionary[String, Node2D] = {}
 
 var working_npcs: int
@@ -72,8 +81,9 @@ func determine_spawn_positions(current_map) -> Array[Vector2i]:
 func update_revenues(delta) -> void:
 	var working_npcs_revenue: float = States.WORKING * working_npcs * NPC_REVENUES * delta
 	var scared_npcs_revenue: float = States.SCARED * scared_npcs * NPC_REVENUES * delta
-
-	self.total_revenues += working_npcs_revenue + scared_npcs_revenue
+	var costs: float = active_npcs.size() * NPC_COST * delta
+	# print("working_npcs_revenue ", working_npcs_revenue, ", scared_npcs_revenue ", scared_npcs_revenue, ", costs", costs)
+	self.total_revenues += working_npcs_revenue + scared_npcs_revenue - costs
 
 
 func get_available_name() -> String:
@@ -110,6 +120,8 @@ func update_date_display():
 	date_label.text = "%02d/%02d/%04d" % [date.day, date.month, current_fiscal_year ]
 	
 func _ready() -> void:
+	current_goal = starting_goal
+	
 	# SET RANDOMIZER
 	randomize()
 	
@@ -138,7 +150,11 @@ func _ready() -> void:
 	# START BG MUSIC
 	bg_music.play()
 	bg_office_sound.play()
-
+	
+	#START YEAR TIMER
+	$DayTimer.wait_time = year_len_seconds
+	$DayTimer.start()
+	
 
 func spawn_npc(spawnable_positions) -> void:
 	var npc_name = get_available_name()
@@ -269,3 +285,17 @@ func _on_change_state(new_action_enum: int, emitting_npc: Node2D, old_action: in
 func debug(...args) -> void:
 	if DEBUG:
 		print(args)
+		
+func _on_day_end():
+	print("DAY END")
+	print("memorial: ", memorial)
+	if (total_revenues >= current_goal):
+		current_goal = roundi(total_revenues * 1.25)
+		pass
+	else:
+		emit_signal("next_scene", game_over, _construct_memorial)
+		pass
+	
+func _construct_memorial(endScene: DeathEndScene):
+	endScene.goblins.append_array(memorial)
+	pass

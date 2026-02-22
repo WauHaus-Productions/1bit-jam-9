@@ -90,7 +90,7 @@ radius = 9.848858
 script = ExtResource("8_1oaw6")
 track_name = "GRAB"
 track_file = ExtResource("9_x3px2")
-volume_db = 3.0
+volume_db = -8.0
 bus = "SFX"
 metadata/_custom_type_script = "uid://dr5yhyxqxkigf"
 
@@ -129,6 +129,7 @@ script = ExtResource("1_23nos")
 [node name="Logic" type="Node2D" parent="." unique_id=1453357300]
 script = ExtResource("2_23nos")
 HIGH_MORALE = 990
+MAX_MORALE = 50
 
 [node name="Timer" type="Timer" parent="Logic" unique_id=570559202]
 one_shot = true

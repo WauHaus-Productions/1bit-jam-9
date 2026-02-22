@@ -11,7 +11,7 @@ var paused = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_on_next_scene(first_scene)
+	_on_next_scene(first_scene, _default_constructor)
 	pass # Replace with function body.
 
 
@@ -19,16 +19,21 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func _on_next_scene(game_scene: PackedScene) -> void:
+func _on_next_scene(game_scene: PackedScene, constructor: Callable) -> void:
 	var instance
 	print(game_scene)
 	if game_scene != null:
 		instance = game_scene.instantiate()
+		print("Scene pre ctor: ",instance)
+		#if(constructor != null):
+			#constructor.call(instance)
 	else:
 		instance = first_scene.instantiate()
+		print("Load Default Scene: ",instance)
 	
-	
+	print("Scene post ctor: ",instance)
 	instance.next_scene.connect(_on_next_scene)	
+	print("Scene post connect: ",instance)
 	
 	#get_tree().change_scene_to(instance)	
 	var activeScenes = get_children()
@@ -50,6 +55,8 @@ func _on_next_scene(game_scene: PackedScene) -> void:
 	
 	add_child(instance)
 	
+func _default_constructor(scene):
+	pass
 	
 func _switch_settings():
 	emit_signal("settings_switched")
