@@ -7,6 +7,7 @@ extends Node2D
 @export var TIMER_DURATION: int = 5
 @export var SCARED_TIMER_FACTOR: int = 2
 @export var States = {SCARED = -4, WORKING = -2, MOVING = 0, SLACKING = 1}
+@export var DEBUG: bool = false
 var MORALE_NORMALIZER: float = MAX_MORALE
 var Morale: float
 # @export var MORALE_DEGRADATION_PER_SEC = 5
@@ -40,28 +41,28 @@ func _ready() -> void:
 
 
 func _on_timer_timeout() -> void:
-	print("Timeout! Morale: ", Morale)
+	debug("Timeout! Morale: ", Morale)
 	debug_state()
 	if State == States.SLACKING and Morale < MAX_MORALE:
-		# print("Slacking with morale: ", Morale)
+		# debug("Slacking with morale: ", Morale)
 		timer.start(TIMER_DURATION)
 		return
 
 	if Morale >= HIGH_MORALE:
-		print("Working morale")
+		debug("Working morale")
 		move_or_continue(States.WORKING)
-		print("Finished move_or_continue")
+		debug("Finished move_or_continue")
 		debug_state()
 
 	elif Morale <= LOW_MORALE:
-		print("Slacking morale")
+		debug("Slacking morale")
 		move_or_continue(States.SLACKING)
-		print("Finished move_or_continue")
+		debug("Finished move_or_continue")
 		debug_state()
 
 	else:
 		roll()
-		print("Rolled new state")
+		debug("Rolled new state")
 		debug_state()
 
 	# Do not set timer until reaching dest
@@ -69,7 +70,7 @@ func _on_timer_timeout() -> void:
 		return
 
 	var waiting_time = round(TIMER_DURATION * Morale / MORALE_NORMALIZER)
-	# print("Starting timer, expiring in: ", waiting_time, ", not rounded: ", TIMER_DURATION * Morale / MORALE_NORMALIZER)
+	# debug("Starting timer, expiring in: ", waiting_time, ", not rounded: ", TIMER_DURATION * Morale / MORALE_NORMALIZER)
 	timer.start(waiting_time)
 
 
@@ -83,7 +84,7 @@ func _physics_process(delta: float) -> void:
 		die()
 		return
 	
-	# print(Morale)
+	# debug(Morale)
 
 
 func morale_diff(delta: float) -> float:
@@ -91,8 +92,8 @@ func morale_diff(delta: float) -> float:
 
 
 func die() -> void:
-	print("Dead")
-	dying.emit(self.get_parent())
+	debug("Dead")
+	dying.emit(self.get_parent(), to_profit(State))
 
 
 func roll() -> void:
@@ -125,14 +126,15 @@ func to_profit(state: int) -> int:
 
 
 func update_state(desired_state: int) -> void:
-	State = desired_state
+	var old_profit: int = to_profit(State)
 	var profit: int = to_profit(desired_state)
-	print("profit: ", profit)
-	switching.emit(profit, self.get_parent())
+	debug("profit: ", profit)
+	switching.emit(profit, self.get_parent(), old_profit)
+	State = desired_state
 
 
 func arrived() -> void:
-	print("arrived!")
+	debug("arrived!")
 	debug_state()
 	update_state(DesiredState)
 
@@ -141,7 +143,7 @@ func arrived() -> void:
 	if State == States.SCARED:
 		waiting_time *= SCARED_TIMER_FACTOR
 	
-	print("restarting timer, expiring in: ", waiting_time)
+	debug("restarting timer, expiring in: ", waiting_time)
 	timer.start(waiting_time)
 
 
@@ -157,15 +159,20 @@ func set_scared() -> void:
 func print_state(state: int, state_name: String) -> void:
 	match state:
 		States.SCARED:
-			print(state_name, ": SCARED")
+			debug(state_name, ": SCARED")
 		States.WORKING:
-			print(state_name, ": WORKING")
+			debug(state_name, ": WORKING")
 		States.MOVING:
-			print(state_name, ": MOVING")
+			debug(state_name, ": MOVING")
 		States.SLACKING:
-			print(state_name, ": SLACKING")
+			debug(state_name, ": SLACKING")
 
 
 func debug_state() -> void:
 	print_state(State, "State")
 	print_state(DesiredState, "DesiredState")
+
+
+func debug(...args) -> void:
+	if DEBUG:
+		print(args)
