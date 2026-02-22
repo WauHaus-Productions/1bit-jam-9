@@ -90,7 +90,7 @@ radius = 9.848858
 script = ExtResource("8_1oaw6")
 track_name = "GRAB"
 track_file = ExtResource("9_x3px2")
-volume_db = 3.0
+volume_db = -8.0
 bus = "SFX"
 metadata/_custom_type_script = "uid://dr5yhyxqxkigf"
 

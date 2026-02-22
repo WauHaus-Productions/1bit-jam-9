@@ -98,11 +98,12 @@ text = "Camera 1"
 
 [node name="BGMusic" type="AudioStreamPlayer" parent="." unique_id=1789639114]
 stream = ExtResource("6_762bc")
+volume_db = -4.0
 bus = &"Music"
 
 [node name="BGOfficeSound" type="AudioStreamPlayer" parent="." unique_id=529051722]
 stream = ExtResource("7_0elm8")
-volume_db = -24.0
+volume_db = -16.0
 bus = &"Music"
 
 [connection signal="timeout" from="DayTimer" to="." method="_on_day_end"]
