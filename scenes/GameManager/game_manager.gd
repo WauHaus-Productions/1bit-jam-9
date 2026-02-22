@@ -9,7 +9,7 @@ extends BaseScene
 @onready var bg_office_sound: AudioStreamPlayer = $BGOfficeSound
 
 @export var npc_counter: int = 10
-@export var DEBUG: bool = true
+@export var DEBUG: bool = false
 
 #TO CHANGE
 const NPC_REVENUES = 100
