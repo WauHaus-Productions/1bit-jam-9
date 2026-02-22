@@ -20,7 +20,7 @@ func _ready() -> void:
 	# Connect callbacks to signals
 	navigation_agent_2d.velocity_computed.connect(on_velocity_computed)
 	navigation_agent_2d.navigation_finished.connect(idle_on_finished)
-	logic.change_state.connect(on_state_changed)
+	logic.moving.connect(on_moving)
 	input_event.connect(_on_input_event)
 	
 	# Initialize auxiliary variables
@@ -96,7 +96,7 @@ func move_to_closest_work():
 		print("found work")
 		navigation_agent_2d.target_position = work_station.global_position
 
-func on_state_changed(state: int):
+func on_moving(state: int):
 	if state == logic.States.SLACKING:
 		move_to_closest_distraction()
 	elif state == logic.States.WORKING or state == logic.States.SCARED:
