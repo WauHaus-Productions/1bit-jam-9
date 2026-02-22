@@ -29,8 +29,8 @@ npc = ExtResource("3_6dete")
 pointer = ExtResource("4_54rdg")
 npc_counter = 4
 game_over = ExtResource("5_0elm8")
-starting_goal = 10
-year_len_seconds = 10
+starting_goal = 100
+year_len_seconds = 15
 
 [node name="bg" type="TextureRect" parent="." unique_id=1363100593]
 z_index = -1
@@ -48,6 +48,10 @@ size_flags_vertical = 3
 texture = SubResource("GradientTexture2D_762bc")
 
 [node name="DayTimer" type="Timer" parent="." unique_id=834968016]
+
+[node name="PopoupTimer" type="Timer" parent="." unique_id=2027662461]
+wait_time = 2.0
+one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1635203694]
 z_index = 10
@@ -125,3 +129,4 @@ wait_time = 20.0
 autostart = true
 
 [connection signal="timeout" from="DayTimer" to="." method="_on_day_end"]
+[connection signal="timeout" from="PopoupTimer" to="." method="_on_popoup_timer_timeout"]
