@@ -49,7 +49,8 @@ func _physics_process(delta: float) -> void:
 			
 			# Force path recomputation
 			if !navigation_agent_2d.is_navigation_finished():
-				navigation_agent_2d.target_position = navigation_agent_2d.get_final_position()
+				# navigation_agent_2d.target_position = navigation_agent_2d.get_final_position()
+				move_to_closest_work()
 	
 	# If not in navigation state / not having a target, stop
 	if movement_state != MovementState.NAVIGATION or navigation_agent_2d.is_navigation_finished():
@@ -72,6 +73,7 @@ func _physics_process(delta: float) -> void:
 		animated_sprite.flip_h = false
 	
 	move_and_slide()
+
 
 func get_closest_from_group(group: StringName):
 	var min_dist = 0
@@ -137,22 +139,25 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	#			debug("Scroll wheel up")
 	#		MOUSE_BUTTON_WHEEL_DOWN:
 	#			debug("Scroll wheel down")
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			# Start dragging the npc
-			movement_state = MovementState.DRAG
-			velocity = Vector2(0, 0)
-			drag_offset = get_global_mouse_position() - global_position
-			
-			# Set state to MOVING and then SCARED when arrived
-			logic.move(logic.States.SCARED)
-			
-			# Play grabbed animation
-			animated_sprite.play("grabbed")
-			npc_sounds.play_sound_now("SCREAM", true)
-			npc_sounds.play_sound_now("GRAB",false)
+	if event is not InputEventMouseButton:
+		return
+
+	if not (event.button_index == MOUSE_BUTTON_LEFT and event.pressed):
+		return
+
+	# Start dragging the npc
+	movement_state = MovementState.DRAG
+	velocity = Vector2(0, 0)
+	drag_offset = get_global_mouse_position() - global_position
 	
-	pass
+	# Set state to MOVING and then SCARED when arrived
+	logic.move(logic.States.SCARED)
+	
+	# Play grabbed animation
+	animated_sprite.play("grabbed")
+	npc_sounds.play_sound_now("SCREAM", true)
+	npc_sounds.play_sound_now("GRAB", false)
+
 
 func _input(event: InputEvent) -> void:
 	# If drag released, go to LAUNCH state
