@@ -5,6 +5,16 @@
 [ext_resource type="Texture2D" uid="uid://x4dfmeeny4jb" path="res://asset/GOB grabbed ANIM-Sheet.png" id="3_c4wbl"]
 [ext_resource type="Texture2D" uid="uid://ce7hycx74fgmc" path="res://asset/GOB IDLE ANIM-Sheet.png" id="3_lwet7"]
 [ext_resource type="Texture2D" uid="uid://busfxg6pdjuvc" path="res://asset/GOB WALK ANIM-Sheet.png" id="5_5fqau"]
+[ext_resource type="Script" uid="uid://nu032d1rd74y" path="res://libs/wautools/WAUAudioPlayer/sounds.gd" id="6_sdgcv"]
+[ext_resource type="Script" uid="uid://cmunb81jesp2d" path="res://libs/wautools/WAUAudioPlayer/audio_tracks.gd" id="7_osodb"]
+[ext_resource type="Script" uid="uid://dr5yhyxqxkigf" path="res://libs/wautools/WAUAudioPlayer/audio_track.gd" id="8_1oaw6"]
+[ext_resource type="AudioStream" uid="uid://d1yhwugloytba" path="res://asset/sfx/grab.wav" id="9_x3px2"]
+[ext_resource type="AudioStream" uid="uid://ds6o3hua6nkn2" path="res://asset/sfx/scream/scream1.wav" id="10_084ff"]
+[ext_resource type="AudioStream" uid="uid://byfj7l57xnppm" path="res://asset/sfx/scream/scream2.wav" id="11_2ydom"]
+[ext_resource type="AudioStream" uid="uid://dnspv3vda8sf4" path="res://asset/sfx/scream/scream3.wav" id="12_qphst"]
+[ext_resource type="AudioStream" uid="uid://b8duwc4gr1wo" path="res://asset/sfx/scream/scream4.wav" id="13_awvm7"]
+[ext_resource type="AudioStream" uid="uid://cs4ja7ipplhqj" path="res://asset/sfx/scream/scream5.wav" id="14_jo1ro"]
+[ext_resource type="AudioStream" uid="uid://qhfc1tlg63et" path="res://asset/sfx/keyboard_typing.wav" id="15_2ydom"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aanyv"]
 atlas = ExtResource("3_c4wbl")
@@ -76,6 +86,42 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_v5vlc"]
 radius = 14.0
 
+[sub_resource type="Resource" id="Resource_q836e"]
+script = ExtResource("8_1oaw6")
+track_name = "GRAB"
+track_file = ExtResource("9_x3px2")
+volume_db = 3.0
+bus = "SFX"
+metadata/_custom_type_script = "uid://dr5yhyxqxkigf"
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_d0qtp"]
+streams_count = 5
+stream_0/stream = ExtResource("10_084ff")
+stream_1/stream = ExtResource("11_2ydom")
+stream_2/stream = ExtResource("12_qphst")
+stream_3/stream = ExtResource("13_awvm7")
+stream_4/stream = ExtResource("14_jo1ro")
+stream_4/weight = 0.1
+
+[sub_resource type="Resource" id="Resource_6sgsd"]
+script = ExtResource("8_1oaw6")
+track_name = "SCREAM"
+track_file = SubResource("AudioStreamRandomizer_d0qtp")
+bus = "SFX"
+metadata/_custom_type_script = "uid://dr5yhyxqxkigf"
+
+[sub_resource type="Resource" id="Resource_qphst"]
+script = ExtResource("8_1oaw6")
+track_name = "WORKING"
+track_file = ExtResource("15_2ydom")
+bus = "SFX"
+metadata/_custom_type_script = "uid://dr5yhyxqxkigf"
+
+[sub_resource type="Resource" id="Resource_084ff"]
+script = ExtResource("7_osodb")
+sounds = Array[ExtResource("8_1oaw6")]([SubResource("Resource_q836e"), SubResource("Resource_6sgsd"), SubResource("Resource_qphst")])
+metadata/_custom_type_script = "uid://cmunb81jesp2d"
+
 [node name="NPC" type="CharacterBody2D" unique_id=1168664165]
 input_pickable = true
 script = ExtResource("1_23nos")
@@ -97,10 +143,16 @@ frame_progress = 0.2726113
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=286659314]
 shape = SubResource("CircleShape2D_v5vlc")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1695151424]
-
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1723642565]
 path_postprocessing = 1
 avoidance_enabled = true
 debug_enabled = true
 debug_path_custom_color = Color(1, 0, 0, 1)
+
+[node name="Sounds" type="AudioStreamPlayer2D" parent="." unique_id=1135687681]
+max_distance = 3000.0
+attenuation = 0.0
+bus = &"SFX"
+script = ExtResource("6_sdgcv")
+sound_collection = SubResource("Resource_084ff")
+metadata/_custom_type_script = "uid://nu032d1rd74y"

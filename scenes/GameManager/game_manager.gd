@@ -5,8 +5,12 @@ extends Node
 @onready var camera = $Camera2D
 @onready var revenue_ui = $Camera2D/Revenue
 
+@onready var bg_music = $BGMusic
+@onready var bg_office_sound: AudioStreamPlayer = $BGOfficeSound
+
 @export var npc_counter: int = 10
 @export var DEBUG: bool = true
+
 #TO CHANGE
 const NPC_REVENUES = 100
 
@@ -80,7 +84,6 @@ func _ready() -> void:
 	map_instance.global_position = Vector2(0, 0)
 	add_child(map_instance)
 	
-
 	# GET SPAWNABLE POSITIONS
 	var spawnable_positions = determine_spawn_positions(map_instance)
 	
@@ -109,18 +112,32 @@ func _ready() -> void:
 	# working_npcs = active_npcs.duplicate()
 	# slacking_npcs = {}
 	
+	# SET CAMERA ON FIRST ROOM
 	var camera_marker = map_instance.get_node("Cameras/Stanza1")
 	camera.global_position = camera_marker.global_position
+	
+	# START BG MUSIC
+	bg_music.play()
+	bg_office_sound.play()
+	
 
 func change_camera(direction):
-	if direction == "foreward" and current_camera_idx < tot_rooms:
-		current_camera_idx += 1
+	if direction == "foreward":
+		if current_camera_idx == tot_rooms:
+			current_camera_idx = 1
+		else:
+			current_camera_idx += 1
+			
 		var camera_name = "Cameras/Stanza" + str(current_camera_idx)
 		var camera_marker = map_instance.get_node(camera_name)
 		camera.global_position = camera_marker.global_position
 		
-	elif direction == "backwards" and current_camera_idx != 1:
-		current_camera_idx -= 1
+	elif direction == "backwards":
+		if current_camera_idx == 1:
+			current_camera_idx = tot_rooms
+		else:
+			current_camera_idx -= 1
+			
 		var camera_name = "Cameras/Stanza" + str(current_camera_idx)
 		var camera_marker = map_instance.get_node(camera_name)
 		camera.global_position = camera_marker.global_position
@@ -136,11 +153,9 @@ func _process(delta: float) -> void:
 		debug(memorial)
 	
 	if Input.is_action_just_pressed("camera_fwd"):
-		debug("Camera Foreward")
 		change_camera("foreward")
 		
 	if Input.is_action_just_pressed("camera_bwd"):
-		debug("Camera Backwards")
 		change_camera("backwards")
 		
 
