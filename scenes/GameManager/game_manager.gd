@@ -10,7 +10,7 @@ extends BaseScene
 @onready var goblin_counter: Label = $Camera2D/GameOverlay/GoblinCounter
 @onready var goal_label: Label = $Camera2D/GameOverlay/Goal
 
-@onready var fiscal_year_timer: Timer = $Timer
+@onready var fiscal_year_timer: Timer = $DayTimer
 
 
 @onready var bg_music = $BGMusic
@@ -107,6 +107,9 @@ func day_to_date(day: int) -> Dictionary:
 		if month == 12:
 			debug('Fine Anno Fiscale')
 			month = 0
+			current_fiscal_year += 1
+			elapsed_time = 0.0
+			# day = 0
 		
 
 	return {
@@ -306,6 +309,8 @@ func _on_day_end():
 	if (total_revenues >= current_goal):
 		current_goal = roundi(total_revenues * 1.25)
 		goal_label.text = str(current_goal)
+		total_revenues = 0.0
+		hire_npc()
 		pass
 	else:
 		emit_signal("next_scene", game_over, _construct_memorial)

@@ -1,8 +1,8 @@
 extends Node2D
 
 # @export var LOW_MORALE: int = 200
-@export var HIGH_MORALE: int = 800
-@export var MAX_MORALE: int = 1000
+@export var HIGH_MORALE: int = 40
+@export var MAX_MORALE: int = 50
 @export var MIN_MORALE: int = 0
 @export var TIMER_DURATION: int = 5
 @export var SCARED_TIMER_FACTOR: int = 2
