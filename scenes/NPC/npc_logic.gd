@@ -132,7 +132,6 @@ func update_state(desired_state: int) -> void:
 	if State == States.SCARED and desired_state != States.SCARED:
 		sounds.stop_sound("WORKING")
 		
-	State = desired_state
 	var old_profit: int = to_profit(State)
 	var profit: int = to_profit(desired_state)
 	debug("profit: ", profit)
