@@ -8,6 +8,7 @@ extends BaseScene
 @onready var revenue_ui = $Camera2D/GameOverlay/Revenue
 @onready var date_label: Label = $Camera2D/GameOverlay/Date
 @onready var goblin_counter: Label = $Camera2D/GameOverlay/GoblinCounter
+@onready var goal_label: Label = $Camera2D/GameOverlay/Goal
 
 @onready var fiscal_year_timer: Timer = $Timer
 
@@ -121,6 +122,7 @@ func update_date_display():
 	
 func _ready() -> void:
 	current_goal = starting_goal
+	goal_label.text = str(current_goal)
 	
 	# SET RANDOMIZER
 	randomize()
@@ -303,6 +305,7 @@ func _on_day_end():
 	debug("memorial: ", memorial)
 	if (total_revenues >= current_goal):
 		current_goal = roundi(total_revenues * 1.25)
+		goal_label.text = str(current_goal)
 		pass
 	else:
 		emit_signal("next_scene", game_over, _construct_memorial)
