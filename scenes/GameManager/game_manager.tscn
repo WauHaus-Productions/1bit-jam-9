@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://7eq111y05lyv"]
 
 [ext_resource type="Script" uid="uid://da3amk2k58q4" path="res://scenes/GameManager/game_manager.gd" id="1_u01m6"]
-[ext_resource type="PackedScene" path="res://scenes/Map/MapWithRooms.tscn" id="2_rnxwy"]
+[ext_resource type="PackedScene" uid="uid://bhp5smk7p3fxt" path="res://scenes/Map/MapWithRooms.tscn" id="2_rnxwy"]
 [ext_resource type="PackedScene" uid="uid://jj5mr86mb1j2" path="res://scenes/NPC/npc.tscn" id="3_6dete"]
 [ext_resource type="Texture2D" uid="uid://cvwmseaysysll" path="res://asset/CERCHIO CAMERA.png" id="4_6dete"]
+[ext_resource type="PackedScene" uid="uid://bxpkppq5hc6jh" path="res://scenes/Pointer/Pointer.tscn" id="4_54rdg"]
 [ext_resource type="Script" uid="uid://bctjjwtu3j7g4" path="res://scenes/GameManager/camera_2d.gd" id="4_rnxwy"]
+[ext_resource type="PackedScene" uid="uid://d1trr70s1rx24" path="res://scenes/GameOverlay/GameOverlay.tscn" id="5_cxpcv"]
 [ext_resource type="AudioStream" uid="uid://bgy3qa8djf5dx" path="res://asset/music/in_game_music.wav" id="6_762bc"]
 [ext_resource type="AudioStream" uid="uid://dtr15pqg2at2t" path="res://asset/sfx/ambient_office.wav" id="7_0elm8"]
 
@@ -12,8 +14,8 @@
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_762bc"]
 gradient = SubResource("Gradient_rnxwy")
-width = 1280
-height = 720
+width = 4000
+height = 4000
 fill_from = Vector2(1, 0)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rx0ki"]
@@ -23,6 +25,7 @@ load_path = "res://.godot/imported/CAMERA 2.png-5ebe738a2469f474002655edb1a00faa
 script = ExtResource("1_u01m6")
 map = ExtResource("2_rnxwy")
 npc = ExtResource("3_6dete")
+pointer = ExtResource("4_54rdg")
 npc_counter = 4
 
 [node name="bg" type="TextureRect" parent="." unique_id=1363100593]
@@ -30,25 +33,34 @@ z_index = -1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 640.00006
-offset_top = 304.00003
-offset_right = 640.00006
-offset_bottom = 304.00003
+offset_left = -1296.0
+offset_top = -1128.0
+offset_right = 2704.0
+offset_bottom = 2872.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(8.225658, 10.5136795)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = SubResource("GradientTexture2D_762bc")
-expand_mode = 1
-stretch_mode = 3
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1635203694]
 z_index = 10
-scale = Vector2(1, 1.0098886)
 zoom = Vector2(2, 2)
 script = ExtResource("4_rnxwy")
 blink_time_sec = 1.0
+
+[node name="GameOverlay" parent="Camera2D" unique_id=822853487 instance=ExtResource("5_cxpcv")]
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="TextureRect" type="TextureRect" parent="Camera2D" unique_id=2112432843]
 visible = false
@@ -68,6 +80,7 @@ texture = SubResource("CompressedTexture2D_rx0ki")
 stretch_mode = 1
 
 [node name="Revenue" type="Label" parent="Camera2D" unique_id=211674]
+visible = false
 z_index = 10
 offset_left = -17.0
 offset_top = -147.54108

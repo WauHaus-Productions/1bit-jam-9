@@ -2,6 +2,8 @@ extends BaseScene
 
 @export var map: PackedScene
 @export var npc: PackedScene
+@export var pointer: PackedScene
+
 @onready var camera = $Camera2D
 @onready var revenue_ui = $Camera2D/Revenue
 
@@ -79,6 +81,10 @@ func _ready() -> void:
 	# SET RANDOMIZER
 	randomize()
 	
+	# ACTIVATE POINTER
+	var pointer_instance = pointer.instantiate()
+	add_child(pointer_instance)
+	
 	# SPAWN MAP
 	map_instance = map.instantiate()
 	map_instance.global_position = Vector2(0, 0)
@@ -115,6 +121,7 @@ func _ready() -> void:
 	# SET CAMERA ON FIRST ROOM
 	var camera_marker = map_instance.get_node("Cameras/Stanza1")
 	camera.global_position = camera_marker.global_position
+	camera.align_camera_and_overlay()
 	
 	# START BG MUSIC
 	bg_music.play()
@@ -131,6 +138,7 @@ func change_camera(direction):
 		var camera_name = "Cameras/Stanza" + str(current_camera_idx)
 		var camera_marker = map_instance.get_node(camera_name)
 		camera.global_position = camera_marker.global_position
+		camera.change_camera_name("Camera " + str(current_camera_idx))
 		
 	elif direction == "backwards":
 		if current_camera_idx == 1:

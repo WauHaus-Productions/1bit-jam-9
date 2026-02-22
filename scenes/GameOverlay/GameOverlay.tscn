@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://d1trr70s1rx24"]
+
+[ext_resource type="Texture2D" uid="uid://djkse20ag5myv" path="res://asset/CAMERA 2.png" id="1_7uupd"]
+[ext_resource type="Texture2D" uid="uid://cvwmseaysysll" path="res://asset/CERCHIO CAMERA.png" id="2_b2dvm"]
+[ext_resource type="FontFile" uid="uid://bi75vtx1r5ccy" path="res://asset/UI/font/Limelight/Limelight-Regular.ttf" id="2_l6you"]
+[ext_resource type="FontFile" uid="uid://cd5x1j2x82g48" path="res://asset/UI/font/seaside-resort/SeasideResortNF.ttf" id="3_3guqj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qo4ws"]
+font = ExtResource("2_l6you")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_l6you"]
+font = ExtResource("3_3guqj")
+font_size = 24
+
+[node name="GameOverlay" type="Control" unique_id=822853487]
+z_index = 20
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1280.0
+offset_top = -720.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1561907598]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_7uupd")
+
+[node name="Revenue" type="Label" parent="." unique_id=500208157]
+z_index = 10
+layout_mode = 0
+offset_left = 512.0
+offset_top = 64.0
+offset_right = 832.0
+offset_bottom = 94.0
+text = "0"
+label_settings = SubResource("LabelSettings_qo4ws")
+horizontal_alignment = 2
+
+[node name="Goal" type="Label" parent="." unique_id=1407071973]
+z_index = 10
+layout_mode = 0
+offset_left = 832.0
+offset_top = 64.0
+offset_right = 1152.0
+offset_bottom = 94.0
+text = "2000"
+label_settings = SubResource("LabelSettings_qo4ws")
+horizontal_alignment = 2
+
+[node name="Rec" type="Sprite2D" parent="." unique_id=527030617]
+position = Vector2(124.75001, 644)
+scale = Vector2(4, 4)
+texture = ExtResource("2_b2dvm")
+
+[node name="Camera" type="Label" parent="." unique_id=2119905708]
+z_index = 10
+layout_mode = 0
+offset_left = 144.0
+offset_top = 626.0
+offset_right = 240.0
+offset_bottom = 652.0
+text = "Camera 1"
+label_settings = SubResource("LabelSettings_l6you")
