@@ -28,6 +28,10 @@ func _ready() -> void:
 	navigation_agent_2d.navigation_finished.connect(logic.arrived)
 
 func _physics_process(delta: float) -> void:
+	if self.global_position != self.position:
+		print('\n\nGLOBAL POSITION ', self.global_position)
+		print('LOCAL POSITION ', self.position)
+		print('\n\n')
 	physics_delta = delta
 	
 	# print("Movement state: ", movement_state)
@@ -158,9 +162,18 @@ func _input(event: InputEvent) -> void:
 		
 		velocity = new_velocity * Input.get_last_mouse_velocity().length() # event.screen_velocity
 	elif event is InputEventMouseMotion and movement_state == MovementState.DRAG:
+		print('\n\nMOVEMENT: ')
+		print('event: ',event.global_position)
+
 		# If dragging, move the NPC along with the mouse
-		global_position = event.position - drag_offset
-	
+		#global_position = event.global_position - drag_offset
+		self.global_position = get_global_mouse_position() - drag_offset
+		
+		print('goblin global: ', global_position)
+		print('goblin local: ', position)
+
+		
+		print('EVENT LOCAL: ', event.position)
 	# Record mouse positions for launch direction normalization
 	last_mouse_positions.push_back(get_global_mouse_position())
 	if last_mouse_positions.size() > 10:

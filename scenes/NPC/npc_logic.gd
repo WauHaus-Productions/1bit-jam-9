@@ -128,7 +128,7 @@ func update_state(desired_state: int) -> void:
 	State = desired_state
 	var profit: int = to_profit(desired_state)
 	print("profit: ", profit)
-	switching.emit(profit)
+	switching.emit(profit, self.get_parent())
 
 
 func arrived() -> void:
