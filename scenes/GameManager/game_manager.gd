@@ -11,7 +11,7 @@ extends BaseScene
 @onready var bg_office_sound: AudioStreamPlayer = $BGOfficeSound
 
 @export var npc_counter: int = 10
-@export var DEBUG: bool = true
+@export var DEBUG: bool = false
 
 #TO CHANGE
 const NPC_REVENUES = 100
@@ -30,8 +30,6 @@ var active_npcs: Dictionary[String, Node2D] = {}
 
 var working_npcs: int
 var scared_npcs: int
-# var working_npcs: Dictionary[String, Node2D] = {}
-# var slacking_npcs: Dictionary[String, Node2D] = {}
 
 var memorial: Array[String] = []
 
@@ -95,28 +93,8 @@ func _ready() -> void:
 	
 	# SPAWN NPCs
 	for n in npc_counter:
-		var npc_name = get_available_name()
-		debug("Spawning Goblin ", npc_name)
-		var new_npc = npc.instantiate()
+		spawn_npc(spawnable_positions)
 		
-		var random_spawn_position = spawnable_positions.pick_random()
-		spawnable_positions.erase(random_spawn_position)
-		
-		new_npc.global_position = random_spawn_position
-		debug("in position ", random_spawn_position)
-		new_npc.name = npc_name
-		
-		# SUBSCRIBE TO SIGNALS
-		new_npc.get_node("Logic").switching.connect(_on_change_state)
-		new_npc.get_node("Logic").dying.connect(_on_death)
-		
-		active_npcs[npc_name] = new_npc
-		
-		map_instance.add_child(new_npc)
-		
-	# SET WORKING AND SLACKING NPCs
-	# working_npcs = active_npcs.duplicate()
-	# slacking_npcs = {}
 	
 	# SET CAMERA ON FIRST ROOM
 	var camera_marker = map_instance.get_node("Cameras/Stanza1")
@@ -126,7 +104,32 @@ func _ready() -> void:
 	# START BG MUSIC
 	bg_music.play()
 	bg_office_sound.play()
+
+
+func spawn_npc(spawnable_positions) -> void:
+	var npc_name = get_available_name()
+	debug("Spawning Goblin ", npc_name)
+	var new_npc = npc.instantiate()
 	
+	var random_spawn_position = spawnable_positions.pick_random()
+	spawnable_positions.erase(random_spawn_position)
+	
+	new_npc.global_position = random_spawn_position
+	debug("in position ", random_spawn_position)
+	new_npc.name = npc_name
+	
+	# SUBSCRIBE TO SIGNALS
+	new_npc.get_node("Logic").switching.connect(_on_change_state)
+	new_npc.get_node("Logic").dying.connect(_on_death)
+	
+	active_npcs[npc_name] = new_npc
+	
+	map_instance.add_child(new_npc)
+
+
+func hire_npc() -> void:
+	var spawnable_positions = determine_spawn_positions(map_instance)
+	spawn_npc(spawnable_positions)
 
 func change_camera(direction):
 	if direction == "foreward":
@@ -165,7 +168,10 @@ func _process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("camera_bwd"):
 		change_camera("backwards")
-		
+
+	if Input.is_action_just_pressed("Hire"):
+		hire_npc()
+
 
 func _on_death(dying_npc: Node2D, state: int) -> void:
 	var dying_name = active_npcs.find_key(dying_npc)
