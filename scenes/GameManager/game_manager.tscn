@@ -112,3 +112,7 @@ bus = &"Music"
 stream = ExtResource("7_0elm8")
 volume_db = -24.0
 bus = &"Music"
+
+[node name="Timer" type="Timer" parent="." unique_id=2080231706]
+wait_time = 20.0
+autostart = true

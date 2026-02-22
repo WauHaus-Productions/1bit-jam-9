@@ -350,13 +350,13 @@ shape = SubResource("CircleShape2D_hb1in")
 [node name="Cameras" type="Node2D" parent="." unique_id=1304158656]
 
 [node name="Stanza1" type="Marker2D" parent="Cameras" unique_id=1269134406]
-position = Vector2(448, 288)
+position = Vector2(448, 264)
 
 [node name="Stanza2" type="Marker2D" parent="Cameras" unique_id=1199899463]
-position = Vector2(912, 144)
+position = Vector2(848, 136)
 
 [node name="Stanza3" type="Marker2D" parent="Cameras" unique_id=1198411374]
-position = Vector2(912, 408)
+position = Vector2(848, 376)
 
 [node name="Stanza4" type="Marker2D" parent="Cameras" unique_id=1855202799]
-position = Vector2(504, 568)
+position = Vector2(504, 520)

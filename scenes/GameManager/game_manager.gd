@@ -5,7 +5,12 @@ extends BaseScene
 @export var pointer: PackedScene
 
 @onready var camera = $Camera2D
-@onready var revenue_ui = $Camera2D/Revenue
+@onready var revenue_ui = $Camera2D/GameOverlay/Revenue
+@onready var date_label: Label = $Camera2D/GameOverlay/Date
+@onready var goblin_counter: Label = $Camera2D/GameOverlay/GoblinCounter
+
+@onready var fiscal_year_timer: Timer = $Timer
+
 
 @onready var bg_music = $BGMusic
 @onready var bg_office_sound: AudioStreamPlayer = $BGOfficeSound
@@ -13,8 +18,8 @@ extends BaseScene
 @export var npc_counter: int = 10
 @export var DEBUG: bool = false
 
-#TO CHANGE
 const NPC_REVENUES = 100
+const DAYS_IN_YEAR = 365
 
 var map_instance
 var spawn_positions
@@ -24,6 +29,8 @@ var current_camera_idx = 1
 
 
 var total_revenues: float = 0.0
+var elapsed_time := 0.0
+@export var current_fiscal_year : int = 2026
 
 const names: Array[String] = ["Grizzle Profitgrub", "Snark Ledgerfang", "Boggle Spreadsheet", "Krimp Bonusclaw", "Snik KPI-Snatcher", "Murgle Coffeestain", "Zibble Paperjam", "Grint Marginchewer", "Blort Deadlinegnaw", "Skaggy Synergytooth", "Nibwick Microgrind", "Crindle Stocksniff", "Wizzle Cubiclebane", "Throg Expensefang", "Splug Overtimebelch", "Drabble Taskmangler", "Klix Compliancegrime", "Mizzle Workflowrot", "Gorp Staplechewer", "Snibble Budgetbruise", "Kraggy Meetinglurker", "Blim Forecastfumble", "Zonk Assetgnash", "Triggle Slidereviser", "Vorny Timesheetterror", "Glim Auditnibble", "Brakka Breakroomraider", "Sprock Redtapewriggler", "Nurgle Powerpointhex", "Grizzleback Clawculator", "Snaggle Metricsmash", "Plib Shareholdershriek", "Drox Inboxhoarder", "Fizzle Ladderclimb", "Krumble Deskgnarl", "Wretchy Watercoolerspy", "Blix Quarterlyquiver", "Grottin Promotionpounce", "Skibble Faxmachinebane", "Zraggy Corporatecackle"]
 var active_npcs: Dictionary[String, Node2D] = {}
@@ -75,6 +82,33 @@ func get_available_name() -> String:
 		name = names.pick_random()
 	return name
 
+func get_current_day() -> int:
+	var year_progress = elapsed_time / fiscal_year_timer.wait_time
+	return int(year_progress * DAYS_IN_YEAR) + 1
+	
+func day_to_date(day: int) -> Dictionary:
+	var month_lengths = [31,28,31,30,31,30,31,31,30,31,30,31]
+
+	var month = 0
+	while day > month_lengths[month]:
+		day -= month_lengths[month]
+		month += 1
+		if month == 12:
+			print('Fine Anno Fiscale')
+			month = 0
+		
+
+	return {
+		"month": month + 1,
+		"day": day
+	}
+	
+func update_date_display():
+	var day_of_year = get_current_day()
+	var date = day_to_date(day_of_year)
+
+	date_label.text = "%02d/%02d/%04d" % [date.day, date.month, current_fiscal_year ]
+	
 func _ready() -> void:
 	# SET RANDOMIZER
 	randomize()
@@ -157,6 +191,7 @@ func change_camera(direction):
 		
 func _process(delta: float) -> void:
 	update_revenues(delta)
+	goblin_counter.text = str(active_npcs.size())
 		
 	revenue_ui.text = str(roundi(total_revenues))
 	
@@ -171,6 +206,13 @@ func _process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("Hire"):
 		hire_npc()
+		
+	elapsed_time += delta
+
+	# Clamp so we don't overflow past the year
+	elapsed_time = min(elapsed_time, fiscal_year_timer.wait_time)
+		
+	update_date_display()
 
 
 func _on_death(dying_npc: Node2D, state: int) -> void:

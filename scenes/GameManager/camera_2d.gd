@@ -7,12 +7,9 @@ extends Camera2D
 var time_counter = 0
 
 func align_camera_and_overlay():
-	print('\n\ncamera pos: ', self.global_position)
-	print('viewport size: ', get_viewport().get_visible_rect().size)
-
 	overlay.position.x = -(get_viewport().get_visible_rect().size.x / self.zoom.x / 2)
 	overlay.position.y = -(get_viewport().get_visible_rect().size.y / self.zoom.y / 2)
-	print('overlay_pos: ', overlay.position)
+	overlay.z_index = 20
 	
 	
 func change_camera_name(new_name: String):
