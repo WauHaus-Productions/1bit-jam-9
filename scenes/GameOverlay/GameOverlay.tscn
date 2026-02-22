@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cvwmseaysysll" path="res://asset/CERCHIO CAMERA.png" id="2_b2dvm"]
 [ext_resource type="FontFile" uid="uid://cmkdryhal5wa1" path="res://asset/UI/font/ds_digital/DS-DIGIB.TTF" id="2_l6you"]
 [ext_resource type="Texture2D" uid="uid://dly8eqbsppdbi" path="res://asset/GOB STAND ANIM-Sheet.png" id="4_l6you"]
+[ext_resource type="Script" uid="uid://b70efl1ei558a" path="res://scenes/GameOverlay/popup.gd" id="5_gd44e"]
 [ext_resource type="FontFile" uid="uid://bi75vtx1r5ccy" path="res://asset/UI/font/Limelight/Limelight-Regular.ttf" id="5_qo4ws"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qo4ws"]
@@ -153,6 +154,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Popup" type="Control" parent="." unique_id=869937384]
+process_mode = 2
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -166,6 +168,7 @@ offset_right = 375.5
 offset_bottom = 156.75
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("5_gd44e")
 
 [node name="TextureRect" type="ColorRect" parent="Popup" unique_id=1689812133]
 layout_mode = 1
@@ -200,7 +203,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Felicitations
 you are allowed to work another year
-Since you've been so good we are expecting a 10% raise in revenue"
+Since you've been so good we are expecting a 10% raise in revenue
+
+Press r to resume or wait 8s
+"
 label_settings = SubResource("LabelSettings_gd44e")
 horizontal_alignment = 1
 

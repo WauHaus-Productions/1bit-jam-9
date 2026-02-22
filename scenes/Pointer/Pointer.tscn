@@ -31,6 +31,7 @@ animations = [{
 }]
 
 [node name="Pointer" type="Node2D" unique_id=834199625]
+process_mode = 3
 z_index = 1000
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1559713391]
