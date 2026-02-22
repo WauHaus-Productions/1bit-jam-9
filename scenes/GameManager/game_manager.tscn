@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://7eq111y05lyv"]
 
 [ext_resource type="Script" uid="uid://da3amk2k58q4" path="res://scenes/GameManager/game_manager.gd" id="1_u01m6"]
-[ext_resource type="PackedScene" uid="uid://bhp5smk7p3fxt" path="res://scenes/Map/MapWithRooms.tscn" id="2_rnxwy"]
+[ext_resource type="PackedScene" path="res://scenes/Map/MapWithRooms.tscn" id="2_rnxwy"]
 [ext_resource type="PackedScene" uid="uid://jj5mr86mb1j2" path="res://scenes/NPC/npc.tscn" id="3_6dete"]
 [ext_resource type="Texture2D" uid="uid://cvwmseaysysll" path="res://asset/CERCHIO CAMERA.png" id="4_6dete"]
 [ext_resource type="Script" uid="uid://bctjjwtu3j7g4" path="res://scenes/GameManager/camera_2d.gd" id="4_rnxwy"]
@@ -21,7 +21,6 @@ load_path = "res://.godot/imported/CAMERA 2.png-5ebe738a2469f474002655edb1a00faa
 script = ExtResource("1_u01m6")
 map = ExtResource("2_rnxwy")
 npc = ExtResource("3_6dete")
-npc_counter = 10
 
 [node name="bg" type="TextureRect" parent="." unique_id=1363100593]
 z_index = -1
@@ -66,12 +65,11 @@ texture = SubResource("CompressedTexture2D_rx0ki")
 stretch_mode = 1
 
 [node name="Revenue" type="Label" parent="Camera2D" unique_id=211674]
-visible = false
 z_index = 10
-offset_left = 128.0
-offset_top = -264.0
-offset_right = 448.0
-offset_bottom = -240.0
+offset_left = -17.0
+offset_top = -147.54108
+offset_right = 303.0
+offset_bottom = -123.54108
 text = "0"
 horizontal_alignment = 2
 
