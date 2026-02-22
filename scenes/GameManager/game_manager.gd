@@ -160,6 +160,8 @@ func _ready() -> void:
 	#START YEAR TIMER
 	$DayTimer.wait_time = year_len_seconds
 	$DayTimer.start()
+
+	$Camera2D/GameOverlay/Popup.resume.connect(on_resume)
 	
 
 func spawn_npc(spawnable_positions) -> void:
@@ -307,13 +309,14 @@ func debug(...args) -> void:
 func _on_day_end():
 	debug("DAY END")
 	debug("memorial: ", memorial)
-	if (total_revenues >= current_goal):		
+	if (total_revenues >= current_goal):
 		level_popup.visible = true
 		$PopoupTimer.start()
 		current_goal = roundi(total_revenues * 1.25)
 		goal_label.text = str(current_goal)
 		total_revenues = 0.0
 		hire_npc()
+		get_tree().paused = true
 		pass
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -324,6 +327,11 @@ func _construct_memorial(endScene: DeathEndScene):
 	endScene.goblins.append_array(memorial)
 	pass
 
+func on_resume():
+	get_tree().paused = false
+	level_popup.visible = false
+
 
 func _on_popoup_timer_timeout() -> void:
 	level_popup.visible = false
+	get_tree().paused = false

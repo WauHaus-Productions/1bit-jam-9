@@ -50,7 +50,8 @@ texture = SubResource("GradientTexture2D_762bc")
 [node name="DayTimer" type="Timer" parent="." unique_id=834968016]
 
 [node name="PopoupTimer" type="Timer" parent="." unique_id=2027662461]
-wait_time = 2.0
+process_mode = 2
+wait_time = 8.0
 one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1635203694]
