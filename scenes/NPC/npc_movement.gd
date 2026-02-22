@@ -18,6 +18,8 @@ var movement_state: MovementState = MovementState.NAVIGATION
 var drag_offset: Vector2
 var physics_delta: float
 
+signal dead
+
 func _ready() -> void:
 	# Connect callbacks to signals
 	navigation_agent_2d.velocity_computed.connect(on_velocity_computed)
@@ -28,7 +30,6 @@ func _ready() -> void:
 	# Initialize auxiliary variables
 	last_mouse_positions = Array([], TYPE_VECTOR2, "", null)
 	navigation_agent_2d.navigation_finished.connect(logic.arrived)
-	
 
 func _physics_process(delta: float) -> void:
 	if self.global_position != self.position:

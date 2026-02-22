@@ -25,8 +25,10 @@ script = ExtResource("1_u01m6")
 map = ExtResource("2_rnxwy")
 npc = ExtResource("3_6dete")
 npc_counter = 1
+DEBUG = null
 game_over = ExtResource("4_54rdg")
-year_len_seconds = 10
+starting_goal = null
+year_len_seconds = null
 
 [node name="bg" type="TextureRect" parent="." unique_id=1363100593]
 z_index = -1

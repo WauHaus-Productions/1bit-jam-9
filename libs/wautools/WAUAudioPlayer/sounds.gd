@@ -22,6 +22,7 @@ var sounds: Dictionary = {}
 
 func create_sounds():
 	for track in sound_collection.sounds:
+		track.track_player = AudioStreamPlayer2D.new()
 		track.track_player.volume_db = track.volume_db
 		track.track_player.bus = track.bus
 		track.track_player.max_distance = self.max_distance

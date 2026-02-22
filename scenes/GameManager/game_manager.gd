@@ -127,7 +127,7 @@ func spawn_npc(spawnable_positions) -> void:
 	
 	# SUBSCRIBE TO SIGNALS
 	new_npc.get_node("Logic").switching.connect(_on_change_state)
-	new_npc.get_node("Logic").dying.connect(_on_death)
+	new_npc.get_node("Logic").dying.connect(_on_dying)
 	
 	active_npcs[npc_name] = new_npc
 	
@@ -179,11 +179,11 @@ func _process(delta: float) -> void:
 		hire_npc()
 
 
-func _on_death(dying_npc: Node2D, state: int) -> void:
+func _on_dying(dying_npc: Node2D, state: int) -> void:
 	var dying_name = active_npcs.find_key(dying_npc)
-	debug("STA MORENDO ", dying_name)
 	if dying_name != null:
 		active_npcs.erase(dying_name)
+	debug("STA MORENDO ", dying_name)
 	
 	match state:
 		States.WORKING:
@@ -192,10 +192,14 @@ func _on_death(dying_npc: Node2D, state: int) -> void:
 			scared_npcs = decrease_npcs(scared_npcs)
 		_:
 			debug("Error, dying npc in state: ", state)
-	
-	dying_npc.queue_free()
-	memorial.append(dying_name)
-
+			
+	var sprite = dying_npc.get_node("AnimatedSprite2D")
+	sprite.play("die")
+	await sprite.animation_finished
+	if sprite.current_animation == "die":
+		print("\n\nfinished death")
+		dying_npc.queue_free()
+		memorial.append(dying_name)
 
 func decrease_npcs(npcs: int, decrement := 1) -> int:
 	npcs -= decrement
