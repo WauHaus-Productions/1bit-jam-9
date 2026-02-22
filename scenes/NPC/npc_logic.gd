@@ -126,11 +126,11 @@ func to_profit(state: int) -> int:
 
 
 func update_state(desired_state: int) -> void:
-	State = desired_state
-	var profit: int = to_profit(desired_state)
 	var old_profit: int = to_profit(State)
+	var profit: int = to_profit(desired_state)
 	debug("profit: ", profit)
 	switching.emit(profit, self.get_parent(), old_profit)
+	State = desired_state
 
 
 func arrived() -> void:

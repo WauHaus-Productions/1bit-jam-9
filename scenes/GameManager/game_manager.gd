@@ -175,18 +175,18 @@ func _on_change_state(new_action_enum: int, emitting_npc: Node2D, old_action: in
 	match old_action:
 		States.WORKING:
 			working_npcs = decrease_npcs(working_npcs)
-			debug(npc_name, ': stopped working')
+			debug(npc_name, ': stopped working, total working: ', working_npcs)
 		States.SCARED:
 			scared_npcs = decrease_npcs(scared_npcs)
-			debug(npc_name, ': stopped being scared')
+			debug(npc_name, ': stopped being scared, total scared: ', scared_npcs)
 	
 	match new_action_enum:
 		States.WORKING:
 			working_npcs += 1
-			debug(npc_name, ': working')
+			debug(npc_name, ': started working, total working: ', working_npcs)
 		States.SCARED:
 			scared_npcs += 1
-			debug(npc_name, ': scared')
+			debug(npc_name, ': is scared, total scared: ', scared_npcs)
 		States.SLACKING:
 			debug(npc_name, ': slacking')
 		States.MOVING:
