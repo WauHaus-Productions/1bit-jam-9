@@ -94,6 +94,9 @@ func morale_diff(delta: float) -> float:
 
 func die() -> void:
 	debug("Dead")
+	#var sprite = self.get_parent().get_node("AnimatedSprite2D")
+	#sprite.play("die")
+	#await sprite.animation_finished("die")
 	dying.emit(self.get_parent(), to_profit(State))
 
 

@@ -180,6 +180,9 @@ func _process(delta: float) -> void:
 
 
 func _on_dying(dying_npc: Node2D, state: int) -> void:
+	if dying_npc.is_dying:
+		return
+		
 	var dying_name = active_npcs.find_key(dying_npc)
 	if dying_name != null:
 		active_npcs.erase(dying_name)
@@ -193,14 +196,19 @@ func _on_dying(dying_npc: Node2D, state: int) -> void:
 		_:
 			debug("Error, dying npc in state: ", state)
 			
-	var sprite = dying_npc.get_node("AnimatedSprite2D")
-	sprite.play("die")
-	await sprite.animation_finished
-	if sprite.current_animation == "die":
-		print("\n\nfinished death")
-		dying_npc.queue_free()
-		memorial.append(dying_name)
+	#var sprite = dying_npc.get_node("AnimatedSprite2D")
+	#dying_npc.death_animation_finished.connect(_on_death_finished)
+	memorial.append(dying_name)
+	dying_npc.queue_free()
 
+	#sprite.play("die")
+
+#
+#func _on_death_finished(dying_npc):
+	#dying_npc.is_dying = false
+	#print("\n\nfinished death")
+	#dying_npc.queue_free()
+	#
 func decrease_npcs(npcs: int, decrement := 1) -> int:
 	npcs -= decrement
 	npcs = max(npcs, 0)

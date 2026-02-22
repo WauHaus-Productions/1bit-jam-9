@@ -12,13 +12,18 @@ enum MovementState {NAVIGATION, DRAG, LAUNCH}
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var npc_sounds: NewWAUAudioPlayer = $Sounds
 
+
+
 var last_mouse_positions: Array[Vector2]
 var mouse_positions_index: int = 0
 var movement_state: MovementState = MovementState.NAVIGATION
 var drag_offset: Vector2
 var physics_delta: float
+var is_dying = false
+
 
 signal dead
+signal death_animation_finished
 
 func _ready() -> void:
 	# Connect callbacks to signals
@@ -30,6 +35,8 @@ func _ready() -> void:
 	# Initialize auxiliary variables
 	last_mouse_positions = Array([], TYPE_VECTOR2, "", null)
 	navigation_agent_2d.navigation_finished.connect(logic.arrived)
+	
+	#animated_sprite.animation_finished.connect(_on_death_finished)
 
 func _physics_process(delta: float) -> void:
 	if self.global_position != self.position:
@@ -206,3 +213,7 @@ func _input(event: InputEvent) -> void:
 func debug(...args) -> void:
 	if DEBUG:
 		print(args)
+		
+#func _on_death_finished():
+	#if animated_sprite.current_animation == "die" and is_dying == true:
+		#death_animation_finished.emit(self)
