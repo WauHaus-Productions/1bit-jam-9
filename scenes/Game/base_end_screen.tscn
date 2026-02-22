@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cnulwif8u1373"]
+
+[ext_resource type="Script" uid="uid://bomtas5372roj" path="res://scenes/Game/base_end_screen.gd" id="1_w7mv7"]
+[ext_resource type="PackedScene" uid="uid://qlf688g08plj" path="res://scenes/Game/end_panel.tscn" id="2_hqyft"]
+
+[node name="EndScreen" type="Control" unique_id=1009385923]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w7mv7")
+title = "Game Over"
+
+[node name="EndPanel" parent="." unique_id=1327973740 instance=ExtResource("2_hqyft")]
+layout_mode = 1
+
+[connection signal="next_scene" from="EndPanel" to="." method="_on_next_scene"]

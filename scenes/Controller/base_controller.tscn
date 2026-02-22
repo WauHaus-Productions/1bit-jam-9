@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dy0dg87mqaucl"]
+
+[ext_resource type="PackedScene" uid="uid://cnlm6ho48juqv" path="res://scenes/Menu/main_menu/main_menu.tscn" id="2_dobb5"]
+[ext_resource type="AudioStream" uid="uid://b0vkyjiicxjwh" path="res://asset/music/menu_music.wav" id="2_ocdo0"]
+[ext_resource type="PackedScene" uid="uid://b2kq5erlme841" path="res://scenes/Menu/settings_menu/settings_menu.tscn" id="2_qag8e"]
+[ext_resource type="Script" uid="uid://11gn2n5pek7f" path="res://scenes/Controller/menu_music.gd" id="3_5vsym"]
+[ext_resource type="Script" uid="uid://dmhpte1juaj6q" path="res://scenes/Controller/scene_dock.gd" id="3_u4nt1"]
+[ext_resource type="PackedScene" uid="uid://c31dprby61dbw" path="res://scenes/Menu/buttons/ButtonSettings/settings_button.tscn" id="5_2rffb"]
+
+[node name="BaseController" type="Control" unique_id=1143062185]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="SettingsMenu" parent="." unique_id=1023644138 instance=ExtResource("2_qag8e")]
+layout_mode = 1
+
+[node name="MenuMusic" type="AudioStreamPlayer2D" parent="." unique_id=2145597985]
+stream = ExtResource("2_ocdo0")
+script = ExtResource("3_5vsym")
+
+[node name="SceneDock" type="Node" parent="." unique_id=1894169999]
+script = ExtResource("3_u4nt1")
+first_scene = ExtResource("2_dobb5")
+settings_button = ExtResource("5_2rffb")
+
+[connection signal="next_scene" from="SettingsMenu" to="SceneDock" method="_on_next_scene"]
+[connection signal="settings_switched" from="SettingsMenu" to="SceneDock" method="_on_settings_switched"]
+[connection signal="level_ended" from="SceneDock" to="MenuMusic" method="_on_scene_dock_level_ended"]
+[connection signal="level_started" from="SceneDock" to="MenuMusic" method="_on_scene_dock_level_started"]
+[connection signal="settings_switched" from="SceneDock" to="SettingsMenu" method="_on_settings_switched"]

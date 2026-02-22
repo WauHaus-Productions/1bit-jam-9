@@ -1,0 +1,121 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2kq5erlme841"]
+
+[ext_resource type="Theme" uid="uid://dq3fh7pdv4230" path="res://asset/graphic/UI/ui_custom_style.tres" id="1_7hog2"]
+[ext_resource type="Script" path="res://scenes/Menu/settings_menu/settings_menu.gd" id="1_x4glt"]
+[ext_resource type="PackedScene" uid="uid://c4xlqnbj00kf8" path="res://scenes/Menu/buttons/AudioSlider/audio_slider.tscn" id="2_uoakn"]
+[ext_resource type="Texture2D" uid="uid://dgosv2le1tk4x" path="res://asset/graphic/UI/TENDA_dropdown.png" id="2_x02sy"]
+[ext_resource type="PackedScene" uid="uid://c72tadrko6hg0" path="res://scenes/Menu/buttons/ButtonWrapper/button_wrapper.tscn" id="3_oh6vn"]
+[ext_resource type="PackedScene" uid="uid://gpah4ea7go8w" path="res://scenes/Menu/buttons/ButtonSceneChange/button_scene_change.tscn" id="4_bi3jx"]
+[ext_resource type="PackedScene" uid="uid://cs1r2tx6hr7tm" path="res://scenes/Menu/buttons/ButtonQuit/quit_button.tscn" id="4_m2ael"]
+
+[node name="SettingsMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_7hog2")
+script = ExtResource("1_x4glt")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Background" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(960, 541)
+scale = Vector2(4, 4)
+texture = ExtResource("2_x02sy")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -307.5
+offset_right = 307.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_7hog2")
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="TabContainer" type="TabContainer" parent="CanvasLayer/NinePatchRect/VBoxContainer"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+theme = ExtResource("1_7hog2")
+current_tab = 0
+use_hidden_tabs_for_min_size = true
+
+[node name="Audio" type="TabBar" parent="CanvasLayer/NinePatchRect/VBoxContainer/TabContainer"]
+layout_mode = 2
+theme = ExtResource("1_7hog2")
+tab_alignment = 1
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/NinePatchRect/VBoxContainer/TabContainer/Audio"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 0
+offset_right = 614.0
+offset_bottom = 200.0
+theme = ExtResource("1_7hog2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/NinePatchRect/VBoxContainer/TabContainer/Audio/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MasterSlider" parent="CanvasLayer/NinePatchRect/VBoxContainer/TabContainer/Audio/MarginContainer/VBoxContainer" instance=ExtResource("2_uoakn")]
+layout_mode = 2
+bus_name = "Master"
+label_text = "Master"
+
+[node name="MusicSlider" parent="CanvasLayer/NinePatchRect/VBoxContainer/TabContainer/Audio/MarginContainer/VBoxContainer" instance=ExtResource("2_uoakn")]
+layout_mode = 2
+bus_name = "Music"
+label_text = "Music"
+
+[node name="SFXSlider" parent="CanvasLayer/NinePatchRect/VBoxContainer/TabContainer/Audio/MarginContainer/VBoxContainer" instance=ExtResource("2_uoakn")]
+layout_mode = 2
+bus_name = "Sfx"
+label_text = "Sounds FX"
+
+[node name="BackLinkContainer" type="HBoxContainer" parent="CanvasLayer/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+
+[node name="ReturnButton" parent="CanvasLayer/NinePatchRect/VBoxContainer/BackLinkContainer" instance=ExtResource("3_oh6vn")]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+text = "Return
+"
+
+[node name="MainMenuButton" parent="CanvasLayer/NinePatchRect/VBoxContainer/BackLinkContainer" instance=ExtResource("4_bi3jx")]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="QuitButton" parent="CanvasLayer/NinePatchRect/VBoxContainer/BackLinkContainer" instance=ExtResource("4_m2ael")]
+layout_mode = 2
+
+[node name="MarkerDown" type="Marker2D" parent="."]
+
+[node name="MarkerUp" type="Marker2D" parent="."]
+position = Vector2(0, -1080)
+
+[connection signal="button_down" from="CanvasLayer/NinePatchRect/VBoxContainer/BackLinkContainer/ReturnButton" to="." method="_on_settings_switched"]
+[connection signal="scene_button_pressed" from="CanvasLayer/NinePatchRect/VBoxContainer/BackLinkContainer/MainMenuButton" to="." method="_on_next_scene"]

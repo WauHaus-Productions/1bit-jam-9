@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cjhui50psrydp"]
+
+[ext_resource type="Script" uid="uid://b4hfkj15oe0sc" path="res://scenes/TestMouse/test_mouse.gd" id="1_72lw6"]
+[ext_resource type="Texture2D" uid="uid://bqe43fyi6oopv" path="res://icon.svg" id="2_r7rfy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r7rfy"]
+
+[node name="Mousetest" type="Node2D" unique_id=1723126846]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=200441460]
+position = Vector2(410, 241)
+input_pickable = true
+motion_mode = 1
+script = ExtResource("1_72lw6")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=2038722087]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_r7rfy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1998484230]
+shape = SubResource("RectangleShape2D_r7rfy")
+
+[connection signal="input_event" from="CharacterBody2D" to="CharacterBody2D" method="_on_input_event"]
