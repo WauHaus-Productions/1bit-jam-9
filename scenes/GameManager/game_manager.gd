@@ -11,6 +11,12 @@ extends BaseScene
 @export var npc_counter: int = 10
 @export var DEBUG: bool = true
 
+@export var game_over: PackedScene
+
+@export var starting_goal: int = 1000
+@export var year_len_seconds: int = 30
+var current_goal: int
+
 #TO CHANGE
 const NPC_REVENUES = 100
 
@@ -23,7 +29,8 @@ var current_camera_idx = 1
 
 var total_revenues: float = 0.0
 
-const names: Array[String] = ["Grizzle Profitgrub", "Snark Ledgerfang", "Boggle Spreadsheet", "Krimp Bonusclaw", "Snik KPI-Snatcher", "Murgle Coffeestain", "Zibble Paperjam", "Grint Marginchewer", "Blort Deadlinegnaw", "Skaggy Synergytooth", "Nibwick Microgrind", "Crindle Stocksniff", "Wizzle Cubiclebane", "Throg Expensefang", "Splug Overtimebelch", "Drabble Taskmangler", "Klix Compliancegrime", "Mizzle Workflowrot", "Gorp Staplechewer", "Snibble Budgetbruise", "Kraggy Meetinglurker", "Blim Forecastfumble", "Zonk Assetgnash", "Triggle Slidereviser", "Vorny Timesheetterror", "Glim Auditnibble", "Brakka Breakroomraider", "Sprock Redtapewriggler", "Nurgle Powerpointhex", "Grizzleback Clawculator", "Snaggle Metricsmash", "Plib Shareholdershriek", "Drox Inboxhoarder", "Fizzle Ladderclimb", "Krumble Deskgnarl", "Wretchy Watercoolerspy", "Blix Quarterlyquiver", "Grottin Promotionpounce", "Skibble Faxmachinebane", "Zraggy Corporatecackle"]
+const names: Array[String] = ["Fabio Losavio", "Cristiano Neroni", "Samuele Lo Iacono", "Hakim El Achak", "Vittorio Terzi", "Oscar Pindaro", "Matteo Mangioni", "Margherita Pindaro", "Francesco Maffezzoli", "Enka Lamaj", "Roberto Maligni",
+	"Grizzle Profitgrub", "Snark Ledgerfang", "Boggle Spreadsheet", "Krimp Bonusclaw", "Snik KPI-Snatcher", "Murgle Coffeestain", "Zibble Paperjam", "Grint Marginchewer", "Blort Deadlinegnaw", "Skaggy Synergytooth", "Nibwick Microgrind", "Crindle Stocksniff", "Wizzle Cubiclebane", "Throg Expensefang", "Splug Overtimebelch", "Drabble Taskmangler", "Klix Compliancegrime", "Mizzle Workflowrot", "Gorp Staplechewer", "Snibble Budgetbruise", "Kraggy Meetinglurker", "Blim Forecastfumble", "Zonk Assetgnash", "Triggle Slidereviser", "Vorny Timesheetterror", "Glim Auditnibble", "Brakka Breakroomraider", "Sprock Redtapewriggler", "Nurgle Powerpointhex", "Grizzleback Clawculator", "Snaggle Metricsmash", "Plib Shareholdershriek", "Drox Inboxhoarder", "Fizzle Ladderclimb", "Krumble Deskgnarl", "Wretchy Watercoolerspy", "Blix Quarterlyquiver", "Grottin Promotionpounce", "Skibble Faxmachinebane", "Zraggy Corporatecackle"]
 var active_npcs: Dictionary[String, Node2D] = {}
 
 var working_npcs: int
@@ -76,6 +83,8 @@ func get_available_name() -> String:
 	return name
 
 func _ready() -> void:
+	current_goal = starting_goal
+	
 	# SET RANDOMIZER
 	randomize()
 	
@@ -119,6 +128,9 @@ func _ready() -> void:
 	# START BG MUSIC
 	bg_music.play()
 	bg_office_sound.play()
+	$DayTimer.wait_time = year_len_seconds
+	$DayTimer.start()
+	
 	
 
 func change_camera(direction):
@@ -213,3 +225,18 @@ func _on_change_state(new_action_enum: int, emitting_npc: Node2D, old_action: in
 func debug(...args) -> void:
 	if DEBUG:
 		print(args)
+		
+func _on_day_end():
+	print("DAY END")
+	print("memorial: ", memorial)
+	if(total_revenues >= current_goal):
+		current_goal = total_revenues * 1.25
+		pass
+	else:
+		emit_signal("next_scene", game_over,_construct_memorial)
+		pass
+	
+func _construct_memorial(endScene : DeathEndScene):
+	endScene.goblins.append_array(memorial)
+	pass
+	

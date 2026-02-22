@@ -15,4 +15,7 @@ func _process(delta: float) -> void:
 
 
 func _on_next_scene(game_scene: PackedScene) -> void:	
-	emit_signal("next_scene", game_scene)
+	emit_signal("next_scene", game_scene, _default_constructor)
+
+func _default_constructor(scene):
+	pass
