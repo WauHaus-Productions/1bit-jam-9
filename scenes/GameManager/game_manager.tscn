@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://jj5mr86mb1j2" path="res://scenes/NPC/npc.tscn" id="3_6dete"]
 [ext_resource type="Texture2D" uid="uid://cvwmseaysysll" path="res://asset/CERCHIO CAMERA.png" id="4_6dete"]
 [ext_resource type="PackedScene" uid="uid://bxpkppq5hc6jh" path="res://scenes/Pointer/Pointer.tscn" id="4_54rdg"]
-[ext_resource type="PackedScene" uid="uid://dw0exwrfxkmhv" path="res://scenes/Game/goblin_end_scene.tscn" id="4_54rdg"]
 [ext_resource type="Script" uid="uid://bctjjwtu3j7g4" path="res://scenes/GameManager/camera_2d.gd" id="4_rnxwy"]
+[ext_resource type="PackedScene" uid="uid://dw0exwrfxkmhv" path="res://scenes/Game/goblin_end_scene.tscn" id="5_0elm8"]
 [ext_resource type="PackedScene" uid="uid://d1trr70s1rx24" path="res://scenes/GameOverlay/GameOverlay.tscn" id="5_cxpcv"]
 [ext_resource type="AudioStream" uid="uid://bgy3qa8djf5dx" path="res://asset/music/in_game_music.wav" id="6_762bc"]
 [ext_resource type="AudioStream" uid="uid://dtr15pqg2at2t" path="res://asset/sfx/ambient_office.wav" id="7_0elm8"]
@@ -27,8 +27,10 @@ script = ExtResource("1_u01m6")
 map = ExtResource("2_rnxwy")
 npc = ExtResource("3_6dete")
 pointer = ExtResource("4_54rdg")
-npc_counter = 1
-game_over = ExtResource("4_54rdg")
+npc_counter = 4
+game_over = ExtResource("5_0elm8")
+starting_goal = 10
+year_len_seconds = 10
 
 [node name="bg" type="TextureRect" parent="." unique_id=1363100593]
 z_index = -1
@@ -121,4 +123,5 @@ bus = &"Music"
 [node name="Timer" type="Timer" parent="." unique_id=2080231706]
 wait_time = 20.0
 autostart = true
+
 [connection signal="timeout" from="DayTimer" to="." method="_on_day_end"]

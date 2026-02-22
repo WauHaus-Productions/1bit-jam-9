@@ -24,16 +24,16 @@ func _on_next_scene(game_scene: PackedScene, constructor: Callable) -> void:
 	print(game_scene)
 	if game_scene != null:
 		instance = game_scene.instantiate()
-		print("Scene pre ctor: ",instance)
-		#if(constructor != null):
-			#constructor.call(instance)
+		print("Scene pre ctor: ", instance)
+		if (constructor != null):
+			constructor.call(instance)
 	else:
 		instance = first_scene.instantiate()
-		print("Load Default Scene: ",instance)
+		print("Load Default Scene: ", instance)
 	
-	print("Scene post ctor: ",instance)
-	instance.next_scene.connect(_on_next_scene)	
-	print("Scene post connect: ",instance)
+	print("Scene post ctor: ", instance)
+	instance.next_scene.connect(_on_next_scene)
+	print("Scene post connect: ", instance)
 	
 	#get_tree().change_scene_to(instance)	
 	var activeScenes = get_children()
@@ -45,8 +45,8 @@ func _on_next_scene(game_scene: PackedScene, constructor: Callable) -> void:
 			emit_signal("level_ended")
 		
 	for scene in activeScenes:
-		remove_child(scene)  # Remove the child from the parent node
-		scene.queue_free() 
+		remove_child(scene) # Remove the child from the parent node
+		scene.queue_free()
 	
 	var button = settings_button.instantiate()
 		
@@ -74,7 +74,6 @@ func _on_settings_switched() -> void:
 			#scene.get_tree().paused = true
 			#
 	#print("Paused is: ", get_tree().paused)
-	
 	#var activeScenes = get_children()
 	#for scene in activeScenes:
 		#print(scene)

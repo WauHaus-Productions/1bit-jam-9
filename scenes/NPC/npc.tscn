@@ -224,8 +224,6 @@ script = ExtResource("1_23nos")
 
 [node name="Logic" type="Node2D" parent="." unique_id=1453357300]
 script = ExtResource("2_23nos")
-HIGH_MORALE = 990
-MAX_MORALE = 1
 
 [node name="Timer" type="Timer" parent="Logic" unique_id=570559202]
 one_shot = true
@@ -242,7 +240,6 @@ shape = SubResource("CapsuleShape2D_qphst")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1723642565]
 path_postprocessing = 1
 avoidance_enabled = true
-debug_enabled = true
 debug_path_custom_color = Color(1, 0, 0, 1)
 
 [node name="Sounds" type="AudioStreamPlayer2D" parent="." unique_id=1135687681]
