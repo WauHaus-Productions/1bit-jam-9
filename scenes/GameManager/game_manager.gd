@@ -18,13 +18,14 @@ extends BaseScene
 var current_goal: int
 
 #TO CHANGE
-const NPC_REVENUES = 100
+const NPC_REVENUES: int = 100
+const NPC_COST: int = 40
 
 var map_instance
 var spawn_positions
 
-var tot_rooms = 4
-var current_camera_idx = 1
+var tot_rooms: int = 4
+var current_camera_idx: int = 1
 
 
 var total_revenues: float = 0.0
@@ -70,8 +71,9 @@ func determine_spawn_positions(current_map) -> Array[Vector2i]:
 func update_revenues(delta) -> void:
 	var working_npcs_revenue: float = States.WORKING * working_npcs * NPC_REVENUES * delta
 	var scared_npcs_revenue: float = States.SCARED * scared_npcs * NPC_REVENUES * delta
-
-	self.total_revenues += working_npcs_revenue + scared_npcs_revenue
+	var costs: float = active_npcs.size() * NPC_COST * delta
+	# print("working_npcs_revenue ", working_npcs_revenue, ", scared_npcs_revenue ", scared_npcs_revenue, ", costs", costs)
+	self.total_revenues += working_npcs_revenue + scared_npcs_revenue - costs
 
 
 func get_available_name() -> String:
