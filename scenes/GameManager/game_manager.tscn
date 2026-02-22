@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bctjjwtu3j7g4" path="res://scenes/GameManager/camera_2d.gd" id="4_rnxwy"]
 [ext_resource type="PackedScene" uid="uid://dw0exwrfxkmhv" path="res://scenes/Game/goblin_end_scene.tscn" id="5_0elm8"]
 [ext_resource type="PackedScene" uid="uid://d1trr70s1rx24" path="res://scenes/GameOverlay/GameOverlay.tscn" id="5_cxpcv"]
+[ext_resource type="PackedScene" uid="uid://bgvjw5yo82vr5" path="res://scenes/NPC/death_cam.tscn" id="5_kmaha"]
 [ext_resource type="AudioStream" uid="uid://bgy3qa8djf5dx" path="res://asset/music/in_game_music.wav" id="6_762bc"]
 [ext_resource type="AudioStream" uid="uid://dtr15pqg2at2t" path="res://asset/sfx/ambient_office.wav" id="7_0elm8"]
 
@@ -28,6 +29,7 @@ map = ExtResource("2_rnxwy")
 npc = ExtResource("3_6dete")
 pointer = ExtResource("4_54rdg")
 npc_counter = 4
+death_cam = ExtResource("5_kmaha")
 game_over = ExtResource("5_0elm8")
 starting_goal = 100
 year_len_seconds = 15
