@@ -20,6 +20,7 @@ extends BaseScene
 @export var npc_counter: int = 10
 @export var DEBUG: bool = false
 
+@export var death_cam: PackedScene
 
 @export var game_over: PackedScene
 
@@ -257,7 +258,11 @@ func _on_dying(dying_npc: Node2D, state: int) -> void:
 	#var sprite = dying_npc.get_node("AnimatedSprite2D")
 	#dying_npc.death_animation_finished.connect(_on_death_finished)
 	memorial.append(dying_name)
+	var pos = dying_npc.position
 	dying_npc.queue_free()
+	var instance = death_cam.instantiate()
+	add_child(instance)
+	instance.position = pos
 
 	#sprite.play("die")
 

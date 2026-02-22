@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://bgvjw5yo82vr5"]
+
+[ext_resource type="Texture2D" uid="uid://147biaqvguuf" path="res://asset/GOB DEATH ANIM-Seet.png" id="1_p86lw"]
+[ext_resource type="Script" uid="uid://dy5hr3bf0sssu" path="res://scenes/NPC/death_cam.gd" id="2_vhe5i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_imiv7"]
+atlas = ExtResource("1_p86lw")
+region = Rect2(0, 0, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecyig"]
+atlas = ExtResource("1_p86lw")
+region = Rect2(0, 32, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_taunb"]
+atlas = ExtResource("1_p86lw")
+region = Rect2(0, 64, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i5ldi"]
+atlas = ExtResource("1_p86lw")
+region = Rect2(0, 96, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jxort"]
+atlas = ExtResource("1_p86lw")
+region = Rect2(0, 128, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_neic4"]
+atlas = ExtResource("1_p86lw")
+region = Rect2(0, 160, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7xbo"]
+atlas = ExtResource("1_p86lw")
+region = Rect2(0, 192, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jn0tr"]
+atlas = ExtResource("1_p86lw")
+region = Rect2(0, 224, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rs44q"]
+atlas = ExtResource("1_p86lw")
+region = Rect2(0, 256, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rexv2"]
+atlas = ExtResource("1_p86lw")
+region = Rect2(0, 288, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nu3ro"]
+atlas = ExtResource("1_p86lw")
+region = Rect2(0, 320, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t18u0"]
+atlas = ExtResource("1_p86lw")
+region = Rect2(0, 352, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kb0is"]
+atlas = ExtResource("1_p86lw")
+region = Rect2(0, 384, 96, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gn1tk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_imiv7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ecyig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_taunb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i5ldi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jxort")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_neic4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7xbo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jn0tr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rs44q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rexv2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nu3ro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t18u0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kb0is")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="DeathCam" type="AnimatedSprite2D" unique_id=382907317]
+sprite_frames = SubResource("SpriteFrames_gn1tk")
+script = ExtResource("2_vhe5i")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
