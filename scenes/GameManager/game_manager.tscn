@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://7eq111y05lyv"]
 
 [ext_resource type="Script" uid="uid://da3amk2k58q4" path="res://scenes/GameManager/game_manager.gd" id="1_u01m6"]
-[ext_resource type="PackedScene" path="res://scenes/Map/MapWithRooms.tscn" id="2_rnxwy"]
+[ext_resource type="PackedScene" uid="uid://bhp5smk7p3fxt" path="res://scenes/Map/MapWithRooms.tscn" id="2_rnxwy"]
 [ext_resource type="PackedScene" uid="uid://jj5mr86mb1j2" path="res://scenes/NPC/npc.tscn" id="3_6dete"]
 [ext_resource type="Texture2D" uid="uid://cvwmseaysysll" path="res://asset/CERCHIO CAMERA.png" id="4_6dete"]
 [ext_resource type="Script" uid="uid://bctjjwtu3j7g4" path="res://scenes/GameManager/camera_2d.gd" id="4_rnxwy"]
@@ -93,9 +93,10 @@ text = "Camera 1"
 
 [node name="BGMusic" type="AudioStreamPlayer" parent="." unique_id=1789639114]
 stream = ExtResource("6_762bc")
+volume_db = -4.0
 bus = &"Music"
 
 [node name="BGOfficeSound" type="AudioStreamPlayer" parent="." unique_id=529051722]
 stream = ExtResource("7_0elm8")
-volume_db = -24.0
+volume_db = -16.0
 bus = &"Music"

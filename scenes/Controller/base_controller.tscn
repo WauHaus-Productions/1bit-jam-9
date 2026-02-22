@@ -16,6 +16,7 @@ layout_mode = 1
 
 [node name="MenuMusic" type="AudioStreamPlayer2D" parent="." unique_id=2145597985]
 stream = ExtResource("2_ocdo0")
+bus = &"Music"
 script = ExtResource("3_5vsym")
 
 [node name="SceneDock" type="Node" parent="." unique_id=1894169999]
