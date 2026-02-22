@@ -84,7 +84,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v5vlc"]
-radius = 14.0
+radius = 9.848858
 
 [sub_resource type="Resource" id="Resource_q836e"]
 script = ExtResource("8_1oaw6")
@@ -129,6 +129,7 @@ script = ExtResource("1_23nos")
 [node name="Logic" type="Node2D" parent="." unique_id=1453357300]
 script = ExtResource("2_23nos")
 HIGH_MORALE = 990
+MAX_MORALE = 50
 
 [node name="Timer" type="Timer" parent="Logic" unique_id=570559202]
 one_shot = true

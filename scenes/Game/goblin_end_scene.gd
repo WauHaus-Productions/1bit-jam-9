@@ -1,17 +1,19 @@
 extends BaseMenu
+class_name DeathEndScene
 
-@export var goblins : Array[String]
+@export var goblins: Array[String]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$ColorRect/HBoxContainer/MemorialContainer.visible = false
 	AddGoblins(goblins)
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func AddGoblins(goblins: Array[String]) -> void:
-	$ColorRect/HBoxContainer/VBoxContainer/Goblins.AddGoblins(goblins)
+	if (goblins.size() < 1):
+		return
+	
+	$ColorRect/HBoxContainer/MemorialContainer.visible = true
+	$ColorRect/HBoxContainer/MemorialContainer/Goblins.AddGoblins(goblins)
 	pass

@@ -50,7 +50,7 @@ func _physics_process(delta: float) -> void:
 			# Force path recomputation
 			if !navigation_agent_2d.is_navigation_finished():
 				# navigation_agent_2d.target_position = navigation_agent_2d.get_final_position()
-				move_to_closest_work()
+				move_to_closest_area("work")
 	
 	# If not in navigation state / not having a target, stop
 	if movement_state != MovementState.NAVIGATION or navigation_agent_2d.is_navigation_finished():
@@ -81,6 +81,8 @@ func get_closest_from_group(group: StringName):
 	
 	var group_elements = get_tree().get_nodes_in_group(group)
 	for elem in group_elements:
+		if elem.is_reserved():
+			continue
 		var dist = (global_position - elem.global_position).length()
 		if dist < min_dist or closest == null:
 			closest = elem
@@ -93,23 +95,33 @@ func on_velocity_computed(safe_velocity: Vector2):
 	if movement_state == MovementState.NAVIGATION:
 		velocity = safe_velocity
 
-func move_to_closest_distraction():
-	var distraction = get_closest_from_group("distraction")
-	if distraction != null:
-		debug("found distraction")
-		navigation_agent_2d.target_position = distraction.global_position
+func get_area_by_pos(pos: Vector2) -> Node:
+	for node in get_tree().get_nodes_in_group("work"):
+		if node.global_position == pos:
+			return node
+	for node in get_tree().get_nodes_in_group("distraction"):
+		if node.global_position == pos:
+			return node
+	return null
+
 	
-func move_to_closest_work():
-	var work_station = get_closest_from_group("work")
-	if work_station != null:
-		debug("found work")
-		navigation_agent_2d.target_position = work_station.global_position
+func move_to_closest_area(group: String) -> void:
+	if navigation_agent_2d.target_position != null:
+		var node = get_area_by_pos(navigation_agent_2d.target_position)
+		if node != null:
+			node.leave()
+
+	var area = get_closest_from_group(group)
+	if area != null:
+		debug("found ", group)
+		area.reserve()
+		navigation_agent_2d.target_position = area.global_position
 
 func on_moving(state: int):
 	if state == logic.States.SLACKING:
-		move_to_closest_distraction()
+		move_to_closest_area("distraction")
 	elif state == logic.States.WORKING or state == logic.States.SCARED:
-		move_to_closest_work()
+		move_to_closest_area("work")
 
 func idle_on_finished():
 	animated_sprite.play("idle")
