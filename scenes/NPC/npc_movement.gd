@@ -81,6 +81,8 @@ func get_closest_from_group(group: StringName):
 	
 	var group_elements = get_tree().get_nodes_in_group(group)
 	for elem in group_elements:
+		if elem.is_reserved():
+			continue
 		var dist = (global_position - elem.global_position).length()
 		if dist < min_dist or closest == null:
 			closest = elem
@@ -93,16 +95,36 @@ func on_velocity_computed(safe_velocity: Vector2):
 	if movement_state == MovementState.NAVIGATION:
 		velocity = safe_velocity
 
+func get_area_by_pos(pos: Vector2) -> Node:
+	for node in get_tree().get_nodes_in_group("work"):
+		if node.global_position == pos:
+			return node
+	for node in get_tree().get_nodes_in_group("distraction"):
+		if node.global_position == pos:
+			return node
+	return null
+
 func move_to_closest_distraction():
+	if navigation_agent_2d.target_position != null:
+		var node = get_area_by_pos(navigation_agent_2d.target_position)
+		node.leave()
+
 	var distraction = get_closest_from_group("distraction")
 	if distraction != null:
 		debug("found distraction")
+		distraction.reserve()
 		navigation_agent_2d.target_position = distraction.global_position
 	
 func move_to_closest_work():
+	if navigation_agent_2d.target_position != null:
+		var node = get_area_by_pos(navigation_agent_2d.target_position)
+		if node != null:
+			node.leave()
+
 	var work_station = get_closest_from_group("work")
 	if work_station != null:
 		debug("found work")
+		work_station.reserve()
 		navigation_agent_2d.target_position = work_station.global_position
 
 func on_moving(state: int):
