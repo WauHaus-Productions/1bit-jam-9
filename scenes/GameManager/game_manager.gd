@@ -12,6 +12,10 @@ extends Node
 var map_instance
 var spawn_positions
 
+var tot_rooms = 4
+var current_camera_idx = 1
+
+
 var total_revenues: float = 0.0
 
 var names : Array[String] = ["Grizzle Profitgrub", "Snark Ledgerfang", "Boggle Spreadsheet", "Krimp Bonusclaw", "Snik KPI-Snatcher", "Murgle Coffeestain", "Zibble Paperjam", "Grint Marginchewer", "Blort Deadlinegnaw", "Skaggy Synergytooth", "Nibwick Microgrind", "Crindle Stocksniff", "Wizzle Cubiclebane", "Throg Expensefang", "Splug Overtimebelch", "Drabble Taskmangler", "Klix Compliancegrime", "Mizzle Workflowrot", "Gorp Staplechewer", "Snibble Budgetbruise", "Kraggy Meetinglurker", "Blim Forecastfumble", "Zonk Assetgnash", "Triggle Slidereviser", "Vorny Timesheetterror", "Glim Auditnibble", "Brakka Breakroomraider", "Sprock Redtapewriggler", "Nurgle Powerpointhex", "Grizzleback Clawculator", "Snaggle Metricsmash", "Plib Shareholdershriek", "Drox Inboxhoarder", "Fizzle Ladderclimb", "Krumble Deskgnarl", "Wretchy Watercoolerspy", "Blix Quarterlyquiver", "Grottin Promotionpounce", "Skibble Faxmachinebane", "Zraggy Corporatecackle"]
@@ -97,6 +101,17 @@ func _ready() -> void:
 	var camera_marker = map_instance.get_node("Cameras/Stanza1")
 	camera.global_position = camera_marker.global_position
 
+func change_camera(direction):
+	if direction == "foreward" and current_camera_idx < tot_rooms:
+		current_camera_idx += 1
+		var camera_name = "Cameras/Stanza"+str(current_camera_idx)
+		var camera_marker = map_instance.get_node(camera_name)
+		
+	elif direction == "backwards" and current_camera_idx != 1:
+		current_camera_idx -= 1
+	else:
+		return
+		
 func _process(delta: float) -> void:
 	update_revenues(delta)
 		
@@ -104,6 +119,14 @@ func _process(delta: float) -> void:
 	
 	if active_npcs.size() == 0:
 		print(memorial)
+	
+	if Input.is_action_just_pressed("camera_fwd"):
+		print("Camera Foreward")
+		change_camera("foreward")
+		
+	if Input.is_action_just_pressed("camera_bwd"):
+		print("Camera Backwards")
+		change_camera("backwards")
 		
 
 func _on_death(dying_npc: Node2D):
