@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var LOW_MORALE: int = 200
+# @export var LOW_MORALE: int = 200
 @export var HIGH_MORALE: int = 800
 @export var MAX_MORALE: int = 1000
 @export var MIN_MORALE: int = 0
@@ -9,7 +9,7 @@ extends Node2D
 @export var States = {SCARED = -4, WORKING = -2, MOVING = 0, SLACKING = 1}
 @export var DEBUG: bool = false
 var MORALE_NORMALIZER: float = MAX_MORALE
-var Morale: float
+@export var Morale: float = MAX_MORALE
 # @export var MORALE_DEGRADATION_PER_SEC = 5
 # @export var MORALE_RECOVER_PER_SEC = 2
 
@@ -35,7 +35,7 @@ signal switching
 
 
 func _ready() -> void:
-	Morale = MAX_MORALE
+	# Morale = MAX_MORALE
 	timer.timeout.connect(_on_timer_timeout)
 	move(States.WORKING)
 	timer.start(0.1)
@@ -46,7 +46,7 @@ func _on_timer_timeout() -> void:
 	debug_state()
 	if State == States.SLACKING and Morale < MAX_MORALE:
 		# debug("Slacking with morale: ", Morale)
-		timer.start(TIMER_DURATION)
+		start_timer()
 		return
 
 	if Morale >= HIGH_MORALE:
@@ -55,11 +55,11 @@ func _on_timer_timeout() -> void:
 		debug("Finished move_or_continue")
 		debug_state()
 
-	elif Morale <= LOW_MORALE:
-		debug("Slacking morale")
-		move_or_continue(States.SLACKING)
-		debug("Finished move_or_continue")
-		debug_state()
+	# elif Morale <= LOW_MORALE:
+	# 	debug("Slacking morale")
+	# 	move_or_continue(States.SLACKING)
+	# 	debug("Finished move_or_continue")
+	# 	debug_state()
 
 	else:
 		roll()
@@ -70,16 +70,14 @@ func _on_timer_timeout() -> void:
 	if State == States.MOVING:
 		return
 
-	var waiting_time = round(TIMER_DURATION * Morale / MORALE_NORMALIZER)
-	# debug("Starting timer, expiring in: ", waiting_time, ", not rounded: ", TIMER_DURATION * Morale / MORALE_NORMALIZER)
-	timer.start(waiting_time)
+	start_timer()
 
 
 func _physics_process(delta: float) -> void:
 	Morale += morale_diff(delta)
-
-	Morale = min(Morale, MAX_MORALE)
-	Morale = max(Morale, MIN_MORALE)
+	Morale = clamp(Morale, MIN_MORALE, MAX_MORALE)
+	# Morale = min(Morale, MAX_MORALE)
+	# Morale = max(Morale, MIN_MORALE)
 	
 	if Morale == 0:
 		die()
@@ -142,18 +140,25 @@ func update_state(desired_state: int) -> void:
 	State = desired_state
 
 
+func start_timer() -> void:
+	var waiting_time: float
+	match State:
+		States.SCARED:
+			waiting_time = TIMER_DURATION * SCARED_TIMER_FACTOR
+		States.WORKING:
+			waiting_time = TIMER_DURATION * Morale / MORALE_NORMALIZER
+		States.SLACKING:
+			waiting_time = TIMER_DURATION + TIMER_DURATION * (1 - Morale / MORALE_NORMALIZER)
+
+	debug("restarting timer, expiring in: ", waiting_time)
+	timer.start(waiting_time)
+
+
 func arrived() -> void:
 	debug("arrived!")
 	debug_state()
 	update_state(DesiredState)
-
-	var waiting_time: int = round(TIMER_DURATION * Morale / MORALE_NORMALIZER)
-
-	if State == States.SCARED:
-		waiting_time *= SCARED_TIMER_FACTOR
-	
-	debug("restarting timer, expiring in: ", waiting_time)
-	timer.start(waiting_time)
+	start_timer()
 
 
 func set_scared() -> void:
@@ -161,8 +166,7 @@ func set_scared() -> void:
 	DesiredState = States.SCARED
 	update_state(States.SCARED)
 	moving.emit(DesiredState)
-	var waiting_time: int = round(TIMER_DURATION * Morale / MORALE_NORMALIZER) * SCARED_TIMER_FACTOR
-	timer.start(waiting_time)
+	start_timer()
 
 
 func print_state(state: int, state_name: String) -> void:

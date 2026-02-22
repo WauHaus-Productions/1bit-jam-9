@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://bhp5smk7p3fxt" path="res://scenes/Map/MapWithRooms.tscn" id="2_rnxwy"]
 [ext_resource type="PackedScene" uid="uid://jj5mr86mb1j2" path="res://scenes/NPC/npc.tscn" id="3_6dete"]
 [ext_resource type="Texture2D" uid="uid://cvwmseaysysll" path="res://asset/CERCHIO CAMERA.png" id="4_6dete"]
-[ext_resource type="PackedScene" uid="uid://bxpkppq5hc6jh" path="res://scenes/Pointer/Pointer.tscn" id="4_54rdg"]
 [ext_resource type="PackedScene" uid="uid://dw0exwrfxkmhv" path="res://scenes/Game/goblin_end_scene.tscn" id="4_54rdg"]
 [ext_resource type="Script" uid="uid://bctjjwtu3j7g4" path="res://scenes/GameManager/camera_2d.gd" id="4_rnxwy"]
 [ext_resource type="PackedScene" uid="uid://d1trr70s1rx24" path="res://scenes/GameOverlay/GameOverlay.tscn" id="5_cxpcv"]
@@ -29,6 +28,7 @@ npc = ExtResource("3_6dete")
 pointer = ExtResource("4_54rdg")
 npc_counter = 1
 game_over = ExtResource("4_54rdg")
+year_len_seconds = 1000
 
 [node name="bg" type="TextureRect" parent="." unique_id=1363100593]
 z_index = -1
@@ -121,4 +121,5 @@ bus = &"Music"
 [node name="Timer" type="Timer" parent="." unique_id=2080231706]
 wait_time = 20.0
 autostart = true
+
 [connection signal="timeout" from="DayTimer" to="." method="_on_day_end"]
