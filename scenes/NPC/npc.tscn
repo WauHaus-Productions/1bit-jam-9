@@ -278,3 +278,5 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_6sgsd")
 value = 50.0
 show_percentage = false
 metadata/_edit_use_anchors_ = true
+
+[connection signal="dying" from="Logic" to="." method="_on_logic_dying"]
