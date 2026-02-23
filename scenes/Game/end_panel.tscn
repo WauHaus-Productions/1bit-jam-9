@@ -61,8 +61,8 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "
 Corporate doesn't need you anymore.
-Clearly you didn't believe enough in out Mission.
-We are very disappointed.
+Clearly you didn't believe enough in our Mission.
+We are very disappointed,
 please train your replacement before you leave.
 "
 label_settings = SubResource("LabelSettings_tcq5x")
