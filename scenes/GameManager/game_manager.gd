@@ -11,6 +11,9 @@ extends BaseScene
 @onready var goal_label: Label = $Camera2D/GameOverlay/Goal
 @onready var level_popup: Control = $Camera2D/GameOverlay/Popup
 
+@onready var fwd_button: Button = $Camera2D/GameOverlay/ForewardButton
+@onready var back_button: Button = $Camera2D/GameOverlay/BackButton
+
 @onready var fiscal_year_timer: Timer = $DayTimer
 
 
@@ -166,6 +169,8 @@ func _ready() -> void:
 	$DayTimer.start()
 
 	$Camera2D/GameOverlay/Popup.resume.connect(on_resume)
+	back_button.pressed.connect(_on_back_button_pressed)
+	fwd_button.pressed.connect(_on_fwd_button_pressed)
 	
 
 func spawn_npc(spawnable_positions) -> void:
@@ -362,3 +367,9 @@ func on_resume():
 func _on_popoup_timer_timeout() -> void:
 	level_popup.visible = false
 	get_tree().paused = false
+	
+func _on_back_button_pressed() -> void:
+	change_camera("backwards")
+	
+func _on_fwd_button_pressed() -> void:
+	change_camera("foreward")

@@ -13,7 +13,9 @@ config_version=5
 config/name="1-Bit Jam: Capitalism"
 run/main_scene="uid://dy0dg87mqaucl"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="uid://8uw5ik3fp3u5"
+config/icon="uid://8uw5ik3fp3u5"
 
 [audio]
 
@@ -23,6 +25,7 @@ buses/default_bus_layout="uid://8ra8ntumnlew"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/stretch/scale_mode="integer"
 
 [global_group]
 

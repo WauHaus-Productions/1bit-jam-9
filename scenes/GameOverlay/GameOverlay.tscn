@@ -40,6 +40,52 @@ font = ExtResource("5_qo4ws")
 [sub_resource type="LabelSettings" id="LabelSettings_y8v34"]
 font = ExtResource("5_qo4ws")
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gd44e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hf0tb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y8v34"]
+texture = ExtResource("1_l6you")
+region_rect = Rect2(32, 341, 64, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j5t4o"]
+texture = ExtResource("1_l6you")
+region_rect = Rect2(32, 341, 64, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ltcwa"]
+texture = ExtResource("1_l6you")
+region_rect = Rect2(32, 337, 64, 52)
+
+[sub_resource type="Theme" id="Theme_gd44e"]
+Button/styles/disabled = SubResource("StyleBoxEmpty_gd44e")
+Button/styles/focus = SubResource("StyleBoxEmpty_hf0tb")
+Button/styles/hover = SubResource("StyleBoxTexture_y8v34")
+Button/styles/normal = SubResource("StyleBoxTexture_j5t4o")
+Button/styles/pressed = SubResource("StyleBoxTexture_ltcwa")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y8v34"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j5t4o"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u71el"]
+texture = ExtResource("1_l6you")
+region_rect = Rect2(1184, 341, 64, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aqbo3"]
+texture = ExtResource("1_l6you")
+region_rect = Rect2(1184, 341, 64, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i7bmf"]
+texture = ExtResource("1_l6you")
+region_rect = Rect2(1184, 336, 64, 53)
+
+[sub_resource type="Theme" id="Theme_775gl"]
+Button/styles/disabled = SubResource("StyleBoxEmpty_y8v34")
+Button/styles/focus = SubResource("StyleBoxEmpty_j5t4o")
+Button/styles/hover = SubResource("StyleBoxTexture_u71el")
+Button/styles/normal = SubResource("StyleBoxTexture_aqbo3")
+Button/styles/pressed = SubResource("StyleBoxTexture_i7bmf")
+
 [node name="GameOverlay" type="Control" unique_id=822853487]
 z_index = 20
 layout_mode = 3
@@ -266,3 +312,20 @@ text = "
 Press \"R\" to skip"
 label_settings = SubResource("LabelSettings_y8v34")
 horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="." unique_id=1132412074]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 336.0
+offset_right = 96.0
+offset_bottom = 392.0
+theme = SubResource("Theme_gd44e")
+
+[node name="ForewardButton" type="Button" parent="." unique_id=805347791]
+layout_mode = 0
+offset_left = 1184.0
+offset_top = 336.0
+offset_right = 1248.0
+offset_bottom = 392.0
+theme = SubResource("Theme_775gl")
+theme_type_variation = &"FlatButton"
