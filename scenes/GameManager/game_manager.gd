@@ -29,9 +29,10 @@ extends BaseScene
 var current_goal: int
 
 const NPC_REVENUES: int = 100
-const NPC_COST: int = 30
+const NPC_COST: int = 35
 const DAYS_IN_YEAR = 365
 const REVENUE_SCALE_FACTOR: float = 1.10
+const END_YEAR_MORALE_REWARD: int = 5
 
 var map_instance
 var spawn_positions
@@ -328,7 +329,6 @@ func _on_day_end():
 	debug("DAY END")
 	debug("memorial: ", memorial)
 	if (total_revenues >= current_goal):
-
 		current_goal = roundi(total_revenues * REVENUE_SCALE_FACTOR)
 		goal_label.text = str(current_goal)
 		total_revenues = 0.0
@@ -337,6 +337,8 @@ func _on_day_end():
 		level_popup.visible = true
 		$PopoupTimer.start()
 		
+		for active_npc in active_npcs.values():
+			active_npc.get_node("Logic").increase_morale(END_YEAR_MORALE_REWARD)
 		hire_npc()
 		get_tree().paused = true
 		pass

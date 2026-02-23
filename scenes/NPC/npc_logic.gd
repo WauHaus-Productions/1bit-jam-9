@@ -5,7 +5,7 @@ extends Node2D
 @export var MAX_MORALE: int = 50
 @export var MIN_MORALE: int = 0
 @export var TIMER_DURATION: int = 4
-@export var SCARED_TIMER_FACTOR: float = 1.33
+@export var SCARED_TIMER_FACTOR: float = 1.8
 @export var States = {SCARED = -4, WORKING = -2, MOVING = 0, SLACKING = 1}
 @export var DEBUG: bool = false
 var MORALE_NORMALIZER: float = MAX_MORALE
@@ -173,6 +173,11 @@ func set_scared() -> void:
 	update_state(States.SCARED)
 	moving.emit(DesiredState)
 	start_timer()
+
+
+func increase_morale(increment := 1) -> void:
+	Morale += increment
+	Morale = clamp(Morale, MIN_MORALE, MAX_MORALE)
 
 
 func print_state(state: int, state_name: String) -> void:
