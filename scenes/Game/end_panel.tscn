@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://qlf688g08plj"]
 
 [ext_resource type="Script" uid="uid://cd6qn8ch8bl2y" path="res://scenes/Game/end_panel.gd" id="1_ncyv8"]
-[ext_resource type="FontFile" uid="uid://cd5x1j2x82g48" path="res://asset/UI/font/seaside-resort/SeasideResortNF.ttf" id="2_ncyv8"]
 [ext_resource type="FontFile" uid="uid://bi75vtx1r5ccy" path="res://asset/UI/font/Limelight/Limelight-Regular.ttf" id="2_t0537"]
 [ext_resource type="PackedScene" uid="uid://gpah4ea7go8w" path="res://scenes/Menu/buttons/ButtonSceneChange/button_scene_change.tscn" id="3_t0537"]
 
@@ -10,8 +9,8 @@ font = ExtResource("2_t0537")
 font_size = 79
 
 [sub_resource type="LabelSettings" id="LabelSettings_tcq5x"]
-font = ExtResource("2_ncyv8")
-font_size = 15
+font = ExtResource("2_t0537")
+font_size = 18
 
 [node name="EndPanel" type="Control" unique_id=1327973740]
 layout_mode = 3

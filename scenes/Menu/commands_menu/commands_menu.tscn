@@ -12,6 +12,7 @@ font = ExtResource("4_1h1iu")
 font_size = 60
 
 [sub_resource type="LabelSettings" id="LabelSettings_1h1iu"]
+font = ExtResource("4_1h1iu")
 font_size = 18
 
 [node name="CommandsMenu" type="Control" unique_id=887261942]
@@ -63,7 +64,15 @@ horizontal_alignment = 1
 [node name="Body" type="Label" parent="NinePatchRect/VBoxContainer" unique_id=43509542]
 layout_mode = 2
 text = "Those dirty empolyees are slacking off.
-drag them back to work or the board won-t be happy."
+Drag them back to work or the board won't be happy.
+Be carefull though,
+ if they too much they migh die from stress.
+And high turnover is not a good look.
+
+Use your mouse to drag your employees
+back to their workstations.
+
+Use A/D or the arrow keys to change the camera."
 label_settings = SubResource("LabelSettings_1h1iu")
 horizontal_alignment = 1
 

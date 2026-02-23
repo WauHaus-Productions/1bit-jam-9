@@ -12,7 +12,8 @@ font = ExtResource("5_oq077")
 font_size = 52
 
 [sub_resource type="LabelSettings" id="LabelSettings_oq077"]
-font_size = 13
+font = ExtResource("5_oq077")
+font_size = 17
 
 [node name="CreditsMenu" type="Control" unique_id=226636469]
 layout_mode = 3
@@ -87,10 +88,6 @@ Matteo Mangioni
 Oscar Pindaro
 Samuele Lo Iacono
 
-
-Fonts:
-Carnevalee Freakshow by Chris Hansen
-Tuscan Mf by Rick Mueller
 "
 label_settings = SubResource("LabelSettings_oq077")
 horizontal_alignment = 1

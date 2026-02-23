@@ -151,8 +151,10 @@ func _ready() -> void:
 	
 	# SET CAMERA ON FIRST ROOM
 	var camera_marker = map_instance.get_node("Cameras/Stanza1")
+	
 	camera.global_position = camera_marker.global_position
-	camera.align_camera_and_overlay()
+	#camera.align_camera_and_overlay()
+	camera.start_zoom_animation()
 	
 	# START BG MUSIC
 	bg_music.play()
