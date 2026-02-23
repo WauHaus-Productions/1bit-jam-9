@@ -111,8 +111,8 @@ func day_to_date(day: int) -> Dictionary:
 		if month == 12:
 			debug('Fine Anno Fiscale')
 			month = 0
-			current_fiscal_year += 1
-			elapsed_time = 0.0
+			#current_fiscal_year += 1
+			#elapsed_time = 0.0
 			# day = 0
 		
 
@@ -332,6 +332,9 @@ func _on_day_end():
 		current_goal = roundi(total_revenues * REVENUE_SCALE_FACTOR)
 		goal_label.text = str(current_goal)
 		total_revenues = 0.0
+		
+		current_fiscal_year += 1
+		elapsed_time = 0.0
 		
 		level_popup.get_node("TextureRect/HBoxContainer/VBoxContainer/NewGoal").text = "%4d Target: %d" % [current_fiscal_year, current_goal]
 		level_popup.visible = true
