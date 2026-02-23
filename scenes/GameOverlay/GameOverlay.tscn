@@ -37,6 +37,9 @@ font_size = 18
 [sub_resource type="LabelSettings" id="LabelSettings_hf0tb"]
 font = ExtResource("5_qo4ws")
 
+[sub_resource type="LabelSettings" id="LabelSettings_y8v34"]
+font = ExtResource("5_qo4ws")
+
 [node name="GameOverlay" type="Control" unique_id=822853487]
 z_index = 20
 layout_mode = 3
@@ -235,10 +238,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Felicitations
 you are allowed to work another year
-Since you've been so good we are expecting a 10% raise in revenue
-
-Press r to resume or wait 8s
-"
+Since you've been so good we are expecting a 10% raise in revenue"
 label_settings = SubResource("LabelSettings_gd44e")
 horizontal_alignment = 1
 
@@ -249,4 +249,11 @@ layout_mode = 2
 layout_mode = 2
 text = "You've got a new hire"
 label_settings = SubResource("LabelSettings_hf0tb")
+horizontal_alignment = 1
+
+[node name="Resume" type="Label" parent="Popup/TextureRect/HBoxContainer/VBoxContainer" unique_id=1983160814]
+layout_mode = 2
+text = "
+Press \"R\" to skip"
+label_settings = SubResource("LabelSettings_y8v34")
 horizontal_alignment = 1
