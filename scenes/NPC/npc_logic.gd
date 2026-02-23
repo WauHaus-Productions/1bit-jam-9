@@ -1,11 +1,11 @@
 extends Node2D
 
 # @export var LOW_MORALE: int = 200
-@export var HIGH_MORALE: int = 40
+@export var HIGH_MORALE: int = 44
 @export var MAX_MORALE: int = 50
 @export var MIN_MORALE: int = 0
-@export var TIMER_DURATION: int = 5
-@export var SCARED_TIMER_FACTOR: int = 2
+@export var TIMER_DURATION: int = 4
+@export var SCARED_TIMER_FACTOR: float = 1.33
 @export var States = {SCARED = -4, WORKING = -2, MOVING = 0, SLACKING = 1}
 @export var DEBUG: bool = false
 var MORALE_NORMALIZER: float = MAX_MORALE

@@ -29,7 +29,7 @@ extends BaseScene
 var current_goal: int
 
 const NPC_REVENUES: int = 100
-const NPC_COST: int = 40
+const NPC_COST: int = 30
 const DAYS_IN_YEAR = 365
 const REVENUE_SCALE_FACTOR: float = 1.10
 
