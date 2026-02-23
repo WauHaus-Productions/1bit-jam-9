@@ -61,7 +61,7 @@ zoom = Vector2(0.5, 0.5)
 script = ExtResource("4_rnxwy")
 blink_time_sec = 1.0
 target_zoom = Vector2(2, 2)
-transition_time = 1.5
+transition_time = 4.0
 
 [node name="GameOverlay" parent="Camera2D" unique_id=822853487 instance=ExtResource("5_cxpcv")]
 anchors_preset = 0

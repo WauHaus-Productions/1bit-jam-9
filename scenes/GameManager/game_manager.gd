@@ -154,7 +154,7 @@ func _ready() -> void:
 	
 	camera.global_position = camera_marker.global_position
 	#camera.align_camera_and_overlay()
-	camera.start_zoom_animation()
+	camera.start_zoom_animation(camera.target_zoom, camera.transition_time)
 	
 	# START BG MUSIC
 	bg_music.play()
@@ -197,24 +197,28 @@ func change_camera(direction):
 		else:
 			current_camera_idx += 1
 			
-		var camera_name = "Cameras/Stanza" + str(current_camera_idx)
-		var camera_marker = map_instance.get_node(camera_name)
-		camera.global_position = camera_marker.global_position
-		camera.change_camera_name("Camera " + str(current_camera_idx))
-		
 	elif direction == "backwards":
 		if current_camera_idx == 1:
 			current_camera_idx = tot_rooms
 		else:
 			current_camera_idx -= 1
 			
-		var camera_name = "Cameras/Stanza" + str(current_camera_idx)
-		var camera_marker = map_instance.get_node(camera_name)
-		camera.global_position = camera_marker.global_position
 	else:
 		return
+	
+	var camera_name = "Cameras/Stanza" + str(current_camera_idx)
+	var camera_marker = map_instance.get_node(camera_name)
+	camera.global_position = camera_marker.global_position
+	camera.change_camera_name("Camera " + str(current_camera_idx))
+	
+	# POSSIBLE CAMERA TWEEN????
+	#var tweenCamera = get_tree().create_tween()
+	#tweenCamera.tween_property(camera, "global_position", camera_marker.global_position, 0.25)
+	#tweenCamera.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 		
 func _process(delta: float) -> void:
+	camera.align_camera_and_overlay()
+	
 	update_revenues(delta)
 	goblin_counter.text = str(active_npcs.size())
 		
@@ -231,6 +235,12 @@ func _process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("Hire"):
 		hire_npc()
+		
+	if Input.is_action_just_pressed("zoom"):
+		if camera.zoom == camera.target_zoom:
+			camera.start_zoom_animation(Vector2(1,1), 1)
+		else:
+			camera.start_zoom_animation(camera.target_zoom, camera.transition_time)
 		
 	elapsed_time += delta
 
