@@ -328,11 +328,15 @@ func _on_day_end():
 	debug("DAY END")
 	debug("memorial: ", memorial)
 	if (total_revenues >= current_goal):
-		level_popup.visible = true
-		$PopoupTimer.start()
+
 		current_goal = roundi(total_revenues * REVENUE_SCALE_FACTOR)
 		goal_label.text = str(current_goal)
 		total_revenues = 0.0
+		
+		level_popup.get_node("TextureRect/HBoxContainer/VBoxContainer/NewGoal").text = "%4d Target: %d" % [current_fiscal_year, current_goal]
+		level_popup.visible = true
+		$PopoupTimer.start()
+		
 		hire_npc()
 		get_tree().paused = true
 		pass

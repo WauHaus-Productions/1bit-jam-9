@@ -236,13 +236,22 @@ size_flags_vertical = 4
 [node name="Label" type="Label" parent="Popup/TextureRect/HBoxContainer/VBoxContainer" unique_id=1450301594]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Felicitations
+text = "Felicitations!
 you are allowed to work another year
 Since you've been so good we are expecting a 10% raise in revenue"
 label_settings = SubResource("LabelSettings_gd44e")
 horizontal_alignment = 1
 
-[node name="NewGoal" type="Label" parent="Popup/TextureRect/HBoxContainer/VBoxContainer" unique_id=1433522304]
+[node name="Space2" type="Label" parent="Popup/TextureRect/HBoxContainer/VBoxContainer" unique_id=413816284]
+layout_mode = 2
+
+[node name="NewGoal" type="Label" parent="Popup/TextureRect/HBoxContainer/VBoxContainer" unique_id=939973873]
+layout_mode = 2
+size_flags_horizontal = 4
+label_settings = SubResource("LabelSettings_gd44e")
+horizontal_alignment = 1
+
+[node name="Space" type="Label" parent="Popup/TextureRect/HBoxContainer/VBoxContainer" unique_id=1433522304]
 layout_mode = 2
 
 [node name="NewHire" type="Label" parent="Popup/TextureRect/HBoxContainer/VBoxContainer" unique_id=1822705975]
