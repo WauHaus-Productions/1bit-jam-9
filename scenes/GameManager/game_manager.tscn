@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://7eq111y05lyv"]
+
+[ext_resource type="Script" uid="uid://da3amk2k58q4" path="res://scenes/GameManager/game_manager.gd" id="1_u01m6"]
+[ext_resource type="PackedScene" uid="uid://bhp5smk7p3fxt" path="res://scenes/Map/MapWithRooms.tscn" id="2_rnxwy"]
+[ext_resource type="PackedScene" uid="uid://jj5mr86mb1j2" path="res://scenes/NPC/npc.tscn" id="3_6dete"]
+[ext_resource type="Texture2D" uid="uid://cvwmseaysysll" path="res://asset/CERCHIO CAMERA.png" id="4_6dete"]
+[ext_resource type="PackedScene" uid="uid://bxpkppq5hc6jh" path="res://scenes/Pointer/Pointer.tscn" id="4_54rdg"]
+[ext_resource type="Script" uid="uid://bctjjwtu3j7g4" path="res://scenes/GameManager/camera_2d.gd" id="4_rnxwy"]
+[ext_resource type="PackedScene" uid="uid://dw0exwrfxkmhv" path="res://scenes/Game/goblin_end_scene.tscn" id="5_0elm8"]
+[ext_resource type="PackedScene" uid="uid://d1trr70s1rx24" path="res://scenes/GameOverlay/GameOverlay.tscn" id="5_cxpcv"]
+[ext_resource type="PackedScene" uid="uid://bgvjw5yo82vr5" path="res://scenes/NPC/death_cam.tscn" id="5_kmaha"]
+[ext_resource type="AudioStream" uid="uid://bgy3qa8djf5dx" path="res://asset/music/in_game_music.wav" id="6_762bc"]
+[ext_resource type="AudioStream" uid="uid://dtr15pqg2at2t" path="res://asset/sfx/ambient_office.wav" id="7_0elm8"]
+
+[sub_resource type="Gradient" id="Gradient_rnxwy"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_762bc"]
+gradient = SubResource("Gradient_rnxwy")
+width = 4000
+height = 4000
+fill_from = Vector2(1, 0)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rx0ki"]
+load_path = "res://.godot/imported/CAMERA 2.png-5ebe738a2469f474002655edb1a00faa.ctex"
+
+[node name="GameManager" type="Node2D" unique_id=987844777 groups=["level"]]
+script = ExtResource("1_u01m6")
+map = ExtResource("2_rnxwy")
+npc = ExtResource("3_6dete")
+pointer = ExtResource("4_54rdg")
+npc_counter = 4
+death_cam = ExtResource("5_kmaha")
+game_over = ExtResource("5_0elm8")
+starting_goal = 100
+year_len_seconds = 15
+
+[node name="bg" type="TextureRect" parent="." unique_id=1363100593]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1296.0
+offset_top = -1128.0
+offset_right = 2704.0
+offset_bottom = 2872.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource("GradientTexture2D_762bc")
+
+[node name="DayTimer" type="Timer" parent="." unique_id=834968016]
+
+[node name="PopoupTimer" type="Timer" parent="." unique_id=2027662461]
+process_mode = 2
+wait_time = 8.0
+one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1635203694]
+z_index = 10
+zoom = Vector2(2, 2)
+script = ExtResource("4_rnxwy")
+blink_time_sec = 1.0
+
+[node name="GameOverlay" parent="Camera2D" unique_id=822853487 instance=ExtResource("5_cxpcv")]
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D" unique_id=2112432843]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_top = -368.0
+offset_right = -640.0
+offset_bottom = -368.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4.8137126, 4.471533)
+size_flags_horizontal = 6
+size_flags_vertical = 3
+texture = SubResource("CompressedTexture2D_rx0ki")
+stretch_mode = 1
+
+[node name="Revenue" type="Label" parent="Camera2D" unique_id=211674]
+visible = false
+z_index = 10
+offset_left = -17.0
+offset_top = -147.54108
+offset_right = 303.0
+offset_bottom = -123.54108
+text = "0"
+horizontal_alignment = 2
+
+[node name="Rec" type="Sprite2D" parent="Camera2D" unique_id=1767933091]
+visible = false
+position = Vector2(-467.25, 236)
+scale = Vector2(1.5833334, 1.5833334)
+texture = ExtResource("4_6dete")
+
+[node name="Label2" type="Label" parent="Camera2D" unique_id=1355816663]
+visible = false
+z_index = 10
+offset_left = -457.25
+offset_top = 224.0
+offset_right = -361.25
+offset_bottom = 248.0
+text = "Camera 1"
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="." unique_id=1789639114]
+stream = ExtResource("6_762bc")
+volume_db = -4.0
+bus = &"Music"
+
+[node name="BGOfficeSound" type="AudioStreamPlayer" parent="." unique_id=529051722]
+stream = ExtResource("7_0elm8")
+volume_db = -16.0
+bus = &"Music"
+
+[node name="Timer" type="Timer" parent="." unique_id=2080231706]
+wait_time = 20.0
+autostart = true
+
+[connection signal="timeout" from="DayTimer" to="." method="_on_day_end"]
+[connection signal="timeout" from="PopoupTimer" to="." method="_on_popoup_timer_timeout"]

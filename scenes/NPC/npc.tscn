@@ -1,0 +1,251 @@
+[gd_scene format=3 uid="uid://jj5mr86mb1j2"]
+
+[ext_resource type="Script" uid="uid://oljriesvujpa" path="res://scenes/NPC/npc_movement.gd" id="1_23nos"]
+[ext_resource type="Script" uid="uid://bcdtf6q7dsqfc" path="res://scenes/NPC/npc_logic.gd" id="2_23nos"]
+[ext_resource type="Texture2D" uid="uid://x4dfmeeny4jb" path="res://asset/GOB grabbed ANIM-Sheet.png" id="3_c4wbl"]
+[ext_resource type="Texture2D" uid="uid://ce7hycx74fgmc" path="res://asset/GOB IDLE ANIM-Sheet.png" id="3_lwet7"]
+[ext_resource type="Texture2D" uid="uid://147biaqvguuf" path="res://asset/GOB DEATH ANIM-Seet.png" id="3_qphst"]
+[ext_resource type="Texture2D" uid="uid://busfxg6pdjuvc" path="res://asset/GOB WALK ANIM-Sheet.png" id="5_5fqau"]
+[ext_resource type="Script" uid="uid://nu032d1rd74y" path="res://libs/wautools/WAUAudioPlayer/sounds.gd" id="6_sdgcv"]
+[ext_resource type="Script" uid="uid://cmunb81jesp2d" path="res://libs/wautools/WAUAudioPlayer/audio_tracks.gd" id="7_osodb"]
+[ext_resource type="Script" uid="uid://dr5yhyxqxkigf" path="res://libs/wautools/WAUAudioPlayer/audio_track.gd" id="8_1oaw6"]
+[ext_resource type="AudioStream" uid="uid://d1yhwugloytba" path="res://asset/sfx/grab.wav" id="9_x3px2"]
+[ext_resource type="AudioStream" uid="uid://ds6o3hua6nkn2" path="res://asset/sfx/scream/scream1.wav" id="10_084ff"]
+[ext_resource type="AudioStream" uid="uid://byfj7l57xnppm" path="res://asset/sfx/scream/scream2.wav" id="11_2ydom"]
+[ext_resource type="AudioStream" uid="uid://dnspv3vda8sf4" path="res://asset/sfx/scream/scream3.wav" id="12_qphst"]
+[ext_resource type="AudioStream" uid="uid://b8duwc4gr1wo" path="res://asset/sfx/scream/scream4.wav" id="13_awvm7"]
+[ext_resource type="AudioStream" uid="uid://cs4ja7ipplhqj" path="res://asset/sfx/scream/scream5.wav" id="14_jo1ro"]
+[ext_resource type="AudioStream" uid="uid://qhfc1tlg63et" path="res://asset/sfx/keyboard_typing.wav" id="15_2ydom"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awvm7"]
+atlas = ExtResource("3_qphst")
+region = Rect2(0, 0, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jo1ro"]
+atlas = ExtResource("3_qphst")
+region = Rect2(0, 32, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0qtp"]
+atlas = ExtResource("3_qphst")
+region = Rect2(0, 64, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6sgsd"]
+atlas = ExtResource("3_qphst")
+region = Rect2(0, 96, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_atg2p"]
+atlas = ExtResource("3_qphst")
+region = Rect2(0, 128, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vuep6"]
+atlas = ExtResource("3_qphst")
+region = Rect2(0, 160, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ylo8"]
+atlas = ExtResource("3_qphst")
+region = Rect2(0, 192, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjpp0"]
+atlas = ExtResource("3_qphst")
+region = Rect2(0, 224, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_omrjc"]
+atlas = ExtResource("3_qphst")
+region = Rect2(0, 256, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5kf1"]
+atlas = ExtResource("3_qphst")
+region = Rect2(0, 288, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3lda"]
+atlas = ExtResource("3_qphst")
+region = Rect2(0, 320, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bfkp"]
+atlas = ExtResource("3_qphst")
+region = Rect2(0, 352, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3yvu"]
+atlas = ExtResource("3_qphst")
+region = Rect2(0, 384, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aanyv"]
+atlas = ExtResource("3_c4wbl")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4jjfo"]
+atlas = ExtResource("3_c4wbl")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4wbl"]
+atlas = ExtResource("3_lwet7")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sdgcv"]
+atlas = ExtResource("5_5fqau")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_osodb"]
+atlas = ExtResource("5_5fqau")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1oaw6"]
+atlas = ExtResource("5_5fqau")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3px2"]
+atlas = ExtResource("5_5fqau")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yudw0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awvm7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jo1ro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0qtp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6sgsd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_atg2p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vuep6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ylo8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjpp0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_omrjc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5kf1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u3lda")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6bfkp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n3yvu")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aanyv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4jjfo")
+}],
+"loop": true,
+"name": &"grabbed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4wbl")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdgcv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_osodb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1oaw6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3px2")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qphst"]
+
+[sub_resource type="Resource" id="Resource_q836e"]
+script = ExtResource("8_1oaw6")
+track_name = "GRAB"
+track_file = ExtResource("9_x3px2")
+volume_db = -8.0
+bus = "SFX"
+metadata/_custom_type_script = "uid://dr5yhyxqxkigf"
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_d0qtp"]
+streams_count = 5
+stream_0/stream = ExtResource("10_084ff")
+stream_1/stream = ExtResource("11_2ydom")
+stream_2/stream = ExtResource("12_qphst")
+stream_3/stream = ExtResource("13_awvm7")
+stream_4/stream = ExtResource("14_jo1ro")
+stream_4/weight = 0.1
+
+[sub_resource type="Resource" id="Resource_6sgsd"]
+script = ExtResource("8_1oaw6")
+track_name = "SCREAM"
+track_file = SubResource("AudioStreamRandomizer_d0qtp")
+bus = "SFX"
+metadata/_custom_type_script = "uid://dr5yhyxqxkigf"
+
+[sub_resource type="Resource" id="Resource_qphst"]
+script = ExtResource("8_1oaw6")
+track_name = "WORKING"
+track_file = ExtResource("15_2ydom")
+bus = "SFX"
+metadata/_custom_type_script = "uid://dr5yhyxqxkigf"
+
+[sub_resource type="Resource" id="Resource_084ff"]
+script = ExtResource("7_osodb")
+sounds = Array[ExtResource("8_1oaw6")]([SubResource("Resource_q836e"), SubResource("Resource_6sgsd"), SubResource("Resource_qphst")])
+metadata/_custom_type_script = "uid://cmunb81jesp2d"
+
+[node name="NPC" type="CharacterBody2D" unique_id=1168664165]
+input_pickable = true
+script = ExtResource("1_23nos")
+
+[node name="Logic" type="Node2D" parent="." unique_id=1453357300]
+script = ExtResource("2_23nos")
+
+[node name="Timer" type="Timer" parent="Logic" unique_id=570559202]
+one_shot = true
+autostart = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=180002638]
+sprite_frames = SubResource("SpriteFrames_yudw0")
+animation = &"die"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=286659314]
+shape = SubResource("CapsuleShape2D_qphst")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1723642565]
+path_postprocessing = 1
+avoidance_enabled = true
+debug_path_custom_color = Color(1, 0, 0, 1)
+
+[node name="Sounds" type="AudioStreamPlayer2D" parent="." unique_id=1135687681]
+max_distance = 3000.0
+attenuation = 0.0
+bus = &"SFX"
+script = ExtResource("6_sdgcv")
+sound_collection = SubResource("Resource_084ff")
+metadata/_custom_type_script = "uid://nu032d1rd74y"

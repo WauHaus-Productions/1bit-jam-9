@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bxpkppq5hc6jh"]
+
+[ext_resource type="Texture2D" uid="uid://chskjl05jontf" path="res://asset/HAND ANIM-Sheet.png" id="1_bv26u"]
+[ext_resource type="Script" uid="uid://38j0k5ed62ip" path="res://scenes/Pointer/pointer.gd" id="1_mm3uk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p12ay"]
+atlas = ExtResource("1_bv26u")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvd3s"]
+atlas = ExtResource("1_bv26u")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cvdgs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p12ay")
+}],
+"loop": false,
+"name": &"click",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvd3s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Pointer" type="Node2D" unique_id=834199625]
+process_mode = 3
+z_index = 1000
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1559713391]
+position = Vector2(10, 9)
+sprite_frames = SubResource("SpriteFrames_cvdgs")
+script = ExtResource("1_mm3uk")
