@@ -52,8 +52,7 @@ texture = SubResource("GradientTexture2D_762bc")
 [node name="DayTimer" type="Timer" parent="." unique_id=834968016]
 
 [node name="PopoupTimer" type="Timer" parent="." unique_id=2027662461]
-process_mode = 2
-wait_time = 8.0
+wait_time = 2.0
 one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1635203694]
@@ -62,7 +61,7 @@ zoom = Vector2(0.5, 0.5)
 script = ExtResource("4_rnxwy")
 blink_time_sec = 1.0
 target_zoom = Vector2(2, 2)
-transition_time = 1.5
+transition_time = 4.0
 
 [node name="GameOverlay" parent="Camera2D" unique_id=822853487 instance=ExtResource("5_cxpcv")]
 anchors_preset = 0

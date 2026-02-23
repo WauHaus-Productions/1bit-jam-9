@@ -111,6 +111,7 @@ text = "Credits"
 next_scene = ExtResource("3_67rq3")
 
 [node name="QuitButton" parent="NinePatchRect/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=755974715 instance=ExtResource("5_n4wtq")]
+visible = false
 layout_mode = 2
 theme = null
 

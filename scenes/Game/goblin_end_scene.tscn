@@ -3,12 +3,11 @@
 [ext_resource type="Script" uid="uid://df3kbk28oylsd" path="res://scenes/Game/goblin_end_scene.gd" id="1_ikxj3"]
 [ext_resource type="PackedScene" uid="uid://qlf688g08plj" path="res://scenes/Game/end_panel.tscn" id="2_klev3"]
 [ext_resource type="Texture2D" uid="uid://win75a0alwt0" path="res://asset/UI/tombstone.png" id="3_g5ygq"]
-[ext_resource type="FontFile" uid="uid://cd5x1j2x82g48" path="res://asset/UI/font/seaside-resort/SeasideResortNF.ttf" id="4_g5ygq"]
 [ext_resource type="FontFile" uid="uid://bi75vtx1r5ccy" path="res://asset/UI/font/Limelight/Limelight-Regular.ttf" id="5_t8334"]
 [ext_resource type="Script" uid="uid://c4jprtyjhaadd" path="res://scenes/Game/dead_goblins.gd" id="6_x4ayu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gigpl"]
-font = ExtResource("4_g5ygq")
+font = ExtResource("5_t8334")
 font_size = 25
 
 [sub_resource type="LabelSettings" id="LabelSettings_r8iuv"]
@@ -71,7 +70,7 @@ texture = ExtResource("3_g5ygq")
 [node name="Obituary" type="Label" parent="ColorRect/HBoxContainer/MemorialContainer" unique_id=584895590]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Dead Goblins"
+text = "DEAD GOBLINS"
 label_settings = SubResource("LabelSettings_gigpl")
 
 [node name="Goblins" type="Label" parent="ColorRect/HBoxContainer/MemorialContainer" unique_id=688689329]

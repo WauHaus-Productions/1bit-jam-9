@@ -53,6 +53,38 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 1
 
+[node name="Border" type="ColorRect" parent="." unique_id=199718166]
+layout_mode = 0
+offset_left = -64.0
+offset_top = -48.0
+offset_right = 1336.0
+offset_bottom = 52.0
+color = Color(0, 0, 0, 1)
+
+[node name="Border2" type="ColorRect" parent="." unique_id=906472922]
+layout_mode = 0
+offset_left = -64.0
+offset_top = 696.0
+offset_right = 1336.0
+offset_bottom = 796.0
+color = Color(0, 0, 0, 1)
+
+[node name="Border3" type="ColorRect" parent="." unique_id=1550424371]
+layout_mode = 0
+offset_left = 1264.0
+offset_top = -48.0
+offset_right = 1364.0
+offset_bottom = 802.0
+color = Color(0, 0, 0, 1)
+
+[node name="Border4" type="ColorRect" parent="." unique_id=212140286]
+layout_mode = 0
+offset_left = -88.0
+offset_top = -48.0
+offset_right = 12.0
+offset_bottom = 802.0
+color = Color(0, 0, 0, 1)
+
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1561907598]
 layout_mode = 1
 anchors_preset = 15
