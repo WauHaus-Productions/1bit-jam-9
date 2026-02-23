@@ -32,6 +32,7 @@ signal switching
 
 @onready var timer: Timer = $Timer
 @onready var sounds: NewWAUAudioPlayer = $"../Sounds"
+@onready var morale_bar: ProgressBar = $"../MoraleBar"
 
 
 func _ready() -> void:
@@ -39,6 +40,9 @@ func _ready() -> void:
 	timer.timeout.connect(_on_timer_timeout)
 	move(States.WORKING)
 	timer.start(0.1)
+	
+	morale_bar.max_value = MAX_MORALE
+	morale_bar.value = Morale
 
 
 func _on_timer_timeout() -> void:
@@ -82,7 +86,9 @@ func _physics_process(delta: float) -> void:
 	if Morale == 0:
 		die()
 		return
-	
+		
+	morale_bar.value = Morale
+
 	# debug(Morale)
 
 

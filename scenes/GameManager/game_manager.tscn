@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://da3amk2k58q4" path="res://scenes/GameManager/game_manager.gd" id="1_u01m6"]
 [ext_resource type="PackedScene" uid="uid://bhp5smk7p3fxt" path="res://scenes/Map/MapWithRooms.tscn" id="2_rnxwy"]
 [ext_resource type="PackedScene" uid="uid://jj5mr86mb1j2" path="res://scenes/NPC/npc.tscn" id="3_6dete"]
-[ext_resource type="Texture2D" uid="uid://cvwmseaysysll" path="res://asset/CERCHIO CAMERA.png" id="4_6dete"]
 [ext_resource type="PackedScene" uid="uid://bxpkppq5hc6jh" path="res://scenes/Pointer/Pointer.tscn" id="4_54rdg"]
 [ext_resource type="Script" uid="uid://bctjjwtu3j7g4" path="res://scenes/GameManager/camera_2d.gd" id="4_rnxwy"]
 [ext_resource type="PackedScene" uid="uid://dw0exwrfxkmhv" path="res://scenes/Game/goblin_end_scene.tscn" id="5_0elm8"]
@@ -19,9 +18,6 @@ gradient = SubResource("Gradient_rnxwy")
 width = 4000
 height = 4000
 fill_from = Vector2(1, 0)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rx0ki"]
-load_path = "res://.godot/imported/CAMERA 2.png-5ebe738a2469f474002655edb1a00faa.ctex"
 
 [node name="GameManager" type="Node2D" unique_id=987844777 groups=["level"]]
 script = ExtResource("1_u01m6")
@@ -76,48 +72,6 @@ offset_right = 1280.0
 offset_bottom = 720.0
 grow_horizontal = 1
 grow_vertical = 1
-
-[node name="TextureRect" type="TextureRect" parent="Camera2D" unique_id=2112432843]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -640.0
-offset_top = -368.0
-offset_right = -640.0
-offset_bottom = -368.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(4.8137126, 4.471533)
-size_flags_horizontal = 6
-size_flags_vertical = 3
-texture = SubResource("CompressedTexture2D_rx0ki")
-stretch_mode = 1
-
-[node name="Revenue" type="Label" parent="Camera2D" unique_id=211674]
-visible = false
-z_index = 10
-offset_left = -17.0
-offset_top = -147.54108
-offset_right = 303.0
-offset_bottom = -123.54108
-text = "0"
-horizontal_alignment = 2
-
-[node name="Rec" type="Sprite2D" parent="Camera2D" unique_id=1767933091]
-visible = false
-position = Vector2(-467.25, 236)
-scale = Vector2(1.5833334, 1.5833334)
-texture = ExtResource("4_6dete")
-
-[node name="Label2" type="Label" parent="Camera2D" unique_id=1355816663]
-visible = false
-z_index = 10
-offset_left = -457.25
-offset_top = 224.0
-offset_right = -361.25
-offset_bottom = 248.0
-text = "Camera 1"
 
 [node name="BGMusic" type="AudioStreamPlayer" parent="." unique_id=1789639114]
 process_mode = 3

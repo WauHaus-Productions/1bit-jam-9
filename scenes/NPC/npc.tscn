@@ -218,6 +218,22 @@ script = ExtResource("7_osodb")
 sounds = Array[ExtResource("8_1oaw6")]([SubResource("Resource_q836e"), SubResource("Resource_6sgsd"), SubResource("Resource_qphst")])
 metadata/_custom_type_script = "uid://cmunb81jesp2d"
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d0qtp"]
+bg_color = Color(0.004019165, 0.004019165, 0.004019165, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(15.30028, 15.30028, 15.30028, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6sgsd"]
+bg_color = Color(11.708403, 11.708403, 11.708403, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0076186024, 0.0076186024, 0.0076186024, 0)
+
 [node name="NPC" type="CharacterBody2D" unique_id=1168664165]
 input_pickable = true
 script = ExtResource("1_23nos")
@@ -249,3 +265,16 @@ bus = &"SFX"
 script = ExtResource("6_sdgcv")
 sound_collection = SubResource("Resource_084ff")
 metadata/_custom_type_script = "uid://nu032d1rd74y"
+
+[node name="MoraleBar" type="ProgressBar" parent="." unique_id=1822150472]
+custom_minimum_size = Vector2(40, 6)
+offset_left = -20.0
+offset_top = -26.0
+offset_right = 20.0
+offset_bottom = -20.0
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_d0qtp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6sgsd")
+value = 50.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true

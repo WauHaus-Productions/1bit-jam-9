@@ -14,6 +14,7 @@ enum MovementState {NAVIGATION, DRAG, LAUNCH}
 
 
 
+
 var last_mouse_positions: Array[Vector2]
 var mouse_positions_index: int = 0
 var movement_state: MovementState = MovementState.NAVIGATION
@@ -35,7 +36,7 @@ func _ready() -> void:
 	# Initialize auxiliary variables
 	last_mouse_positions = Array([], TYPE_VECTOR2, "", null)
 	navigation_agent_2d.navigation_finished.connect(logic.arrived)
-	
+		
 	#animated_sprite.animation_finished.connect(_on_death_finished)
 
 func _physics_process(delta: float) -> void:
@@ -81,6 +82,8 @@ func _physics_process(delta: float) -> void:
 		animated_sprite.flip_h = false
 	
 	move_and_slide()
+
+
 
 
 func get_closest_from_group(group: StringName):
