@@ -254,13 +254,15 @@ func _process(delta: float) -> void:
 
 
 func _on_dying(dying_npc: Node2D, state: int) -> void:
-	if dying_npc.is_dying:
-		return
+	#if dying_npc.is_dying:
+		#return
 		
 	var dying_name = active_npcs.find_key(dying_npc)
 	if dying_name != null:
 		active_npcs.erase(dying_name)
 	debug("STA MORENDO ", dying_name)
+	
+	dying_npc.leave_position()
 	
 	match state:
 		States.WORKING:
