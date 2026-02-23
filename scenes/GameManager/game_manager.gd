@@ -335,6 +335,7 @@ func _on_day_end():
 		
 		current_fiscal_year += 1
 		elapsed_time = 0.0
+		update_date_display()
 		
 		level_popup.get_node("TextureRect/HBoxContainer/VBoxContainer/NewGoal").text = "%4d Target: %d" % [current_fiscal_year, current_goal]
 		level_popup.visible = true
