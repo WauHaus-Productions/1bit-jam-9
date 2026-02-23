@@ -31,6 +31,7 @@ var current_goal: int
 const NPC_REVENUES: int = 100
 const NPC_COST: int = 40
 const DAYS_IN_YEAR = 365
+const REVENUE_SCALE_FACTOR: float = 1.10
 
 var map_instance
 var spawn_positions
@@ -240,7 +241,7 @@ func _process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("zoom"):
 		if camera.zoom == camera.target_zoom:
-			camera.start_zoom_animation(Vector2(1,1), 1)
+			camera.start_zoom_animation(Vector2(1, 1), 1)
 		else:
 			camera.start_zoom_animation(camera.target_zoom, camera.transition_time)
 		
@@ -329,7 +330,7 @@ func _on_day_end():
 	if (total_revenues >= current_goal):
 		level_popup.visible = true
 		$PopoupTimer.start()
-		current_goal = roundi(total_revenues * 1.25)
+		current_goal = roundi(total_revenues * REVENUE_SCALE_FACTOR)
 		goal_label.text = str(current_goal)
 		total_revenues = 0.0
 		hire_npc()
