@@ -249,3 +249,5 @@ bus = &"SFX"
 script = ExtResource("6_sdgcv")
 sound_collection = SubResource("Resource_084ff")
 metadata/_custom_type_script = "uid://nu032d1rd74y"
+
+[connection signal="dying" from="Logic" to="." method="_on_logic_dying"]

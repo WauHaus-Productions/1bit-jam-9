@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://bhp5smk7p3fxt"]
 
 [ext_resource type="Texture2D" uid="uid://fui73msyirua" path="res://asset/tilemap.png" id="2_8vgiq"]
-[ext_resource type="Script" uid="uid://5owxix7fqj8m" path="res://scenes/Map/distraction.gd" id="3_13xpa"]
+[ext_resource type="Script" path="res://scenes/Map/distraction.gd" id="3_13xpa"]
 [ext_resource type="Script" uid="uid://dtts2y6ekog5f" path="res://scenes/Map/Obstacle_avoidance.gd" id="3_lb6du"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_uvlq8"]

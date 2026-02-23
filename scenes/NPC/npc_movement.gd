@@ -114,11 +114,8 @@ func get_area_by_pos(pos: Vector2) -> Node:
 
 	
 func move_to_closest_area(group: String) -> void:
-	if navigation_agent_2d.target_position != null:
-		var node = get_area_by_pos(navigation_agent_2d.target_position)
-		if node != null:
-			node.leave()
-
+	_leave_position()
+	
 	var area = get_closest_from_group(group)
 	if area != null:
 		debug("found ", group)
@@ -133,6 +130,12 @@ func on_moving(state: int):
 
 func idle_on_finished():
 	animated_sprite.play("idle")
+
+func _leave_position():
+	if navigation_agent_2d.target_position != null:
+		var node = get_area_by_pos(navigation_agent_2d.target_position)
+		if node != null:
+			node.leave()
 
 # -------------------
 # DRAG AND DROP
@@ -217,3 +220,8 @@ func debug(...args) -> void:
 #func _on_death_finished():
 	#if animated_sprite.current_animation == "die" and is_dying == true:
 		#death_animation_finished.emit(self)
+
+
+func _on_logic_dying() -> void:
+	_leave_position()
+	pass # Replace with function body.
