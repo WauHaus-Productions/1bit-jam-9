@@ -4,7 +4,7 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	play("default")
 
-func _process(delta):
+func _process(_delta):
 	self.get_parent().global_position = get_global_mouse_position()
 
 func _input(event):

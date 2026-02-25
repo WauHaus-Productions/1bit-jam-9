@@ -11,9 +11,9 @@ extends Camera2D
 var time_counter = 0
 
 
-func start_zoom_animation(target_zoom: Vector2, duration: float):
+func start_zoom_animation(desired_zoom: Vector2, duration: float):
 	var tweenCamera = get_tree().create_tween()
-	tweenCamera.tween_property(self, "zoom", target_zoom, duration)
+	tweenCamera.tween_property(self , "zoom", desired_zoom, duration)
 	tweenCamera.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 
 func _on_tween_zoom_completed():
@@ -22,11 +22,11 @@ func _on_tween_zoom_completed():
 
 func align_camera_and_overlay():
 	overlay.size = get_viewport().get_visible_rect().size
-	overlay.scale.x = 1/self.zoom.x
-	overlay.scale.y = 1/self.zoom.y
+	overlay.scale.x = 1 / self.zoom.x
+	overlay.scale.y = 1 / self.zoom.y
 	
-	overlay.position.x = -(get_viewport().get_visible_rect().size.x / self.zoom.x / 2)
-	overlay.position.y = -(get_viewport().get_visible_rect().size.y / self.zoom.y / 2)
+	overlay.position.x = - (get_viewport().get_visible_rect().size.x / self.zoom.x / 2)
+	overlay.position.y = - (get_viewport().get_visible_rect().size.y / self.zoom.y / 2)
 
 	overlay.z_index = 20
 	
@@ -40,7 +40,6 @@ func _ready() -> void:
 	align_camera_and_overlay()
 	
 
-
 func _process(delta: float) -> void:
 	align_camera_and_overlay()
 	var rec_icon = overlay.get_node("Rec")
@@ -49,4 +48,3 @@ func _process(delta: float) -> void:
 	else:
 		rec_icon.visible = !rec_icon.visible
 		time_counter = 0
-	

@@ -47,10 +47,10 @@ var total_revenues: float = 0.0
 var elapsed_time := 0.0
 @export var current_fiscal_year: int = 2026
 
-const names: Array[String] = ["Fabio Losavio", "Cristiano Neroni", "Samuele Lo Iacono", "Hakim El Achak", "Vittorio Terzi", "Oscar Pindaro", "Matteo Mangioni", "Margherita Pindaro", "Francesco Maffezzoli", "Enka Lamaj", "Roberto Maligni",
+var names: Array[String] = ["Fabio Losavio", "Cristiano Neroni", "Samuele Lo Iacono", "Hakim El Achak", "Vittorio Terzi", "Oscar Pindaro", "Matteo Mangioni", "Margherita Pindaro", "Francesco Maffezzoli", "Enka Lamaj", "Roberto Maligni",
 	"Grizzle Profitgrub", "Snark Ledgerfang", "Boggle Spreadsheet", "Krimp Bonusclaw", "Snik KPI-Snatcher", "Murgle Coffeestain", "Zibble Paperjam", "Grint Marginchewer", "Blort Deadlinegnaw", "Skaggy Synergytooth", "Nibwick Microgrind", "Crindle Stocksniff", "Wizzle Cubiclebane", "Throg Expensefang", "Splug Overtimebelch", "Drabble Taskmangler", "Klix Compliancegrime", "Mizzle Workflowrot", "Gorp Staplechewer", "Snibble Budgetbruise", "Kraggy Meetinglurker", "Blim Forecastfumble", "Zonk Assetgnash", "Triggle Slidereviser", "Vorny Timesheetterror", "Glim Auditnibble", "Brakka Breakroomraider", "Sprock Redtapewriggler", "Nurgle Powerpointhex", "Grizzleback Clawculator", "Snaggle Metricsmash", "Plib Shareholdershriek", "Drox Inboxhoarder", "Fizzle Ladderclimb", "Krumble Deskgnarl", "Wretchy Watercoolerspy", "Blix Quarterlyquiver", "Grottin Promotionpounce", "Skibble Faxmachinebane", "Zraggy Corporatecackle"]
 var active_npcs: Dictionary[String, Node2D] = {}
-
+var number_of_names = names.size()
 var working_npcs: int
 var scared_npcs: int
 
@@ -89,14 +89,14 @@ func update_revenues(delta) -> void:
 	var working_npcs_revenue: float = States.WORKING * working_npcs * NPC_REVENUES * delta
 	var scared_npcs_revenue: float = States.SCARED * scared_npcs * NPC_REVENUES * delta
 	var costs: float = active_npcs.size() * NPC_COST * delta
-	# debug("working_npcs_revenue ", working_npcs_revenue, ", scared_npcs_revenue ", scared_npcs_revenue, ", costs", costs)
 	self.total_revenues += working_npcs_revenue + scared_npcs_revenue - costs
 
 
 func get_available_name() -> String:
+	if names.is_empty():
+		return "goblin" + str(active_npcs.size() + memorial.size() - number_of_names)
 	name = names.pick_random()
-	while name in active_npcs.keys():
-		name = names.pick_random()
+	names.erase(name)
 	return name
 
 func get_current_day() -> int:
@@ -113,9 +113,6 @@ func day_to_date(day: int) -> Dictionary:
 		if month == 12:
 			debug('Fine Anno Fiscale')
 			month = 0
-			# current_fiscal_year += 1
-			# elapsed_time = 0.0
-			# day = 0
 		
 
 	return {
@@ -219,10 +216,6 @@ func change_camera(direction):
 	camera.global_position = camera_marker.global_position
 	camera.change_camera_name("Camera " + str(current_camera_idx))
 	
-	# POSSIBLE CAMERA TWEEN????
-	#var tweenCamera = get_tree().create_tween()
-	#tweenCamera.tween_property(camera, "global_position", camera_marker.global_position, 0.25)
-	#tweenCamera.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 		
 func _process(delta: float) -> void:
 	camera.align_camera_and_overlay()
@@ -261,7 +254,6 @@ func _process(delta: float) -> void:
 func _on_dying(dying_npc: Node2D, state: int) -> void:
 	#if dying_npc.is_dying:
 		#return
-		
 	var dying_name = active_npcs.find_key(dying_npc)
 	if dying_name != null:
 		active_npcs.erase(dying_name)
@@ -277,8 +269,6 @@ func _on_dying(dying_npc: Node2D, state: int) -> void:
 		_:
 			debug("Error, dying npc in state: ", state)
 			
-	#var sprite = dying_npc.get_node("AnimatedSprite2D")
-	#dying_npc.death_animation_finished.connect(_on_death_finished)
 	memorial.append(dying_name)
 	var pos = dying_npc.position
 	dying_npc.queue_free()
@@ -286,14 +276,6 @@ func _on_dying(dying_npc: Node2D, state: int) -> void:
 	add_child(instance)
 	instance.position = pos
 
-	#sprite.play("die")
-
-#
-#func _on_death_finished(dying_npc):
-	#dying_npc.is_dying = false
-	#print("\n\nfinished death")
-	#dying_npc.queue_free()
-	#
 func decrease_npcs(npcs: int, decrement := 1) -> int:
 	npcs -= decrement
 	npcs = max(npcs, 0)
@@ -351,6 +333,7 @@ func _on_day_end():
 		get_tree().paused = true
 		pass
 	else:
+		debug(active_npcs.keys())
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		emit_signal("next_scene", game_over, _construct_memorial)
 		pass
