@@ -15,9 +15,7 @@ class_name NewWAUAudioPlayer
 			stream = sounds[track_name]
 
 
-
-
-var sounds: Dictionary = {} 
+var sounds: Dictionary = {}
 #var active_sound = []
 
 func create_sounds():
@@ -33,7 +31,6 @@ func create_sounds():
 		add_child(track.track_player)
 		
 
-
 #func _ready():
 	#for sound in sounds:
 		#sounds[sound].player.finished.connect(_on_sound_finished)
@@ -47,7 +44,7 @@ func _play(sound_name):
 	sounds[sound_name].player.play()
 	
 
-func play_sound_now(sound_name, stop_other_sounds, from_position=0.):
+func play_sound_now(sound_name, stop_other_sounds, _from_position = 0.):
 	if sounds.size() <= 0:
 		return
 	if sound_name not in sounds.keys():
@@ -59,7 +56,7 @@ func play_sound_now(sound_name, stop_other_sounds, from_position=0.):
 	_play(sound_name)
 
 
-func play_sound_if_previous_finished(sound_name, from_position=0.):
+func play_sound_if_previous_finished(sound_name, _from_position = 0.):
 	if sounds.size() <= 0:
 		return
 	if sound_name not in sounds.keys():

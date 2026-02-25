@@ -16,7 +16,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func _on_next_scene(game_scene: PackedScene, constructor: Callable) -> void:
@@ -55,7 +55,7 @@ func _on_next_scene(game_scene: PackedScene, constructor: Callable) -> void:
 	
 	add_child(instance)
 	
-func _default_constructor(scene):
+func _default_constructor(_scene):
 	pass
 	
 func _switch_settings():

@@ -36,7 +36,6 @@ signal switching
 
 
 func _ready() -> void:
-	# Morale = MAX_MORALE
 	timer.timeout.connect(_on_timer_timeout)
 	move(States.WORKING)
 	timer.start(0.1)
@@ -59,11 +58,6 @@ func _on_timer_timeout() -> void:
 		debug("Finished move_or_continue")
 		debug_state()
 
-	# elif Morale <= LOW_MORALE:
-	# 	debug("Slacking morale")
-	# 	move_or_continue(States.SLACKING)
-	# 	debug("Finished move_or_continue")
-	# 	debug_state()
 
 	else:
 		roll()
@@ -80,16 +74,12 @@ func _on_timer_timeout() -> void:
 func _physics_process(delta: float) -> void:
 	Morale += morale_diff(delta)
 	Morale = clamp(Morale, MIN_MORALE, MAX_MORALE)
-	# Morale = min(Morale, MAX_MORALE)
-	# Morale = max(Morale, MIN_MORALE)
 	
 	if Morale == 0:
 		die()
 		return
 		
 	morale_bar.value = Morale
-
-	# debug(Morale)
 
 
 func morale_diff(delta: float) -> float:
@@ -98,9 +88,6 @@ func morale_diff(delta: float) -> float:
 
 func die() -> void:
 	debug("Dead")
-	#var sprite = self.get_parent().get_node("AnimatedSprite2D")
-	#sprite.play("die")
-	#await sprite.animation_finished("die")
 	dying.emit(self.get_parent(), to_profit(State))
 
 

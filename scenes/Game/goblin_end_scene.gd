@@ -6,11 +6,11 @@ class_name DeathEndScene
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$ColorRect/HBoxContainer/MemorialContainer.visible = false
-	AddGoblins(goblins)
+	AddGoblins()
 	pass # Replace with function body.
 
 
-func AddGoblins(goblins: Array[String]) -> void:
+func AddGoblins() -> void:
 	if (goblins.size() < 1):
 		return
 	

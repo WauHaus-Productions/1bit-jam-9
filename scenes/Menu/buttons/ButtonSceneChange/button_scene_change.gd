@@ -12,13 +12,12 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
-
 
 
 func _on_button_down() -> void:
 	super._on_button_down()
-	print ("NextScene: ",  next_scene)
+	print("NextScene: ", next_scene)
 	emit_signal("scene_button_pressed", next_scene)
 	pass # Replace with function body.

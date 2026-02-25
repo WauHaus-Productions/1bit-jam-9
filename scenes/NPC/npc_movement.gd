@@ -13,8 +13,6 @@ enum MovementState {NAVIGATION, DRAG, LAUNCH}
 @onready var npc_sounds: NewWAUAudioPlayer = $Sounds
 
 
-
-
 var last_mouse_positions: Array[Vector2]
 var mouse_positions_index: int = 0
 var movement_state: MovementState = MovementState.NAVIGATION
@@ -22,9 +20,6 @@ var drag_offset: Vector2
 var physics_delta: float
 var is_dying = false
 
-
-signal dead
-signal death_animation_finished
 
 func _ready() -> void:
 	# Connect callbacks to signals
@@ -37,7 +32,6 @@ func _ready() -> void:
 	last_mouse_positions = Array([], TYPE_VECTOR2, "", null)
 	navigation_agent_2d.navigation_finished.connect(logic.arrived)
 		
-	#animated_sprite.animation_finished.connect(_on_death_finished)
 
 func _physics_process(delta: float) -> void:
 	if self.global_position != self.position:
@@ -45,8 +39,6 @@ func _physics_process(delta: float) -> void:
 		debug('LOCAL POSITION ', self.position)
 		debug('\n\n')
 	physics_delta = delta
-	
-	# debug("Movement state: ", movement_state)
 	
 	# Handle launch when dragging and dropping
 	if movement_state == MovementState.LAUNCH:
@@ -82,8 +74,6 @@ func _physics_process(delta: float) -> void:
 		animated_sprite.flip_h = false
 	
 	move_and_slide()
-
-
 
 
 func get_closest_from_group(group: StringName):
@@ -144,27 +134,7 @@ func leave_position():
 # DRAG AND DROP
 # -------------------
 
-func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	# if event is InputEventMouseMotion:
-	#	debug("Mouse Motion at: ", event.position)
-	# if event is InputEventMouseButton:
-	#	debug("Mouse Button Action: ", event.button_index, " at: ", event.position)
-	#	debug("Mouse Button Pressed: ", event.pressed)
-	#	debug("Mouse Button Double Click: ", event.double_click)
-	#	debug("Mouse Button Factor: ", event.factor)
-	#	debug("Mouse Button Mask: ", event.button_mask)
-	#	debug("Mouse Button Position: ", event.position)
-	#	debug("Mouse Button Global Position: ", event.global_position)
-	# if event is InputEventMouseButton and event.pressed:
-	#	match event.button_index:
-	#		MOUSE_BUTTON_LEFT:
-	#			debug("Left mouse button")
-	#		MOUSE_BUTTON_RIGHT:
-	#			debug("Right mouse button")
-	#		MOUSE_BUTTON_WHEEL_UP:
-	#			debug("Scroll wheel up")
-	#		MOUSE_BUTTON_WHEEL_DOWN:
-	#			debug("Scroll wheel down")
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is not InputEventMouseButton:
 		return
 
@@ -202,7 +172,6 @@ func _input(event: InputEvent) -> void:
 		debug('event: ', event.global_position)
 
 		# If dragging, move the NPC along with the mouse
-		#global_position = event.global_position - drag_offset
 		self.global_position = get_global_mouse_position() - drag_offset
 		
 		debug('goblin global: ', global_position)
@@ -220,11 +189,7 @@ func debug(...args) -> void:
 	if DEBUG:
 		print(args)
 		
-#func _on_death_finished():
-	#if animated_sprite.current_animation == "die" and is_dying == true:
-		#death_animation_finished.emit(self)
 
-
-func _on_logic_dying() -> void:
+func _on_logic_dying(_dying_npc: Node2D, _state: int) -> void:
 	leave_position()
 	pass # Replace with function body.

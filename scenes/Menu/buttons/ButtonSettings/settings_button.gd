@@ -8,10 +8,9 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 	
 func _on_button_down() -> void:
 	super._on_button_down()
 	emit_signal("settings_switched")
-	
