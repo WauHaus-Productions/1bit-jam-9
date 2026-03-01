@@ -21,6 +21,10 @@ config/icon="uid://8uw5ik3fp3u5"
 
 buses/default_bus_layout="uid://8ra8ntumnlew"
 
+[autoload]
+
+Logger="*res://autoloads/logger.gd"
+
 [display]
 
 window/size/viewport_width=1280

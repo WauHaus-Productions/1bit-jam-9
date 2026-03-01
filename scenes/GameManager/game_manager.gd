@@ -21,7 +21,6 @@ extends BaseScene
 @onready var bg_office_sound: AudioStreamPlayer = $BGOfficeSound
 
 @export var npc_counter: int = 10
-@export var DEBUG: bool = false
 
 @export var death_cam: PackedScene
 
@@ -111,7 +110,7 @@ func day_to_date(day: int) -> Dictionary:
 		day -= month_lengths[month]
 		month += 1
 		if month == 12:
-			debug('Fine Anno Fiscale')
+			Log.debug("Game", "Fine Anno Fiscale")
 			month = 0
 		
 
@@ -172,14 +171,14 @@ func _ready() -> void:
 
 func spawn_npc(spawnable_positions) -> void:
 	var npc_name = get_available_name()
-	debug("Spawning Goblin ", npc_name)
+	Log.debug("NPC", "Spawning Goblin ", npc_name)
 	var new_npc = npc.instantiate()
 	
 	var random_spawn_position = spawnable_positions.pick_random()
 	spawnable_positions.erase(random_spawn_position)
 	
 	new_npc.global_position = random_spawn_position
-	debug("in position ", random_spawn_position)
+	Log.debug("NPC", "in position ", random_spawn_position)
 	new_npc.name = npc_name
 	
 	# SUBSCRIBE TO SIGNALS
@@ -226,7 +225,7 @@ func _process(delta: float) -> void:
 	revenue_ui.text = str(roundi(total_revenues))
 	
 	if active_npcs.size() == 0:
-		debug(memorial)
+		Log.debug("Game", memorial)
 	
 	if Input.is_action_just_pressed("camera_fwd"):
 		change_camera("foreward")
@@ -257,7 +256,7 @@ func _on_dying(dying_npc: Node2D, state: int) -> void:
 	var dying_name = active_npcs.find_key(dying_npc)
 	if dying_name != null:
 		active_npcs.erase(dying_name)
-	debug("STA MORENDO ", dying_name)
+	Log.info("NPC", "STA MORENDO ", dying_name)
 	
 	dying_npc.leave_position()
 	
@@ -267,7 +266,7 @@ func _on_dying(dying_npc: Node2D, state: int) -> void:
 		States.SCARED:
 			scared_npcs = decrease_npcs(scared_npcs)
 		_:
-			debug("Error, dying npc in state: ", state)
+			Log.error("NPC", "Error, dying npc in state: ", state)
 			
 	memorial.append(dying_name)
 	var pos = dying_npc.position
@@ -284,38 +283,34 @@ func decrease_npcs(npcs: int, decrement := 1) -> int:
 
 func _on_change_state(new_action_enum: int, emitting_npc: Node2D, old_action: int) -> void:
 	var npc_name = active_npcs.find_key(emitting_npc)
-	debug("\nCAMBIO AZIONE ", npc_name)
+	Log.debug("NPC", "CAMBIO AZIONE ", npc_name)
 	
 	match old_action:
 		States.WORKING:
 			working_npcs = decrease_npcs(working_npcs)
-			debug(npc_name, ': stopped working, total working: ', working_npcs)
+			Log.debug("NPC", npc_name, ": stopped working, total working: ", working_npcs)
 		States.SCARED:
 			scared_npcs = decrease_npcs(scared_npcs)
-			debug(npc_name, ': stopped being scared, total scared: ', scared_npcs)
+			Log.debug("NPC", npc_name, ": stopped being scared, total scared: ", scared_npcs)
 	
 	match new_action_enum:
 		States.WORKING:
 			working_npcs += 1
-			debug(npc_name, ': started working, total working: ', working_npcs)
+			Log.debug("NPC", npc_name, ": started working, total working: ", working_npcs)
 		States.SCARED:
 			scared_npcs += 1
-			debug(npc_name, ': is scared, total scared: ', scared_npcs)
+			Log.debug("NPC", npc_name, ": is scared, total scared: ", scared_npcs)
 		States.SLACKING:
-			debug(npc_name, ': slacking')
+			Log.debug("NPC", npc_name, ": slacking")
 		States.MOVING:
-			debug(npc_name, ': moving')
+			Log.debug("NPC", npc_name, ": moving")
 		_:
-			debug(npc_name, ': unknown action')
+			Log.warn("NPC", npc_name, ": unknown action")
 
 
-func debug(...args) -> void:
-	if DEBUG:
-		print(args)
-		
 func _on_day_end():
-	debug("DAY END")
-	debug("memorial: ", memorial)
+	Log.debug("Game", "DAY END")
+	Log.debug("Game", "memorial: ", memorial)
 	if (total_revenues >= current_goal):
 		current_goal = roundi(total_revenues * REVENUE_SCALE_FACTOR)
 		goal_label.text = str(current_goal)
@@ -333,7 +328,7 @@ func _on_day_end():
 		get_tree().paused = true
 		pass
 	else:
-		debug(active_npcs.keys())
+		Log.debug("Game", active_npcs.keys())
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		emit_signal("next_scene", game_over, _construct_memorial)
 		pass

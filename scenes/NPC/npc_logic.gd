@@ -7,7 +7,7 @@ extends Node2D
 @export var TIMER_DURATION: int = 5
 @export var SCARED_TIMER_FACTOR: int = 2
 @export var States = {SCARED = -4, WORKING = -2, MOVING = 0, SLACKING = 1}
-@export var DEBUG: bool = false
+
 var MORALE_NORMALIZER: float = MAX_MORALE
 @export var Morale: float = MAX_MORALE
 # @export var MORALE_DEGRADATION_PER_SEC = 5
@@ -45,24 +45,24 @@ func _ready() -> void:
 
 
 func _on_timer_timeout() -> void:
-	debug("Timeout! Morale: ", Morale)
-	debug_state()
+	Log.debug("NPC.Logic", "Timeout! Morale: ", Morale)
+	_debug_state()
 	if State == States.SLACKING and Morale < MAX_MORALE:
 		# debug("Slacking with morale: ", Morale)
 		start_timer()
 		return
 
 	if Morale >= HIGH_MORALE:
-		debug("Working morale")
+		Log.debug("NPC.Logic", "Working morale")
 		move_or_continue(States.WORKING)
-		debug("Finished move_or_continue")
-		debug_state()
+		Log.debug("NPC.Logic", "Finished move_or_continue")
+		_debug_state()
 
 
 	else:
 		roll()
-		debug("Rolled new state")
-		debug_state()
+		Log.debug("NPC.Logic", "Rolled new state")
+		_debug_state()
 
 	# Do not set timer until reaching dest
 	if State == States.MOVING:
@@ -87,7 +87,7 @@ func morale_diff(delta: float) -> float:
 
 
 func die() -> void:
-	debug("Dead")
+	Log.info("NPC.Logic", "Dead")
 	dying.emit(self.get_parent(), to_profit(State))
 
 
@@ -128,7 +128,7 @@ func update_state(desired_state: int) -> void:
 		
 	var old_profit: int = to_profit(State)
 	var profit: int = to_profit(desired_state)
-	debug("profit: ", profit)
+	Log.debug("NPC.Logic", "profit: ", profit)
 	switching.emit(profit, self.get_parent(), old_profit)
 	State = desired_state
 
@@ -143,13 +143,13 @@ func start_timer() -> void:
 		States.SLACKING:
 			waiting_time = TIMER_DURATION + TIMER_DURATION * (1 - Morale / MORALE_NORMALIZER)
 
-	debug("restarting timer, expiring in: ", waiting_time)
+	Log.debug("NPC.Logic", "restarting timer, expiring in: ", waiting_time)
 	timer.start(waiting_time)
 
 
 func arrived() -> void:
-	debug("arrived!")
-	debug_state()
+	Log.debug("NPC.Logic", "arrived!")
+	_debug_state()
 	update_state(DesiredState)
 	start_timer()
 
@@ -162,23 +162,18 @@ func set_scared() -> void:
 	start_timer()
 
 
-func print_state(state: int, state_name: String) -> void:
+func _print_state(state: int, state_name: String) -> void:
 	match state:
 		States.SCARED:
-			debug(state_name, ": SCARED")
+			Log.debug("NPC.Logic", state_name, ": SCARED")
 		States.WORKING:
-			debug(state_name, ": WORKING")
+			Log.debug("NPC.Logic", state_name, ": WORKING")
 		States.MOVING:
-			debug(state_name, ": MOVING")
+			Log.debug("NPC.Logic", state_name, ": MOVING")
 		States.SLACKING:
-			debug(state_name, ": SLACKING")
+			Log.debug("NPC.Logic", state_name, ": SLACKING")
 
 
-func debug_state() -> void:
-	print_state(State, "State")
-	print_state(DesiredState, "DesiredState")
-
-
-func debug(...args) -> void:
-	if DEBUG:
-		print(args)
+func _debug_state() -> void:
+	_print_state(State, "State")
+	_print_state(DesiredState, "DesiredState")

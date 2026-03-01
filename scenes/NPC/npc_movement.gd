@@ -5,7 +5,7 @@ enum MovementState {NAVIGATION, DRAG, LAUNCH}
 @export var movement_speed = 50
 @export var launch_deceleration = 0.1
 @export var launch_threshold = 100
-@export var DEBUG: bool = false
+
 
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
 @onready var logic: Node2D = $Logic
@@ -35,9 +35,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if self.global_position != self.position:
-		debug('\n\nGLOBAL POSITION ', self.global_position)
-		debug('LOCAL POSITION ', self.position)
-		debug('\n\n')
+		Log.debug("NPC.Move", "GLOBAL POSITION ", self.global_position)
+		Log.debug("NPC.Move", "LOCAL POSITION ", self.position)
 	physics_delta = delta
 	
 	# Handle launch when dragging and dropping
@@ -111,7 +110,7 @@ func move_to_closest_area(group: String) -> void:
 	
 	var area = get_closest_from_group(group)
 	if area != null:
-		debug("found ", group)
+		Log.debug("NPC.Move", "found ", group)
 		area.reserve()
 		navigation_agent_2d.target_position = area.global_position
 
@@ -168,27 +167,22 @@ func _input(event: InputEvent) -> void:
 		
 		velocity = new_velocity * Input.get_last_mouse_velocity().length() # event.screen_velocity
 	elif event is InputEventMouseMotion and movement_state == MovementState.DRAG:
-		debug('\n\nMOVEMENT: ')
-		debug('event: ', event.global_position)
+		Log.debug("NPC.Move", "MOVEMENT: ")
+		Log.debug("NPC.Move", "event: ", event.global_position)
 
 		# If dragging, move the NPC along with the mouse
 		self.global_position = get_global_mouse_position() - drag_offset
 		
-		debug('goblin global: ', global_position)
-		debug('goblin local: ', position)
+		Log.debug("NPC.Move", "goblin global: ", global_position)
+		Log.debug("NPC.Move", "goblin local: ", position)
 
 		
-		debug('EVENT LOCAL: ', event.position)
+		Log.debug("NPC.Move", "EVENT LOCAL: ", event.position)
 	# Record mouse positions for launch direction normalization
 	last_mouse_positions.push_back(get_global_mouse_position())
 	if last_mouse_positions.size() > 10:
 		last_mouse_positions.pop_front()
 
-
-func debug(...args) -> void:
-	if DEBUG:
-		print(args)
-		
 
 func _on_logic_dying(_dying_npc: Node2D, _state: int) -> void:
 	leave_position()
