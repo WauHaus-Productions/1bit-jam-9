@@ -2,20 +2,25 @@ extends Node
 class_name Log
 
 ## Centralized logger with levels, colored output, and per-label filtering.
-##
-## Usage:
+
+# ── Usage ───────────────────────────────────────────────────────────────
+
 ##   Log.debug("NPC", "Spawned at ", position)
 ##   Log.info("Revenue", "Year ended with ", total)
 ##   Log.warn("Camera", "Zoom out of bounds")
 ##   Log.error("Game", "No spawn positions found")
-##
-## Configuration:
+
+# ── Configuration ───────────────────────────────────────────────────────────────
+
 ##   Log.min_level = Log.Level.WARN              # suppress DEBUG and INFO globally
 ##   Log.enable_label("NPC")                     # only show NPC logs (allowlist mode)
 ##   Log.disable_label("Camera")                 # hide Camera logs (blocklist mode)
 ##   Log.set_label_level("NPC", Log.Level.DEBUG) # per-label override
 ##   Log.set_label_color("NPC", "green")         # custom label color
-##   Log.show_timestamp = false                   # disable timestamps
+##   Log.show_timestamp = true                   # enable timestamps
+
+
+# ── Attributes ───────────────────────────────────────────────────────────────
 
 enum Level {DEBUG = 0, INFO = 1, WARN = 2, ERROR = 3, NONE = 4}
 
@@ -42,7 +47,9 @@ static var _label_colors: Dictionary = {}
 ## Whether to include a timestamp in each log line.
 static var show_timestamp: bool = false
 
+
 # ── Colors (BBCode for print_rich) ──────────────────────────────────────────
+
 const _DEFAULT_LABEL_COLOR: String = "cyan"
 
 const _LEVEL_COLORS: Dictionary = {
@@ -59,10 +66,11 @@ const _LEVEL_NAMES: Dictionary = {
 	Level.ERROR: "ERROR",
 }
 
+
 # ── Public API ───────────────────────────────────────────────────────────────
 
-## LOG LEVEL METHODS
-### WARN and ERROR also push a Godot warning/error (shows in Debugger panel).
+##### LOG LEVEL #####
+## WARN and ERROR also push a Godot warning/error (shows in Debugger panel).
 static func debug(label: String, ...args: Array) -> void:
 	_log(Level.DEBUG, label, args)
 
@@ -79,20 +87,17 @@ static func error(label: String, ...args: Array) -> void:
 	_log(Level.ERROR, label, args)
 
 
-# ── Label Filtering ─────────────────────────────────────────────────────────
-
+##### LABEL FILTERING #####
 ## Allowlist mode: only show logs from this label. Call multiple times to allow
 ## several labels. Call clear_enabled_labels() to return to default (show all).
 static func enable_label(label: String) -> void:
 	_enabled_labels[label] = true
 
 
-## Remove a label from the allowlist.
 static func remove_enabled_label(label: String) -> void:
 	_enabled_labels.erase(label)
 
 
-## Clear the allowlist (returns to showing all labels except disabled ones).
 static func clear_enabled_labels() -> void:
 	_enabled_labels.clear()
 
@@ -102,7 +107,6 @@ static func disable_label(label: String) -> void:
 	_disabled_labels[label] = true
 
 
-## Remove a label from the blocklist.
 static func remove_disabled_label(label: String) -> void:
 	_disabled_labels.erase(label)
 
@@ -112,12 +116,11 @@ static func set_label_level(label: String, level: Level) -> void:
 	_label_levels[label] = level
 
 
-## Remove a per-label level override.
 static func clear_label_level(label: String) -> void:
 	_label_levels.erase(label)
 
 
-# ── Label Colors ─────────────────────────────────────────────────────────────
+##### LABEL COLORS #####
 
 ## Assign a color to a label. Accepts BBCode color names ("red", "green",
 ## "magenta", "orange") or hex ("#ff8800").
@@ -125,7 +128,6 @@ static func set_label_color(label: String, color: String) -> void:
 	_label_colors[label] = color
 
 
-## Remove a label's custom color (reverts to default cyan).
 static func clear_label_color(label: String) -> void:
 	_label_colors.erase(label)
 
