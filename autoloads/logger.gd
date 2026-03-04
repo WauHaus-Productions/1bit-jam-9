@@ -10,6 +10,9 @@ class_name Log
 ##   Log.warn("Camera", "Zoom out of bounds")
 ##   Log.error("Game", "No spawn positions found")
 
+## For logging inside frame functions use _frame variants, disabled by default
+## E.g:  Log.debug_frame("NPC", "Spawned at ", position)
+
 # ── Configuration ───────────────────────────────────────────────────────────────
 
 ##   Log.min_level = Log.Level.WARN              # suppress DEBUG and INFO globally
@@ -18,7 +21,8 @@ class_name Log
 ##   Log.set_label_level("NPC", Log.Level.DEBUG) # per-label override
 ##   Log.set_label_color("NPC", "green")         # custom label color
 ##   Log.show_timestamp = true                   # enable timestamps
-
+##   Log.frame_log_time_s = n                    # if n > 0, log once every n seconds 
+##												 # in frame functions, set fps to 60
 
 # ── Attributes ───────────────────────────────────────────────────────────────
 
@@ -46,6 +50,14 @@ static var _label_colors: Dictionary = {}
 
 ## Whether to include a timestamp in each log line.
 static var show_timestamp: bool = false
+
+## If > 0, sets the time window for frame logs (in seconds).
+static var frame_log_time_s: int = -1:
+	set(value):
+		frame_log_time_s = value
+		Engine.max_fps = 60 if value > 0 else 0
+
+static var frame_number: int = 0
 
 
 # ── Colors (BBCode for print_rich) ──────────────────────────────────────────
@@ -132,6 +144,26 @@ static func clear_label_color(label: String) -> void:
 	_label_colors.erase(label)
 
 
+##### FRAME LOGGING #####
+## Frame logging is enabled only if frame_log_time_s > 0
+## when enabled, fps are set to 60
+
+static func debug_frame(label: String, ...args: Array) -> void:
+	_log_frame(Level.DEBUG, label, args)
+
+
+static func info_frame(label: String, ...args: Array) -> void:
+	_log_frame(Level.INFO, label, args)
+
+
+static func warn_frame(label: String, ...args: Array) -> void:
+	_log_frame(Level.WARN, label, args)
+
+
+static func error_frame(label: String, ...args: Array) -> void:
+	_log_frame(Level.ERROR, label, args)
+
+
 # ── Internals ────────────────────────────────────────────────────────────────
 
 static func _should_log(level: Level, label: String) -> bool:
@@ -180,3 +212,15 @@ static func _log(level: Level, label: String, args: Array) -> void:
 		push_warning("[%s] %s" % [label, msg])
 	elif level == Level.ERROR:
 		push_error("[%s] %s" % [label, msg])
+
+static func _log_frame(level: Level, label: String, args: Array) -> void:
+	if frame_log_time_s <= 0:
+		return
+	
+	frame_number += 1
+
+	if frame_number < frame_log_time_s * 60:
+		return
+
+	frame_number = 0
+	_log(level, label, args)
