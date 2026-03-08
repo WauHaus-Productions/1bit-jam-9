@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cnx5r0vm0w12w" path="res://asset/UI/bottone.png" id="2_miug5"]
 [ext_resource type="Texture2D" uid="uid://bx3vmw4oc8nry" path="res://asset/UI/bottone_pressed.png" id="2_xk2g1"]
 [ext_resource type="FontFile" uid="uid://cd5x1j2x82g48" path="res://asset/UI/font/seaside-resort/SeasideResortNF.ttf" id="4_rqpka"]
+[ext_resource type="Texture2D" uid="uid://7q53777kt4hn" path="res://asset/COVER black.png" id="5_rqpka"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qdfp1"]
 
@@ -54,10 +55,10 @@ texture_margin_bottom = 26.0
 region_rect = Rect2(0, 0, 160, 64)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fecjm"]
-bg_color = Color(0.494118, 0.419608, 0.494118, 1)
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fycgq"]
-bg_color = Color(0.764706, 0.764706, 0.764706, 1)
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5dt3x"]
 texture_margin_left = 6.0
@@ -74,23 +75,23 @@ region_rect = Rect2(-0.243652, 0.186264, 96.0778, 31.7557)
 axis_stretch_horizontal = 1
 region_rect = Rect2(2, 0, 28, 32)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_36j7r"]
-bg_color = Color(0.494118, 0.419608, 0.494118, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_claby"]
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oxtg2"]
-bg_color = Color(0.494118, 0.419608, 0.494118, 1)
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oojx5"]
-bg_color = Color(0.494118, 0.419608, 0.494118, 1)
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ubl8"]
-bg_color = Color(0.494118, 0.419608, 0.494118, 1)
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_op060"]
-bg_color = Color(0.494118, 0.419608, 0.494118, 1)
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ry0a2"]
-bg_color = Color(0.494118, 0.419608, 0.494118, 1)
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g4usj"]
 texture_margin_left = 8.0
@@ -100,6 +101,7 @@ texture_margin_bottom = 9.0
 region_rect = Rect2(0, 0, 90, 129)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b4vfm"]
+texture = ExtResource("5_rqpka")
 texture_margin_left = 18.0
 texture_margin_top = 16.0
 texture_margin_right = 22.0
@@ -148,7 +150,7 @@ PanelContainer/styles/panel = SubResource("StyleBoxFlat_fycgq")
 PopupPanel/styles/panel = SubResource("StyleBoxTexture_5dt3x")
 ProgressBar/styles/background = SubResource("StyleBoxTexture_jec8w")
 ProgressBar/styles/fill = SubResource("StyleBoxTexture_j46if")
-TabBar/styles/button_highlight = SubResource("StyleBoxFlat_36j7r")
+TabBar/styles/button_highlight = SubResource("StyleBoxFlat_claby")
 TabBar/styles/button_pressed = SubResource("StyleBoxFlat_oxtg2")
 TabBar/styles/tab_disabled = SubResource("StyleBoxFlat_oojx5")
 TabBar/styles/tab_focus = SubResource("StyleBoxFlat_oojx5")
