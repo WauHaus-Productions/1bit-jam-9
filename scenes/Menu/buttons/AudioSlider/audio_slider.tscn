@@ -1,27 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://c4xlqnbj00kf8"]
+[gd_scene format=3 uid="uid://c4xlqnbj00kf8"]
 
-[ext_resource type="Script" path="res://scenes/Menu/buttons/AudioSlider/audio_slider.gd" id="1_s8fcs"]
+[ext_resource type="Script" uid="uid://b5rp3lifta1ui" path="res://scenes/Menu/buttons/AudioSlider/audio_slider.gd" id="1_s8fcs"]
 
-[node name="AudioSlider" type="HBoxContainer"]
+[node name="AudioSlider" type="HBoxContainer" unique_id=647195350]
 custom_minimum_size = Vector2(500, 20)
 offset_right = 40.0
 offset_bottom = 40.0
 alignment = 1
 script = ExtResource("1_s8fcs")
 
-[node name="LabelContainer" type="MarginContainer" parent="."]
+[node name="LabelContainer" type="MarginContainer" parent="." unique_id=677354844]
 custom_minimum_size = Vector2(120, 20)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="LabelContainer"]
+[node name="Label" type="Label" parent="LabelContainer" unique_id=91847000]
 layout_mode = 2
 
-[node name="SliderContainer" type="MarginContainer" parent="."]
+[node name="SliderContainer" type="MarginContainer" parent="." unique_id=1884566075]
 custom_minimum_size = Vector2(260, 20)
 layout_mode = 2
 
-[node name="Volume" type="HSlider" parent="SliderContainer"]
-layout_direction = 3
+[node name="Volume" type="HSlider" parent="SliderContainer" unique_id=1075060403]
+layout_direction = 2
 layout_mode = 2
+min_value = -80.0
+max_value = 6.0
 
 [connection signal="value_changed" from="SliderContainer/Volume" to="." method="_on_volume_value_changed"]
